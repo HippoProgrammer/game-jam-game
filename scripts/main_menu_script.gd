@@ -1,10 +1,11 @@
 extends Node2D
 
+var main_game_scene = "res://scenes/main.tscn"
+
+# --- BUTTON STUFF ---
 @onready var buttons_group = get_tree().get_first_node_in_group("MMButtonsContainer")
 @onready var buttons = buttons_group.find_children("*")
-
 @onready var button_indicator = get_tree().get_first_node_in_group("MMButtonIndicator")
-
 var button_index = 0
 	
 # Called when the node enters the scene tree for the first time.
@@ -35,9 +36,9 @@ func _process(_delta: float) -> void:
 
 func _start_game():
 	print("Start Game button pressed")
-	get_tree().change_scene_to_file("res://scenes/main.tscn")
+	get_tree().change_scene_to_file(main_game_scene)
 func _options():
 	print("Options button pressed")
 func _quit_game():
 	print("Quit Game button pressed")
-	get_tree().quit()
+	get_tree().quit() # Quits game

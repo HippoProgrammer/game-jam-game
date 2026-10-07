@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bh55kanfvxea5"]
+
+[ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="1_15cnv"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_22vlk"]
+diffuse_texture = ExtResource("1_15cnv")
+
+[node name="Antigen" type="Node2D" unique_id=742708992]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=809433264]
+position = Vector2(-3.8146973e-06, -2.0000038)
+scale = Vector2(0.234375, 0.234375)
+texture = SubResource("CanvasTexture_22vlk")

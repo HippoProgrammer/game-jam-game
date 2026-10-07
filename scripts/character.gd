@@ -1,5 +1,7 @@
 extends Sprite2D
 
+var antigen_scene = preload("res://scenes/antigen.tscn")
+
 # --- MOVEMENT ---
 var velocity = Vector2(0,0)
 var max_speed : float = 800
@@ -8,7 +10,10 @@ var current_speed : float = 0
 var angle_deg = 0 # store angle at start
 
 func _physics_process(delta: float) -> void:
+	# --- SHOOTING ---
 	look_at(get_global_mouse_position()) # Makes the player look at the mouse
+	if Input.is_action_just_pressed("left_click"):
+		add_child(antigen_scene.instantiate())
 	
 	# --- MOVEMENT ---
 	var moving = true
