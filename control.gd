@@ -1,18 +1,30 @@
 extends Sprite2D
 
 var speed = 400
-var angular_speed = PI
-
+var angle_deg = 0
 
 func _process(delta):
-	var velocity = Vector2.ZERO
-	if Input.is_action_pressed("ui_up"):
-		velocity = Vector2.UP.rotated(deg_to_rad(0)) * speed
-	elif Input.is_action_pressed("ui_down"):
-		velocity = Vector2.UP.rotated(deg_to_rad(180)) * speed
-	elif Input.is_action_pressed("ui_left"):
-		velocity = Vector2.UP.rotated(deg_to_rad(270)) * speed
-	elif Input.is_action_pressed("ui_right"):
-		velocity = Vector2.UP.rotated(deg_to_rad(90)) * speed
+	var moving = true
 
-	position += velocity * delta
+	if Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_right"):
+		angle_deg = 45
+	elif Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_left"):
+		angle_deg = 315
+	elif Input.is_action_pressed("ui_down") and Input.is_action_pressed("ui_right"):
+		angle_deg = 135
+	elif Input.is_action_pressed("ui_down") and Input.is_action_pressed("ui_left"):
+		angle_deg = 225
+	elif Input.is_action_pressed("ui_up"):
+		angle_deg = 0
+	elif Input.is_action_pressed("ui_right"):
+		angle_deg = 90
+	elif Input.is_action_pressed("ui_down"):
+		angle_deg = 180
+	elif Input.is_action_pressed("ui_left"):
+		angle_deg = 270
+	else:
+		moving = false
+
+	if moving:
+		var velocity = Vector2.UP.rotated(deg_to_rad(angle_deg)) * speed
+		position += velocity * delta
