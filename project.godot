@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="game jam game"
-run/main_scene="uid://cotalli0xw6b"
+run/main_scene="uid://cua5eq4mtfe3n"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://artwork/icon.svg"
 
@@ -19,6 +19,12 @@ config/icon="res://artwork/icon.svg"
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[global_group]
+
+Player="This is the player character"
+MMButtonIndicator="This is the selected button indicator in the main menu"
+MMButtonsContainer="The container for the buttons on the main menu"
 
 [input]
 

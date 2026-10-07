@@ -31,7 +31,7 @@ text = "Lorem Ipsum"
 label_settings = SubResource("LabelSettings_22vlk")
 horizontal_alignment = 1
 
-[node name="Buttons" type="VBoxContainer" parent="CanvasLayer" unique_id=2088601510]
+[node name="Buttons" type="VBoxContainer" parent="CanvasLayer" unique_id=2088601510 groups=["MMButtonsContainer"]]
 offset_top = 200.0
 offset_right = 1152.0
 offset_bottom = 415.0
@@ -54,7 +54,7 @@ text = "Quit Game"
 label_settings = SubResource("LabelSettings_f1fi5")
 horizontal_alignment = 1
 
-[node name="SelectedButtonIndicator" type="Label" parent="CanvasLayer" unique_id=513903811]
+[node name="SelectedButtonIndicator" type="Label" parent="CanvasLayer" unique_id=513903811 groups=["MMButtonIndicator"]]
 offset_top = 200.0
 offset_right = 1152.0
 offset_bottom = 269.0

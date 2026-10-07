@@ -1,9 +1,9 @@
 extends Node2D
 
-@onready var buttons_group = $CanvasLayer/Buttons
+@onready var buttons_group = get_tree().get_first_node_in_group("MMButtonsContainer")
 @onready var buttons = buttons_group.find_children("*")
 
-@onready var button_indicator = $CanvasLayer/SelectedButtonIndicator
+@onready var button_indicator = get_tree().get_first_node_in_group("MMButtonIndicator")
 
 var button_index = 0
 	
@@ -35,6 +35,7 @@ func _process(_delta: float) -> void:
 
 func _start_game():
 	print("Start Game button pressed")
+	get_tree().change_scene_to_file("res://scenes/main.tscn")
 func _options():
 	print("Options button pressed")
 func _quit_game():
