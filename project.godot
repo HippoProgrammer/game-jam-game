@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="game jam game"
-run/main_scene="uid://cua5eq4mtfe3n"
+run/main_scene="uid://cotalli0xw6b"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://artwork/icon.svg"
 
@@ -67,3 +67,4 @@ enter={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
