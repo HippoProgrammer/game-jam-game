@@ -1,11 +1,14 @@
 extends Sprite2D
 
+# --- MOVEMENT ---
+
 var speed = 400
-var angle_deg = 0
+var angle_deg = 0 # store angle at start
 
 func _process(delta):
 	var moving = true
 
+	# hopefully self explanatory
 	if Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_right"):
 		angle_deg = 45
 	elif Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_left"):
@@ -28,3 +31,5 @@ func _process(delta):
 	if moving:
 		var velocity = Vector2.UP.rotated(deg_to_rad(angle_deg)) * speed
 		position += velocity * delta
+
+# obligatory pf 🏳️‍🌈
