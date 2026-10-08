@@ -18,6 +18,10 @@ scale = Vector2(0.05, 0.05)
 texture = SubResource("CanvasTexture_sugp2")
 script = ExtResource("2_g2els")
 
+[node name="AntigenSpawner" type="Marker2D" parent="Character" unique_id=647138162]
+position = Vector2(659.99994, 0)
+scale = Vector2(19.999998, 19.999998)
+
 [node name="CharacterBody2D" type="CharacterBody2D" parent="Character" unique_id=1509588886]
 motion_mode = 1
 
