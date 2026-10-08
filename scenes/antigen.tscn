@@ -7,14 +7,13 @@
 diffuse_texture = ExtResource("1_15cnv")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rmea8"]
-radius = 76.8
+radius = 17.591919
 
 [node name="Antigen" type="Area2D" unique_id=988046758]
 script = ExtResource("1_rmea8")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2138503294]
-position = Vector2(-3.8146973e-06, -2.0000038)
-scale = Vector2(0.234375, 0.234375)
+scale = Vector2(0.054687526, 0.054687526)
 texture = SubResource("CanvasTexture_15cnv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1296605289]
