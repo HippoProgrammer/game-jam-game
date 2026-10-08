@@ -2,12 +2,19 @@
 
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="1_15cnv"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_22vlk"]
+[sub_resource type="CanvasTexture" id="CanvasTexture_15cnv"]
 diffuse_texture = ExtResource("1_15cnv")
 
-[node name="Antigen" type="Node2D" unique_id=742708992]
+[sub_resource type="CircleShape2D" id="CircleShape2D_rmea8"]
+radius = 76.8
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=809433264]
+[node name="Antigen" type="Area2D" unique_id=988046758]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2138503294]
 position = Vector2(-3.8146973e-06, -2.0000038)
 scale = Vector2(0.234375, 0.234375)
-texture = SubResource("CanvasTexture_22vlk")
+texture = SubResource("CanvasTexture_15cnv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1296605289]
+scale = Vector2(0.234375, 0.234375)
+shape = SubResource("CircleShape2D_rmea8")
