@@ -5,8 +5,7 @@ var antigen_scene = preload("res://scenes/antigen.tscn")
 func shoot_antigen():
 	var antigen = antigen_scene.instantiate()
 	owner.add_child(antigen)
-	antigen.global_transform = $AntigenSpawner.transform
-
+	antigen.global_transform = $AntigenSpawner.global_transform
 # --- MOVEMENT ---
 var velocity = Vector2(0,0)
 var max_speed : float = 800
