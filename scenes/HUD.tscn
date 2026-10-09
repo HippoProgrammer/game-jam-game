@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cilmvhpq6adfm"]
+
+[node name="HUD" type="CanvasLayer" unique_id=735888115]
+
+[node name="HealthBar" type="TextureProgressBar" parent="." unique_id=317126017]
+offset_left = 875.0
+offset_top = 10.0
+offset_right = 1138.0
+offset_bottom = 41.0
