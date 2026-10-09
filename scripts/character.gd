@@ -15,23 +15,38 @@ var current_speed : float = 0
 var angle_deg = 0 # store angle at start
 
 # --- DASHING ---
+
+var dash_tween: Tween
 var is_dashing: bool = false
 var dash_speed: float = 2000.0
 var dash_duration: float = 0.15
 var dash_direction: Vector2 = Vector2.ZERO
 var dashing: bool = false
+var base_scale: Vector2
+
+func _ready() -> void:
+	base_scale = scale
 
 func dash():
+	if dashing:
+		return
+
 	dashing = true
-	var tween = create_tween()
-	tween.tween_property(self, "scale", Vector2(1.6, 0.5), 0.04)
-	tween.tween_interval(dash_duration - 0.04)
-	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.15)\
+	dash_direction = Vector2.RIGHT.rotated(rotation)
+
+	if dash_tween:
+		dash_tween.kill()
+	scale = base_scale
+
+	dash_tween = create_tween()
+	dash_tween.tween_property(self, "scale", base_scale * Vector2(1.6, 0.5), 0.04)
+	dash_tween.tween_interval(dash_duration - 0.04)
+	dash_tween.tween_property(self, "scale", base_scale, 0.15)\
 		.set_trans(Tween.TRANS_BACK)\
 		.set_ease(Tween.EASE_OUT)
+
 	await get_tree().create_timer(dash_duration).timeout
 	dashing = false
-
 
 func _physics_process(delta: float) -> void:
 	# --- SHOOTING ---
