@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c42rvvvlc7iwv"]
+
+[ext_resource type="Script" uid="uid://byuwvg1sm1gfe" path="res://scripts/basic_enemy.gd" id="1_7jpia"]
+[ext_resource type="Script" uid="uid://bneio7les6mg6" path="res://scripts/basic_enemy_data.gd" id="2_8xi43"]
+
+[sub_resource type="Resource" id="Resource_7jpia"]
+script = ExtResource("2_8xi43")
+metadata/_custom_type_script = "uid://bneio7les6mg6"
+
+[node name="BasicEnemy" type="Node2D" unique_id=1883996621]
+script = ExtResource("1_7jpia")
+data = SubResource("Resource_7jpia")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=529130266]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Sprite2D" unique_id=1736612286]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/CharacterBody2D" unique_id=950839941]
