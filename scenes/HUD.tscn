@@ -1,9 +1,18 @@
 [gd_scene format=3 uid="uid://cilmvhpq6adfm"]
 
-[node name="HUD" type="CanvasLayer" unique_id=735888115]
+[ext_resource type="Script" uid="uid://dxyf76kw2wrvm" path="res://scripts/hud.gd" id="1_qpvh6"]
 
-[node name="HealthBar" type="TextureProgressBar" parent="." unique_id=317126017]
-offset_left = 875.0
-offset_top = 10.0
-offset_right = 1138.0
-offset_bottom = 41.0
+[node name="HUD" type="CanvasLayer" unique_id=735888115]
+script = ExtResource("1_qpvh6")
+
+[node name="GlucoseBar" type="ProgressBar" parent="." unique_id=1619061540]
+offset_left = 890.0
+offset_top = 1.0
+offset_right = 1152.0
+offset_bottom = 47.0
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=59606198]
+offset_left = 891.0
+offset_top = 49.0
+offset_right = 1153.0
+offset_bottom = 100.0
