@@ -38,6 +38,9 @@ var dash_glucose_use: float = 20.0
 
 func _ready() -> void:
 	base_scale = scale
+	
+	glucose_changed.emit(glucose, max_glucose)
+	health_changed.emit(health, max_health)
 
 func dash():
 	if dashing or glucose < dash_glucose_use:
