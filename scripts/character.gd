@@ -7,6 +7,17 @@ func shoot_antigen():
 	owner.add_child(antigen)
 	antigen.global_transform = $AntigenSpawner.global_transform
 
+# --- PLAYER STATS ---
+
+var max_health: float = 100.0
+var health: float = 100.0
+var max_glucose: float = 100.0
+var glucose: float = 100.0
+var glucose_regen: float = 5.0
+
+signal health_changed(new_health: float, max_health: float)
+signal glucose_changed(new_glucose: float, max_glucose: float)
+
 # --- MOVEMENT ---
 var velocity = Vector2(0,0)
 var max_speed : float = 800
@@ -23,14 +34,17 @@ var dash_duration: float = 0.15
 var dash_direction: Vector2 = Vector2.ZERO
 var dashing: bool = false
 var base_scale: Vector2
+var dash_glucose_use: float = 20.0
 
 func _ready() -> void:
 	base_scale = scale
 
 func dash():
-	if dashing:
+	if dashing or glucose < dash_glucose_use:
 		return
-
+	
+	glucose -= dash_glucose_use
+	
 	dashing = true
 	dash_direction = Vector2.RIGHT.rotated(rotation)
 
@@ -108,5 +122,14 @@ func _physics_process(delta: float) -> void:
 	if moving:
 		velocity = Vector2.UP.rotated(deg_to_rad(angle_deg)) * current_speed
 		position += velocity * delta
+
+func _process(delta: float) -> void:
+	var old_glucose := glucose
+	
+	glucose = min(glucose + glucose_regen * delta, max_glucose)
+	
+	if glucose != old_glucose:
+		glucose_changed.emit(glucose, max_glucose)
+
 
 # obligatory pf 🏳️‍🌈
