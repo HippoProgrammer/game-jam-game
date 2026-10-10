@@ -20,16 +20,23 @@ func _check_los() -> bool:
 			return false
 		else:
 			return true
-		
 	elif global_position.distance_to(target.global_position) < data.los_range:
 		return true
 	else:
 		return false
 
+func _check_attack() -> bool:
+	return true
 
-func _check_state() -> void:
-	pass
-	
+func _check_state() -> State:
+	if _check_los():
+		return State.spotted
+	elif _check_attack():
+		return State.attack
+	else:
+		return State.idle
+
+
 func _ready() -> void:
 	$Sprite2D.texture = data.texture
 	$CollisionShape2D.shape = data.collision_shape

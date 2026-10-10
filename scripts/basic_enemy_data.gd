@@ -19,5 +19,6 @@ class_name enemy_data
 
 @export_group("combat")
 @export var attk_range: float
+@export var attk_direct: float
 @export var needs_los: bool = true
 @export var los_range: float
