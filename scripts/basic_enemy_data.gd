@@ -16,3 +16,8 @@ class_name enemy_data
 @export_group("visual")
 @export var texture: Texture2D
 @export var collision_shape: Shape2D
+
+@export_group("combat")
+@export var attk_range: float
+@export var needs_los: bool = true
+@export var los_range: float
