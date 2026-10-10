@@ -125,11 +125,14 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	var old_glucose := glucose
+	var old_health := health
 	
 	glucose = min(glucose + glucose_regen * delta, max_glucose)
 	
 	if glucose != old_glucose:
 		glucose_changed.emit(glucose, max_glucose)
+	if health != old_health:
+		health_changed.emit(health, max_health)
 
 
 # obligatory pf 🏳️‍🌈
