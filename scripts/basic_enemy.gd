@@ -26,7 +26,17 @@ func _check_los() -> bool:
 		return false
 
 func _check_attack() -> bool:
-	return true
+	if global_position.distance_to(target.global_position) < data.attk_range:
+		if data.attk_direct:
+			raycast.target_position = target.global_position()
+			if raycast.is_colliding():
+				return false
+			else:
+				return true
+		else:
+			return true
+	else:
+		return false
 
 func _check_state() -> State:
 	if _check_los():
