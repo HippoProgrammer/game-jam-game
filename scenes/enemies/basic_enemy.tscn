@@ -1,16 +1,39 @@
 [gd_scene format=3 uid="uid://c42rvvvlc7iwv"]
 
 [ext_resource type="Script" uid="uid://byuwvg1sm1gfe" path="res://scripts/basic_enemy.gd" id="1_7jpia"]
+[ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="2_8xi43"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_qhqgy"]
+diffuse_texture = ExtResource("2_8xi43")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ibjif"]
+size = Vector2(109, 113)
 
 [node name="BasicEnemy" type="Node2D" unique_id=1883996621]
 script = ExtResource("1_7jpia")
+metadata/max_health = 100.0
+metadata/max_glucose = 100.0
+metadata/glucose_regen = 0.0
+metadata/health_regen = 0.0
+metadata/movement_speed = 10.0
+metadata/attack_range = 0.0
+metadata/needs_los = false
+metadata/los_range = 100.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=507440377]
 
 [node name="LOS" type="RayCast2D" parent="." unique_id=431441184]
+collision_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=529130266]
+texture = SubResource("CanvasTexture_qhqgy")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="Sprite2D" unique_id=1736612286]
+collision_layer = 5
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/CharacterBody2D" unique_id=950839941]
+rotation = 0.00016523933
+shape = SubResource("RectangleShape2D_ibjif")
+
+[node name="EnemyData" type="Node" parent="." unique_id=1651614382]

@@ -10,7 +10,7 @@ func _physics_process(delta):
 	var collision = move_and_collide(transform.x * speed * delta)
 	if collision:
 		bounces += 1
-		if bounces > 2:
+		if bounces > max_bounces:
 			queue_free()
 		else:
 			rotation = transform.x.bounce(collision.get_normal()).angle()

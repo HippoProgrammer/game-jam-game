@@ -1,40 +1,36 @@
 extends Node2D
 
-@export var data: enemy_data
-
-var health = data.max_health
-var glucose = data.max_glucose
+@onready var max_health = get_meta("max_health")
+@onready var max_glucose = get_meta("max_glucose")
 
 enum State {idle, spotted, attack}
 
 var state := State.idle
-var target = get_tree().get_first_node_in_group("Player")
+@onready var target = get_tree().get_first_node_in_group("Player")
 
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var raycast: RayCast2D = $LOS
 
 func _check_los() -> bool:
-	if data.needs_los: # https://www.makeuseof.com/godot-raycast2d-nodes-line-of-sight-detection/
-		raycast.target_position = target.global_position()
+	if get_meta("needs_los"): # https://www.makeuseof.com/godot-raycast2d-nodes-line-of-sight-detection/
+		raycast.target_position = target.global_position
 		if raycast.is_colliding():
 			return false
 		else:
 			return true
-	elif global_position.distance_to(target.global_position) < data.los_range:
+	elif global_position.distance_to(target.global_position) < get_meta("los_range"):
 		return true
 	else:
 		return false
 
 func _check_attack() -> bool:
-	if global_position.distance_to(target.global_position) < data.attk_range:
-		if data.attk_direct:
-			raycast.target_position = target.global_position()
-			if raycast.is_colliding():
-				return false
-			else:
-				return true
-		else:
+	if global_position.distance_to(target.global_position) < get_meta("attack_range"):
+		raycast.target_position = target.global_position
+		if raycast.is_colliding() and raycast.get_collider() == target:
+			print("a")
 			return true
+		else:
+			return false
 	else:
 		return false
 
@@ -46,7 +42,13 @@ func _check_state() -> State:
 	else:
 		return State.idle
 
+func _spotted() -> void:
+	pass
 
 func _ready() -> void:
-	$Sprite2D.texture = data.texture
-	$CollisionShape2D.shape = data.collision_shape
+	pass
+
+func _physics_process(delta: float) -> void:
+	state = _check_state()
+	if state == State.spotted:
+		_spotted()
