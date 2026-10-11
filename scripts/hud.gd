@@ -11,10 +11,10 @@ func _ready() -> void:
 	character.glucose_changed.connect(_on_glucose_change)
 	character.health_changed.connect(_on_health_change)
 
-func _on_glucose_change(new: float, max: float) -> void:
-	glucose_bar.max_value = max
+func _on_glucose_change(new: float, max_value: float) -> void:
+	glucose_bar.max_value = max_value
 	glucose_bar.value = new
 
-func _on_health_change(new: float, max: float) -> void:
-	health_bar.max_value = max
+func _on_health_change(new: float, max_value: float) -> void:
+	health_bar.max_value = max_value
 	health_bar.value = new

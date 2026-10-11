@@ -10,6 +10,8 @@ diffuse_texture = ExtResource("1_15cnv")
 radius = 17.591919
 
 [node name="Antigen" type="CharacterBody2D" unique_id=1750544342]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_rmea8")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2138503294]

@@ -2,10 +2,12 @@ extends Sprite2D
 
 var antigen_scene = preload("res://scenes/antigen.tscn")
 
+@onready var antigen_spawner = $AntigenSpawner
+
 func shoot_antigen():
 	var antigen = antigen_scene.instantiate()
 	owner.add_child(antigen)
-	antigen.global_transform = $AntigenSpawner.global_transform
+	antigen.global_transform = antigen_spawner.global_transform
 
 # --- PLAYER STATS ---
 
@@ -69,9 +71,6 @@ func _physics_process(delta: float) -> void:
 	# --- SHOOTING ---
 	if not dashing:
 		look_at(get_global_mouse_position()) # Makes the player look at the mouse
-	# @GoldenFootie i think this is irrelevent now...
-	#if Input.is_action_just_pressed("left_click"):
-	#	add_child(antigen_scene.instantiate())
 	
 	if Input.is_action_just_pressed("left_click"):
 		shoot_antigen()
@@ -117,10 +116,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		moving = false
 		current_speed = 0
-		
-		
-	
-	
 	
 	if moving:
 		velocity = Vector2.UP.rotated(deg_to_rad(angle_deg)) * current_speed
