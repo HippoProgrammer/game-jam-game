@@ -15,6 +15,15 @@ var state := State.idle
 @onready var movement_speed = get_meta("movement_speed")
 var movement_delta: float
 
+# --- Health Bar ---
+
+@onready var health_bar: ProgressBar = $HealthBar
+
+func _change_health(new: float, max_value: float):
+	health_bar.max_value = max_value
+	health_bar.value = new
+
+
 func _check_los() -> bool:
 	if global_position.distance_to(target.global_position) > get_meta("los_range"):
 		return false
@@ -70,6 +79,7 @@ func _spotted(delta) -> void:
 
 func _ready() -> void:
 	nav.velocity_computed.connect(Callable(_on_velocity_computed))
+	_change_health(100.0, 100.0)
 
 func _physics_process(delta: float) -> void:
 	state = _check_state()
@@ -79,6 +89,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_velocity_computed(safe_velocity: Vector2) -> void: #https://docs.godotengine.org/en/stable/tutorials/navigation/navigation_using_navigationagents.html
 	global_position += safe_velocity * get_physics_process_delta_time()
+
 
 
 # obligatory pf 🏳️‍🌈
