@@ -14,16 +14,16 @@ var state := State.idle
 func _check_los() -> bool:
 	if get_meta("needs_los"): # https://www.makeuseof.com/godot-raycast2d-nodes-line-of-sight-detection/
 		raycast.target_position = target.global_position
-		if raycast.is_colliding():
+		if raycast.is_colliding(): # if the enemy can see the player
 			return false
 		else:
 			return true
-	elif global_position.distance_to(target.global_position) < get_meta("los_range"):
+	elif global_position.distance_to(target.global_position) < get_meta("los_range"): # if it doesnt need los, just check how far between them
 		return true
 	else:
 		return false
 
-func _check_attack() -> bool:
+func _check_attack() -> bool: # similar here; indirect weapons dont need direct sight
 	if global_position.distance_to(target.global_position) < get_meta("attack_range"):
 		raycast.target_position = target.global_position
 		if raycast.is_colliding() and raycast.get_collider() == target:
@@ -42,6 +42,9 @@ func _check_state() -> State:
 	else:
 		return State.idle
 
+# then we can just derive behavoiur from here, iestate idle has its own distinct behavoiur from attack...
+
+
 func _spotted() -> void:
 	pass
 
@@ -52,3 +55,5 @@ func _physics_process(delta: float) -> void:
 	state = _check_state()
 	if state == State.spotted:
 		_spotted()
+
+# obligatory pf 🏳️‍🌈
