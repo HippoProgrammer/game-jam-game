@@ -1,12 +1,16 @@
 extends Node2D
 
+var rand : float
+
 @onready var max_health = get_meta("max_health")
 @onready var max_glucose = get_meta("max_glucose")
 
+@onready var health = max_health
+@onready var glucose = max_glucose
 
 enum State {idle, spotted, attack}
-
 var state := State.idle
+
 @onready var target = get_tree().get_first_node_in_group("Player")
 
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
@@ -14,6 +18,9 @@ var state := State.idle
 
 @onready var movement_speed = get_meta("movement_speed")
 var movement_delta: float
+
+# --- Cloning ---
+var probability_health_change = 100
 
 # --- Health Bar ---
 
@@ -55,8 +62,6 @@ func _check_state() -> State:
 	else:
 		return State.idle
 
-
-
 # then we can just derive behavoiur from here, ie. state idle has its own distinct behavoiur from attack...
 
 func _chase(delta) -> void:
@@ -79,16 +84,35 @@ func _spotted(delta) -> void:
 
 func _ready() -> void:
 	nav.velocity_computed.connect(Callable(_on_velocity_computed))
-	_change_health(100.0, 100.0)
+	_change_health(health, max_health)
 
 func _physics_process(delta: float) -> void:
 	state = _check_state()
 	if state == State.spotted:
 		_spotted(delta)
 
-
 func _on_velocity_computed(safe_velocity: Vector2) -> void: #https://docs.godotengine.org/en/stable/tutorials/navigation/navigation_using_navigationagents.html
 	global_position += safe_velocity * get_physics_process_delta_time()
+
+func _duplicate_self() -> void:
+	# Make an animation, add that here
+	
+	var new_enemy = duplicate()
+	if randf() * 100 <= probability_health_change:
+		rand = randf_range(0.9,1.2)
+		new_enemy.set_meta("max_health",get_meta("max_health")*rand)
+		new_enemy.set_meta("scale",new_enemy.get_meta("scale")*rand)
+		new_enemy.scale *= rand
+	get_parent().call_deferred("add_child",new_enemy)
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Antigens"):
+		print(name," hit")
+		health -= body.get_meta("attack_damage")
+		_change_health(health,max_health)
+		body.queue_free()
+	if health <= 0:
+		queue_free()
 
 
 

@@ -29,3 +29,10 @@ motion_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Character/CharacterBody2D" unique_id=1498245660 groups=["Player"]]
 shape = SubResource("CircleShape2D_g2els")
+
+[node name="Hitbox" type="Area2D" parent="Character/CharacterBody2D" unique_id=708347638]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Character/CharacterBody2D/Hitbox" unique_id=1071425055 groups=["Player"]]
+shape = SubResource("CircleShape2D_g2els")
+
+[connection signal="body_entered" from="Character/CharacterBody2D/Hitbox" to="Character" method="_on_hitbox_body_entered"]
