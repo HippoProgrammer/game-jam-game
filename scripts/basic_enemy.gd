@@ -59,7 +59,7 @@ func _chase(delta) -> void:
 	var next_path_position: Vector2 = nav.get_next_path_position()
 	var new_velocity: Vector2 = global_position.direction_to(next_path_position) * movement_delta
 
-	navigation_agent.set_velocity(new_velocity)
+	nav.set_velocity(new_velocity)
 
 func _spotted(delta) -> void:
 	_chase(delta)
@@ -73,5 +73,10 @@ func _physics_process(delta: float) -> void:
 	state = _check_state()
 	if state == State.spotted:
 		_spotted(delta)
+
+
+func _on_velocity_computed(safe_velocity: Vector2) -> void: #https://docs.godotengine.org/en/stable/tutorials/navigation/navigation_using_navigationagents.html
+	global_position = global_position.move_toward(global_position + safe_velocity, movement_delta)
+
 
 # obligatory pf 🏳️‍🌈
