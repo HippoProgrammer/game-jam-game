@@ -3,6 +3,7 @@ extends Node2D
 @onready var max_health = get_meta("max_health")
 @onready var max_glucose = get_meta("max_glucose")
 
+
 enum State {idle, spotted, attack}
 
 var state := State.idle
@@ -11,7 +12,7 @@ var state := State.idle
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var raycast: RayCast2D = $LOS
 
-var movement_speed = get_meta("movement_speed")
+@onready var movement_speed = get_meta("movement_speed")
 var movement_delta: float
 
 func _check_los() -> bool:
