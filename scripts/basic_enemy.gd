@@ -42,7 +42,7 @@ func _check_state() -> State:
 	else:
 		return State.idle
 
-# then we can just derive behavoiur from here, iestate idle has its own distinct behavoiur from attack...
+# then we can just derive behavoiur from here, ie. state idle has its own distinct behavoiur from attack...
 
 
 func _spotted() -> void:
