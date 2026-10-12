@@ -16,35 +16,37 @@ var state := State.idle
 var movement_delta: float
 
 func _check_los() -> bool:
-	if get_meta("needs_los"): # https://www.makeuseof.com/godot-raycast2d-nodes-line-of-sight-detection/
-		raycast.target_position = target.global_position
-		if raycast.is_colliding(): # if the enemy can see the player
-			return false
-		else:
-			return true
-	elif global_position.distance_to(target.global_position) < get_meta("los_range"): # if it doesnt need los, just check how far between them
-		return true
-	else:
+	if global_position.distance_to(target.global_position) > get_meta("los_range"):
 		return false
 
-func _check_attack() -> bool: # similar here; indirect weapons dont need direct sight
-	if global_position.distance_to(target.global_position) < get_meta("attack_range"):
-		raycast.target_position = target.global_position
-		if raycast.is_colliding() and raycast.get_collider() == target:
-			print("a")
-			return true
-		else:
-			return false
-	else:
+	if not get_meta("needs_los"):
+		return true
+
+	raycast.target_position = raycast.to_local(target.global_position)
+	raycast.force_raycast_update()
+	return raycast.is_colliding() and raycast.get_collider().is_in_group("Player")
+
+func _check_attack() -> bool:
+	if global_position.distance_to(target.global_position) > get_meta("attack_range"):
 		return false
+
+	
+	if not get_meta("needs_los"):
+		return true
+
+	raycast.target_position = raycast.to_local(target.global_position)
+	raycast.force_raycast_update()
+	return raycast.is_colliding() and raycast.get_collider().is_in_group("Player")
 
 func _check_state() -> State:
-	if _check_los():
-		return State.spotted
-	elif _check_attack():
+	if _check_attack():
 		return State.attack
+	elif _check_los():
+		return State.spotted
 	else:
 		return State.idle
+
+
 
 # then we can just derive behavoiur from here, ie. state idle has its own distinct behavoiur from attack...
 
@@ -58,14 +60,13 @@ func _chase(delta) -> void:
 		return
 	
 	var next_path_position: Vector2 = nav.get_next_path_position()
-	var new_velocity: Vector2 = global_position.direction_to(next_path_position) * movement_delta
+	#var new_velocity: Vector2 = global_position.direction_to(next_path_position) * movement_delta
 
-	nav.set_velocity(new_velocity)
+	nav.set_velocity(global_position.direction_to(next_path_position) * movement_speed)
 
 func _spotted(delta) -> void:
 	_chase(delta)
-	# sound effects, animations etc...
-	pass
+	# sound effects, animations etc..
 
 func _ready() -> void:
 	nav.velocity_computed.connect(Callable(_on_velocity_computed))
@@ -77,7 +78,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_velocity_computed(safe_velocity: Vector2) -> void: #https://docs.godotengine.org/en/stable/tutorials/navigation/navigation_using_navigationagents.html
-	global_position = global_position.move_toward(global_position + safe_velocity, movement_delta)
+	global_position += safe_velocity * get_physics_process_delta_time()
 
 
 # obligatory pf 🏳️‍🌈
