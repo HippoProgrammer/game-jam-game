@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/win_xp_error.mp3-40a5bc1b7bc02326f0570d76ad1e
 [params]
 
 loop=false
-loop_offset=0
-bpm=0
+loop_offset=0.0
+bpm=0.0
 beat_count=0
 bar_beats=4
