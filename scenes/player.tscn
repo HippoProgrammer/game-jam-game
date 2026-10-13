@@ -1,12 +1,7 @@
 [gd_scene format=3 uid="uid://dlfkmnvkalefo"]
 
-[ext_resource type="Texture2D" uid="uid://c51rev5fpe12u" path="res://artwork/Temp_Assets/White-Blood-Cell.png" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://bgb752s0c0e22" path="res://artwork/MainChara/WhiteBlood.png" id="1_g2els"]
 [ext_resource type="Script" uid="uid://bri8518e6eia3" path="res://scripts/character.gd" id="2_g2els"]
-[ext_resource type="Texture2D" uid="uid://cmt5wigqslbeg" path="res://artwork/Temp_Assets/White-Blood-Cell_n.png" id="2_qhqgy"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_sugp2"]
-diffuse_texture = ExtResource("1_3vyb7")
-normal_texture = ExtResource("2_qhqgy")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
 radius = 520.3844
@@ -14,8 +9,9 @@ radius = 520.3844
 [node name="Player" type="Node2D" unique_id=401100565]
 
 [node name="Character" type="Sprite2D" parent="." unique_id=1076164463 groups=["Player"]]
-scale = Vector2(0.05, 0.05)
-texture = SubResource("CanvasTexture_sugp2")
+rotation = 1.5707964
+scale = Vector2(2.4, 2.4)
+texture = ExtResource("1_g2els")
 script = ExtResource("2_g2els")
 
 [node name="AntigenSpawner" type="Marker2D" parent="Character" unique_id=647138162]
