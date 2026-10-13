@@ -3,7 +3,7 @@ extends Sprite2D
 var antigen_scene = preload("res://scenes/antigen.tscn")
 
 @onready var antigen_spawner = $AntigenSpawner
-
+@onready var sfx = $SFX
 
 # --- PLAYER STATS ---
 
@@ -13,6 +13,8 @@ var max_glucose: float = 100.0
 var glucose: float = 100.0
 var glucose_regen: float = 5.0
 var attack_damage = 50.0
+
+var ammo: int = 10
 
 signal health_changed(new_health: float, max_health: float)
 signal glucose_changed(new_glucose: float, max_glucose: float)
@@ -42,13 +44,21 @@ func _ready() -> void:
 	health_changed.emit.call_deferred(health, max_health)
 
 func shoot_antigen():
+	if ammo == 0: # @GoldenFootie should we do glucose for this?
+		sfx.play_sound(sfx.error_sound)
+		return
+	ammo -= 1
+	
 	var antigen = antigen_scene.instantiate()
 	owner.add_child(antigen)
 	antigen.global_transform = antigen_spawner.global_transform
 	antigen.set_meta("attack_damage",attack_damage)
 
 func dash():
-	if dashing or glucose < dash_glucose_use:
+	if dashing:
+		return
+	elif glucose < dash_glucose_use:
+		sfx.play_sound(sfx.error_sound)
 		return
 	
 	glucose -= dash_glucose_use
