@@ -4,10 +4,6 @@ var antigen_scene = preload("res://scenes/antigen.tscn")
 
 @onready var antigen_spawner = $AntigenSpawner
 
-func shoot_antigen():
-	var antigen = antigen_scene.instantiate()
-	owner.add_child(antigen)
-	antigen.global_transform = antigen_spawner.global_transform
 
 # --- PLAYER STATS ---
 
@@ -16,6 +12,7 @@ var health: float = 100.0
 var max_glucose: float = 100.0
 var glucose: float = 100.0
 var glucose_regen: float = 5.0
+var attack_damage = 50.0
 
 signal health_changed(new_health: float, max_health: float)
 signal glucose_changed(new_glucose: float, max_glucose: float)
@@ -43,6 +40,12 @@ func _ready() -> void:
 	
 	glucose_changed.emit.call_deferred(glucose, max_glucose)
 	health_changed.emit.call_deferred(health, max_health)
+
+func shoot_antigen():
+	var antigen = antigen_scene.instantiate()
+	owner.add_child(antigen)
+	antigen.global_transform = antigen_spawner.global_transform
+	antigen.set_meta("attack_damage",attack_damage)
 
 func dash():
 	if dashing or glucose < dash_glucose_use:
@@ -131,6 +134,20 @@ func _process(delta: float) -> void:
 		glucose_changed.emit(glucose, max_glucose)
 	if health != old_health:
 		health_changed.emit(health, max_health)
+
+func _game_over() -> void:
+	# Display end screen, this is temporary
+	get_tree().quit()
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	if not dashing:
+		if body.is_in_group("Toxins"):
+			print("Player hit")
+			health -= body.get_meta("attack_damage",0)
+			health_changed.emit.call_deferred(health, max_health)
+			body.queue_free()
+	if health <= 0:
+		_game_over()
 
 
 # obligatory pf 🏳️‍🌈

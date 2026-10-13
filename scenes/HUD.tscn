@@ -11,7 +11,7 @@ offset_top = 1.0
 offset_right = 1152.0
 offset_bottom = 47.0
 
-[node name="HealthBar" type="ProgressBar" parent="." unique_id=59606198]
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=59606198 groups=["PlayerHealthBar"]]
 offset_left = 891.0
 offset_top = 49.0
 offset_right = 1153.0

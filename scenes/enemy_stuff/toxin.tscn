@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://b2h13hnxwnvsc"]
+
+[ext_resource type="Script" uid="uid://jkrfavnym865" path="res://scripts/enemy_stuff/toxin.gd" id="1_wx0fl"]
+[ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="2_npgi2"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_15cnv"]
+diffuse_texture = ExtResource("2_npgi2")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rmea8"]
+radius = 17.591919
+
+[node name="Toxin" type="CharacterBody2D" unique_id=1750544342 groups=["Toxins"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_wx0fl")
+metadata/attack_damage = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2138503294]
+scale = Vector2(0.054687526, 0.054687526)
+texture = SubResource("CanvasTexture_15cnv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1296605289]
+scale = Vector2(0.234375, 0.234375)
+shape = SubResource("CircleShape2D_rmea8")

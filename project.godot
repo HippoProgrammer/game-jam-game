@@ -25,6 +25,9 @@ window/stretch/aspect="expand"
 Player="This is the player character"
 MMButtonIndicator="This is the selected button indicator in the main menu"
 MMButtonsContainer="The container for the buttons on the main menu"
+Antigens="The antigen must be in here"
+Toxins="All toxins should be in here"
+PlayerHealthBar="This is the player's health bar"
 
 [input]
 
