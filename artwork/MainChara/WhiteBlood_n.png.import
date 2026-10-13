@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0el3v10rvch"
-path="res://.godot/imported/WhiteBlood_outline.png-91f0490d31e40d5c080939a0d178ddee.ctex"
+uid="uid://uah1qe25348k"
+path="res://.godot/imported/WhiteBlood_n.png-bd8752c8b3fbbbb2195b488d916894a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://artwork/MainChara/WhiteBlood_outline.png"
-dest_files=["res://.godot/imported/WhiteBlood_outline.png-91f0490d31e40d5c080939a0d178ddee.ctex"]
+source_file="res://artwork/MainChara/WhiteBlood_n.png"
+dest_files=["res://.godot/imported/WhiteBlood_n.png-bd8752c8b3fbbbb2195b488d916894a1.ctex"]
 
 [params]
 

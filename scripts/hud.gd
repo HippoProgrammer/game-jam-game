@@ -4,7 +4,7 @@ extends CanvasLayer
 
 # --- HEALTH AND GLUCOSE ---
 @onready var glucose_bar: ProgressBar = $GlucoseBar
-@onready var health_bar: ProgressBar = $HealthBar
+@onready var health_bar: TextureProgressBar = $HealthBar
 
 
 func _ready() -> void:
