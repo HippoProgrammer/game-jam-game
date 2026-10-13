@@ -1,0 +1,16 @@
+extends Node2D
+
+@onready var player_SFX: AudioStreamPlayer = $player_SFX
+
+@onready var character = get_tree().get_first_node_in_group("Player")
+
+# player_SFX:
+var error_sound = preload("res://sounds/win_xp_error.mp3")
+
+func play_sound(player: AudioStreamPlayer, sound: AudioStream) -> void:
+	player.stop()
+	player.stream = sound
+	player.play()
+
+func _ready() -> void:
+	character.error_sound.connect(play_sound.bind(player_SFX, error_sound))
