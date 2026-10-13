@@ -3,7 +3,6 @@ extends Sprite2D
 var antigen_scene = preload("res://scenes/antigen.tscn")
 
 @onready var antigen_spawner = $AntigenSpawner
-@onready var sfx = $SFX
 
 # --- PLAYER STATS ---
 
@@ -37,6 +36,10 @@ var dashing: bool = false
 var base_scale: Vector2
 var dash_glucose_use: float = 20.0
 
+# --- SOUND ---
+signal error_sound()
+
+
 func _ready() -> void:
 	base_scale = scale
 	
@@ -45,7 +48,7 @@ func _ready() -> void:
 
 func shoot_antigen():
 	if ammo == 0: # @GoldenFootie should we do glucose for this?
-		sfx.play_sound(sfx.error_sound)
+		error_sound.emit()
 		return
 	ammo -= 1
 	
@@ -58,7 +61,7 @@ func dash():
 	if dashing:
 		return
 	elif glucose < dash_glucose_use:
-		sfx.play_sound(sfx.error_sound)
+		error_sound.emit()
 		return
 	
 	glucose -= dash_glucose_use
