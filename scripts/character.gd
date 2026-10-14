@@ -67,14 +67,14 @@ func dash():
 	glucose -= dash_glucose_use
 	
 	dashing = true
-	dash_direction = Vector2.RIGHT.rotated(rotation)
+	dash_direction = (get_global_mouse_position() - global_position).normalized()
 
 	if dash_tween:
 		dash_tween.kill()
 	scale = base_scale
 
 	dash_tween = create_tween()
-	dash_tween.tween_property(self, "scale", base_scale * Vector2(1.6, 0.5), 0.04)
+	dash_tween.tween_property(self, "scale", base_scale * Vector2(0.5, 1.6), 0.04)
 	dash_tween.tween_interval(dash_duration - 0.04)
 	dash_tween.tween_property(self, "scale", base_scale, 0.15)\
 		.set_trans(Tween.TRANS_BACK)\
