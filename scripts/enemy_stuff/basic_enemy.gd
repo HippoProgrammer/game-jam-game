@@ -45,8 +45,6 @@ func _check_los() -> bool:
 func _check_attack() -> bool:
 	if global_position.distance_to(target.global_position) > get_meta("attack_range"):
 		return false
-
-	
 	if not get_meta("needs_los"):
 		return true
 
@@ -98,6 +96,11 @@ func _physics_process(delta: float) -> void:
 	state = _check_state()
 	if state == State.spotted:
 		_spotted(delta)
+	if state == State.attack:
+		pass
+	
+	if state != State.idle:
+		look_at(target.global_position) 
 
 func _on_velocity_computed(safe_velocity: Vector2) -> void: #https://docs.godotengine.org/en/stable/tutorials/navigation/navigation_using_navigationagents.html
 	global_position += safe_velocity * get_physics_process_delta_time()
