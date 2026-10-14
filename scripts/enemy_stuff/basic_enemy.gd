@@ -2,6 +2,10 @@ extends Node2D
 
 var rand : float
 
+var toxin_scene = preload("res://scenes/enemy_stuff/toxin.tscn")
+@onready var toxin_spawner = $Sprite2D/ToxinSpawner
+var attack_damage = get_meta("attack_damage")
+
 @onready var max_health = get_meta("max_health")
 @onready var max_glucose = get_meta("max_glucose")
 
@@ -30,6 +34,7 @@ func _change_health(new: float, max_value: float):
 	health_bar.max_value = max_value
 	health_bar.value = new
 
+var attack_timer: Timer
 
 func _check_los() -> bool:
 	if global_position.distance_to(target.global_position) > get_meta("los_range"):
@@ -52,13 +57,25 @@ func _check_attack() -> bool:
 	raycast.force_raycast_update()
 	return raycast.is_colliding() and raycast.get_collider().is_in_group("Player")
 
+func _attack() -> void:
+	var toxin = toxin_scene.instantiate()
+	owner.add_child(toxin)
+	toxin.global_transform = toxin_spawner.global_transform
+	toxin.set_meta("attack_damage",attack_damage)
+
 func _check_state() -> State:
 	if _check_attack():
+		if attack_timer.paused:
+			attack_timer.paused = false
 		return State.attack
 	elif _check_los():
 		return State.spotted
+		if not attack_timer.paused:
+			attack_timer.paused = true
 	else:
 		return State.idle
+		if not attack_timer.paused:
+			attack_timer.paused = true
 
 # then we can just derive behavoiur from here, ie. state idle has its own distinct behavoiur from attack...
 
@@ -89,6 +106,14 @@ func _spotted(delta) -> void:
 	# sound effects, animations etc..
 
 func _ready() -> void:
+	
+	var attack_timer = Timer.new()
+	attack_timer.wait_time = 2.0
+	attack_timer.autostart = true
+	attack_timer.one_shot = false
+	attack_timer.timeout.connect(_attack.bind())
+	add_child(attack_timer)
+	
 	nav.velocity_computed.connect(Callable(_on_velocity_computed))
 	_change_health(health, max_health)
 
@@ -102,6 +127,7 @@ func _physics_process(delta: float) -> void:
 	if state != State.idle:
 		look_at(target.global_position) 
 
+# i don't actually think this is necessary
 func _on_velocity_computed(safe_velocity: Vector2) -> void: #https://docs.godotengine.org/en/stable/tutorials/navigation/navigation_using_navigationagents.html
 	global_position += safe_velocity * get_physics_process_delta_time()
 

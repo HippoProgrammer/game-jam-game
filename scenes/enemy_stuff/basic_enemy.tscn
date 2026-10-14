@@ -21,6 +21,7 @@ metadata/attack_range = 0.0
 metadata/needs_los = false
 metadata/los_range = 100.0
 metadata/scale = 1.0
+metadata/attack_damage = 0.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=507440377]
 script = ExtResource("2_ibjif")
