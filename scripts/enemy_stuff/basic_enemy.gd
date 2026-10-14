@@ -65,20 +65,28 @@ func _check_state() -> State:
 # then we can just derive behavoiur from here, ie. state idle has its own distinct behavoiur from attack...
 
 func _chase(delta) -> void:
+	#print("chasing")
 	movement_delta = movement_speed * delta
 	nav.set_target_position(target.global_position)
+	#print(target)
 
 	if NavigationServer2D.map_get_iteration_id(nav.get_navigation_map()) == 0:
+		#print(NavigationServer2D.map_get_iteration_id(nav.get_navigation_map()))
 		return
 	if nav.is_navigation_finished():
+		#print(nav.is_navigation_finished())
 		return
 	
 	var next_path_position: Vector2 = nav.get_next_path_position()
+	#print(nav.get_next_path_position())
 	#var new_velocity: Vector2 = global_position.direction_to(next_path_position) * movement_delta
 
 	nav.set_velocity(global_position.direction_to(next_path_position) * movement_speed)
+	var direction: Vector2 = global_position.direction_to(next_path_position)
+	global_position += direction * movement_delta
 
 func _spotted(delta) -> void:
+	#print("player spotted")
 	_chase(delta)
 	# sound effects, animations etc..
 
