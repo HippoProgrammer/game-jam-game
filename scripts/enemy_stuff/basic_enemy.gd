@@ -107,7 +107,6 @@ func _duplicate_self() -> void:
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Antigens"):
-		print(name," hit")
 		health -= body.get_meta("attack_damage")
 		_change_health(health,max_health)
 		body.queue_free()
