@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c30j8uh45y7vl"
-path="res://.godot/imported/WhiteBlood.png-4fd3879b640f3454f2dcf73146fe8629.ctex"
+uid="uid://d0el3v10rvch"
+path="res://.godot/imported/HealthBar_outline.png-5178ca5e6bc722a58c9011a3a66950de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/WhiteBlood.png"
-dest_files=["res://.godot/imported/WhiteBlood.png-4fd3879b640f3454f2dcf73146fe8629.ctex"]
+source_file="res://artwork/MainChara/HealthBar_outline.png"
+dest_files=["res://.godot/imported/HealthBar_outline.png-5178ca5e6bc722a58c9011a3a66950de.ctex"]
 
 [params]
 

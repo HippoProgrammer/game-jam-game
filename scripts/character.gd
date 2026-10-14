@@ -86,7 +86,9 @@ func dash():
 func _physics_process(delta: float) -> void:
 	# --- SHOOTING ---
 	if not dashing:
-		look_at(get_global_mouse_position()) # Makes the player look at the mouse
+		# Makes the player look at the mouse
+		look_at(get_global_mouse_position()) 
+		rotation_degrees += 90
 	
 	if Input.is_action_just_pressed("left_click"):
 		shoot_antigen()
