@@ -7,7 +7,7 @@ var rand : float
 # import toxins
 var toxin_scene = preload("res://scenes/enemy_stuff/toxin.tscn")
 @onready var toxin_spawner = $Sprite2D/ToxinSpawner
-var attack_damage = get_meta("attack_damage")
+@onready var attack_damage = get_meta("attack_damage")
 
 # stats and meta
 @onready var max_health = get_meta("max_health")
