@@ -1,51 +1,85 @@
 extends Node2D
 
+# --- VARIABLES ---
+
 var rand : float
 
+# import toxins
 var toxin_scene = preload("res://scenes/enemy_stuff/toxin.tscn")
 @onready var toxin_spawner = $Sprite2D/ToxinSpawner
-var attack_damage = get_meta("attack_damage")
+@onready var attack_damage = get_meta("attack_damage")
 
+# stats and meta
 @onready var max_health = get_meta("max_health")
 @onready var max_glucose = get_meta("max_glucose")
-
 @onready var health = max_health
 @onready var glucose = max_glucose
-
-enum State {idle, spotted, attack}
-var state := State.idle
-
-@onready var target = get_tree().get_first_node_in_group("Player")
-
-@onready var nav: NavigationAgent2D = $NavigationAgent2D
-@onready var raycast: RayCast2D = $LOS
-
 @onready var movement_speed = get_meta("movement_speed")
 var movement_delta: float
 
-# --- Cloning ---
+# attack
+var attack_timer: Timer
+@onready var reload = 2.0
+
+# state
+enum State {idle, spotted, attack}
+var state := State.idle
+
+# target the player
+@onready var target = get_tree().get_first_node_in_group("Player")
+
+# get navigation agent and raycast
+@onready var nav: NavigationAgent2D = $NavigationAgent2D
+@onready var raycast: RayCast2D = $LOS
+
+# cloning
 var probability_health_change = 100
 
-# --- Health Bar ---
-
+# health bar
 @onready var health_bar: ProgressBar = $HealthBar
+
+# Godot functions
+
+func _ready() -> void:
+	attack_timer = Timer.new()
+	attack_timer.wait_time = reload
+	attack_timer.autostart = true
+	attack_timer.one_shot = false
+	attack_timer.timeout.connect(_attack.bind())
+	add_child(attack_timer)
+	
+	nav.velocity_computed.connect(Callable(_on_velocity_computed))
+	_change_health(health, max_health)
+
+func _physics_process(delta: float) -> void:
+	state = _check_state()
+	if state == State.spotted:
+		_spotted(delta)
+	if state == State.attack:
+		attack_timer.paused = false
+	else:
+		attack_timer.paused = true
+	
+	if state != State.idle:
+		look_at(target.global_position) 
+
+# --- USER FUNCTIONS ---
 
 func _change_health(new: float, max_value: float):
 	health_bar.max_value = max_value
 	health_bar.value = new
 
-var attack_timer: Timer
+func _check_state() -> State:
+	if _check_attack():
+		return State.attack
+	elif _check_los():
+		return State.spotted
+	else:
+		return State.idle
 
-func _check_los() -> bool:
-	if global_position.distance_to(target.global_position) > get_meta("los_range"):
-		return false
+# then we can just derive behavoiur from here, ie. state idle has its own distinct behavoiur from attack...
 
-	if not get_meta("needs_los"):
-		return true
-
-	raycast.target_position = raycast.to_local(target.global_position)
-	raycast.force_raycast_update()
-	return raycast.is_colliding() and raycast.get_collider().is_in_group("Player")
+# attack
 
 func _check_attack() -> bool:
 	if global_position.distance_to(target.global_position) > get_meta("attack_range"):
@@ -63,21 +97,16 @@ func _attack() -> void:
 	toxin.global_transform = toxin_spawner.global_transform
 	toxin.set_meta("attack_damage",attack_damage)
 
-func _check_state() -> State:
-	if _check_attack():
-		if attack_timer.paused:
-			attack_timer.paused = false
-		return State.attack
-	elif _check_los():
-		return State.spotted
-		if not attack_timer.paused:
-			attack_timer.paused = true
-	else:
-		return State.idle
-		if not attack_timer.paused:
-			attack_timer.paused = true
+func _check_los() -> bool:
+	if global_position.distance_to(target.global_position) > get_meta("los_range"):
+		return false
 
-# then we can just derive behavoiur from here, ie. state idle has its own distinct behavoiur from attack...
+	if not get_meta("needs_los"):
+		return true
+
+	raycast.target_position = raycast.to_local(target.global_position)
+	raycast.force_raycast_update()
+	return raycast.is_colliding() and raycast.get_collider().is_in_group("Player")
 
 func _chase(delta) -> void:
 	#print("chasing")
@@ -105,28 +134,6 @@ func _spotted(delta) -> void:
 	_chase(delta)
 	# sound effects, animations etc..
 
-func _ready() -> void:
-	
-	var attack_timer = Timer.new()
-	attack_timer.wait_time = 2.0
-	attack_timer.autostart = true
-	attack_timer.one_shot = false
-	attack_timer.timeout.connect(_attack.bind())
-	add_child(attack_timer)
-	
-	nav.velocity_computed.connect(Callable(_on_velocity_computed))
-	_change_health(health, max_health)
-
-func _physics_process(delta: float) -> void:
-	state = _check_state()
-	if state == State.spotted:
-		_spotted(delta)
-	if state == State.attack:
-		pass
-	
-	if state != State.idle:
-		look_at(target.global_position) 
-
 # i don't actually think this is necessary
 func _on_velocity_computed(safe_velocity: Vector2) -> void: #https://docs.godotengine.org/en/stable/tutorials/navigation/navigation_using_navigationagents.html
 	global_position += safe_velocity * get_physics_process_delta_time()
@@ -149,7 +156,6 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		body.queue_free()
 	if health <= 0:
 		queue_free()
-
 
 
 # obligatory pf 🏳️‍🌈
