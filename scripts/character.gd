@@ -39,9 +39,6 @@ var dashing: bool = false
 var base_scale: Vector2
 var dash_glucose_use: float = 20.0
 
-# --- SOUND ---
-signal error_sound()
-
 
 func _ready() -> void:	
 	base_scale = scale
@@ -51,7 +48,7 @@ func _ready() -> void:
 
 func shoot_antigen():
 	if ammo == 0: # @GoldenFootie should we do glucose for this?
-		error_sound.emit()
+		Events.error_sound.emit()
 		return
 	ammo -= 1
 	
@@ -64,7 +61,7 @@ func dash():
 	if dashing:
 		return
 	elif glucose < dash_glucose_use:
-		error_sound.emit()
+		Events.error_sound.emit()
 		return
 	
 	glucose -= dash_glucose_use

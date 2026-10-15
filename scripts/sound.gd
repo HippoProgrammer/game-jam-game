@@ -17,5 +17,5 @@ func play_sound(player: AudioStreamPlayer, sound: AudioStream) -> void:
 	player.play()
 
 func _ready() -> void:
-	character.error_sound.connect(play_sound.bind(player_SFX, error_sound))
+	Events.error_sound.connect(play_sound.bind(player_SFX, error_sound))
 	Events.enemy_died.connect(play_sound.bind(enemy_SFX, enemy_die_sound))
