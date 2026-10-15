@@ -155,6 +155,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		_change_health(health,max_health)
 		body.queue_free()
 	if health <= 0:
+		Events.enemy_died.emit()
 		queue_free()
 
 
