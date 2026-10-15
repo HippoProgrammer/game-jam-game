@@ -56,7 +56,9 @@ func _physics_process(delta: float) -> void:
 	if state == State.spotted:
 		_spotted(delta)
 	if state == State.attack:
-		pass
+		attack_timer.paused = false
+	else:
+		attack_timer.paused = true
 	
 	if state != State.idle:
 		look_at(target.global_position) 
@@ -69,16 +71,10 @@ func _change_health(new: float, max_value: float):
 
 func _check_state() -> State:
 	if _check_attack():
-		if attack_timer.paused:
-			attack_timer.paused = false
 		return State.attack
 	elif _check_los():
-		#if not attack_timer.paused:
-		#	attack_timer.paused = true
 		return State.spotted
 	else:
-		if not attack_timer.paused:
-			attack_timer.paused = true
 		return State.idle
 
 # then we can just derive behavoiur from here, ie. state idle has its own distinct behavoiur from attack...
