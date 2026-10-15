@@ -25,6 +25,9 @@ window/stretch/aspect="expand"
 Player="This is the player character"
 MMButtonIndicator="This is the selected button indicator in the main menu"
 MMButtonsContainer="The container for the buttons on the main menu"
+Antigens="The antigen must be in here"
+Toxins="All toxins should be in here"
+PlayerHealthBar="This is the player's health bar"
 
 [input]
 
@@ -83,6 +86,7 @@ right_click={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
