@@ -7,7 +7,6 @@ var rand : float
 # import toxins
 var toxin_scene = preload("res://scenes/enemy_stuff/toxin.tscn")
 @onready var toxin_spawner = $Sprite2D/ToxinSpawner
-@onready var attack_damage = get_meta("attack_damage")
 
 # stats and meta
 @onready var max_health = get_meta("max_health")
@@ -20,6 +19,8 @@ var movement_delta: float
 # attack
 var attack_timer: Timer
 @onready var reload = 2.0
+@onready var attack_damage = get_meta("attack_damage")
+
 
 # state
 enum State {idle, spotted, attack}
@@ -73,9 +74,14 @@ func _check_state() -> State:
 	if _check_attack():
 		return State.attack
 	elif _check_los():
+		if not attack_timer.paused:
+			attack_timer.paused = true
 		return State.spotted
 	else:
+		if not attack_timer.paused:
+			attack_timer.paused = true
 		return State.idle
+
 
 # then we can just derive behavoiur from here, ie. state idle has its own distinct behavoiur from attack...
 

@@ -35,10 +35,11 @@ func _process(_delta: float) -> void:
 		call(buttons[button_index].name)
 
 func _start_game():
-	print("Start Game button pressed")
+	#print("Start Game button pressed")
 	get_tree().change_scene_to_file(main_game_scene)
 func _options():
-	print("Options button pressed")
+	pass
+	#print("Options button pressed")
 func _quit_game():
-	print("Quit Game button pressed")
+	#print("Quit Game button pressed")
 	get_tree().quit() # Quits game
