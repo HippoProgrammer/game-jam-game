@@ -43,7 +43,7 @@ var probability_health_change = 100
 
 func _ready() -> void:
 	
-	var attack_timer = Timer.new()
+	attack_timer = Timer.new()
 	attack_timer.wait_time = reload
 	attack_timer.autostart = true
 	attack_timer.one_shot = false
@@ -78,13 +78,14 @@ func _check_state() -> State:
 			attack_timer.paused = false
 		return State.attack
 	elif _check_los():
+		if not attack_timer.paused:
+			attack_timer.paused = true
 		return State.spotted
-		if not attack_timer.paused:
-			attack_timer.paused = true
 	else:
-		return State.idle
 		if not attack_timer.paused:
 			attack_timer.paused = true
+		return State.idle
+
 
 # then we can just derive behavoiur from here, ie. state idle has its own distinct behavoiur from attack...
 
