@@ -37,7 +37,7 @@ var base_scale: Vector2
 var dash_glucose_use: float = 20.0
 
 
-func _ready() -> void:	
+func _ready() -> void:
 	base_scale = scale
 	
 	glucose_changed.emit.call_deferred(glucose, max_glucose)
@@ -77,7 +77,10 @@ func dash():
 	dash_tween.tween_property(self, "scale", base_scale, 0.15)\
 		.set_trans(Tween.TRANS_BACK)\
 		.set_ease(Tween.EASE_OUT)
-		
+	
+	velocity = (get_global_mouse_position()-global_position).normalized() * dash_speed
+	max_velocity = max_velocity * dash_speed
+	
 	health_bar.material = load("res://palette_swap_resources/1_invuln_health_bar_light.tres")
 	await get_tree().create_timer(dash_duration/4).timeout
 	health_bar.material = load("res://palette_swap_resources/2_invuln_health_bar_full.tres")
@@ -85,6 +88,10 @@ func dash():
 	health_bar.material = load("res://palette_swap_resources/3_invuln_health_bar_dark.tres")
 	await get_tree().create_timer(dash_duration/4).timeout
 	health_bar.material = load("res://palette_swap_resources/0_health_bar.tres")
+	
+	velocity = velocity / dash_speed
+	max_velocity = max_velocity / dash_speed
+	
 	dashing = false
 
 func _physics_process(delta: float) -> void:
@@ -104,7 +111,7 @@ func _physics_process(delta: float) -> void:
 		dash()	
 	
 	if dashing:
-		position += dash_direction * dash_speed * delta
+		move_and_slide()
 		return
 	
 	# hopefully self explanatory
