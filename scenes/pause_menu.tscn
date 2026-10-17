@@ -31,7 +31,7 @@ script = ExtResource("1_n87rw")
 [node name="ColorRect" type="ColorRect" parent="." unique_id=738399726]
 offset_right = 1152.0
 offset_bottom = 648.0
-color = Color(0, 0, 0, 0.48235294)
+color = Color(0, 0, 0, 0.7764706)
 
 [node name="Title" type="Label" parent="." unique_id=1177029136]
 offset_top = 45.0
