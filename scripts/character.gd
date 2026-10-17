@@ -1,4 +1,4 @@
-extends Sprite2D
+extends CharacterBody2D
 
 var antigen_scene = preload("res://scenes/antigen.tscn")
 
@@ -23,14 +23,10 @@ signal health_changed(new_health: float, max_health: float)
 signal glucose_changed(new_glucose: float, max_glucose: float)
 
 # --- MOVEMENT ---
-var velocity = Vector2(0,0)
-var max_speed : float = 800
-var time_to_max_speed : float = 0.2
-var current_speed : float = 0
-var angle_deg = 0 # store angle at start
+var max_velocity : float = 400
+var time_to_max_velocity : float = 0.2
 
 # --- DASHING ---
-
 var dash_tween: Tween
 var is_dashing: bool = false
 var dash_speed: float = 2000.0
@@ -76,7 +72,7 @@ func dash():
 	scale = base_scale
 
 	dash_tween = create_tween()
-	dash_tween.tween_property(self, "scale", base_scale * Vector2(0.5, 1.6), 0.04)
+	dash_tween.tween_property(self, "scale", base_scale * Vector2(1.6, 0.5), 0.04)
 	dash_tween.tween_interval(dash_duration - 0.04)
 	dash_tween.tween_property(self, "scale", base_scale, 0.15)\
 		.set_trans(Tween.TRANS_BACK)\
@@ -97,8 +93,7 @@ func _physics_process(delta: float) -> void:
 	# --- SHOOTING ---
 	if not dashing:
 		# Makes the player look at the mouse
-		look_at(get_global_mouse_position()) 
-		rotation_degrees += 90
+		look_at(get_global_mouse_position())
 	
 	if Input.is_action_just_pressed("left_click"):
 		shoot_antigen()
@@ -112,41 +107,28 @@ func _physics_process(delta: float) -> void:
 		position += dash_direction * dash_speed * delta
 		return
 	
-	# --- MOVEMENT ---
-	var moving = true
-
 	# hopefully self explanatory
-	if Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_right"):
-		angle_deg = 45
-		current_speed = clamp(current_speed + (delta/time_to_max_speed) * max_speed,0,max_speed) # Calculates speed with acceleration
-	elif Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_left"):
-		angle_deg = 315
-		current_speed = clamp(current_speed + (delta/time_to_max_speed) * max_speed,0,max_speed)
-	elif Input.is_action_pressed("ui_down") and Input.is_action_pressed("ui_right"):
-		angle_deg = 135
-		current_speed = clamp(current_speed + (delta/time_to_max_speed) * max_speed,0,max_speed)
-	elif Input.is_action_pressed("ui_down") and Input.is_action_pressed("ui_left"):
-		angle_deg = 225
-		current_speed = clamp(current_speed + (delta/time_to_max_speed) * max_speed,0,max_speed)
-	elif Input.is_action_pressed("ui_up"):
-		angle_deg = 0
-		current_speed = clamp(current_speed + (delta/time_to_max_speed) * max_speed,0,max_speed)
-	elif Input.is_action_pressed("ui_right"):
-		angle_deg = 90
-		current_speed = clamp(current_speed + (delta/time_to_max_speed) * max_speed,0,max_speed)
-	elif Input.is_action_pressed("ui_down"):
-		angle_deg = 180
-		current_speed = clamp(current_speed + (delta/time_to_max_speed) * max_speed,0,max_speed)
-	elif Input.is_action_pressed("ui_left"):
-		angle_deg = 270
-		current_speed = clamp(current_speed + (delta/time_to_max_speed) * max_speed,0,max_speed)
-	else:
-		moving = false
-		current_speed = 0
+	if Input.is_action_pressed("ui_up"):
+		velocity.y = clamp(velocity.y - (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
+	if Input.is_action_pressed("ui_down"):
+		velocity.y = clamp(velocity.y + (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
+	if Input.is_action_pressed("ui_left"):
+		velocity.x = clamp(velocity.x - (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
+	if Input.is_action_pressed("ui_right"):
+		velocity.x = clamp(velocity.x + (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
 	
-	if moving:
-		velocity = Vector2.UP.rotated(deg_to_rad(angle_deg)) * current_speed
-		position += velocity * delta
+	if not(Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")) or (Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_down")):
+		if velocity.y > 0:
+			velocity.y = max(velocity.y - (delta / time_to_max_velocity) * max_velocity, 0)
+		elif velocity.y < 0:
+			velocity.y = min(velocity.y + (delta / time_to_max_velocity) * max_velocity, 0)
+	if not(Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right")) or (Input.is_action_pressed("ui_left") and Input.is_action_pressed("ui_right")):
+		if velocity.x > 0:
+			velocity.x = max(velocity.x - (delta / time_to_max_velocity) * max_velocity, 0)
+		elif velocity.x < 0:
+			velocity.x = min(velocity.x + (delta / time_to_max_velocity) * max_velocity, 0)
+	
+	move_and_slide()
 
 func _process(delta: float) -> void:
 	var old_glucose := glucose

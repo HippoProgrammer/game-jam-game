@@ -1,12 +1,15 @@
 extends Node2D
 
-# --- VARIABLES ---
+@onready var character = $CharacterBody2D
 
+# --- VARIABLES ---
 var rand : float
+
 
 # import toxins
 var toxin_scene = preload("res://scenes/enemy_stuff/toxin.tscn")
-@onready var toxin_spawner = $Sprite2D/ToxinSpawner
+
+@onready var toxin_spawner = $CharacterBody2D/ToxinSpawner
 
 # stats and meta
 @onready var max_health = get_meta("max_health")
@@ -30,14 +33,14 @@ var state := State.idle
 @onready var target = get_tree().get_first_node_in_group("Player")
 
 # get navigation agent and raycast
-@onready var nav: NavigationAgent2D = $NavigationAgent2D
-@onready var raycast: RayCast2D = $LOS
+@onready var nav: NavigationAgent2D = $CharacterBody2D/NavigationAgent2D
+@onready var raycast: RayCast2D = $CharacterBody2D/LOS
 
 # cloning
 var probability_health_change = 100
 
 # health bar
-@onready var health_bar: ProgressBar = $HealthBar
+@onready var health_bar: ProgressBar = $CharacterBody2D/HealthBar
 
 
 # Godot functions
@@ -64,7 +67,8 @@ func _physics_process(delta: float) -> void:
 	
 	if state != State.idle or state != State.dying:
 		look_at(target.global_position) 
-
+	
+	character.move_and_slide()
 # --- USER FUNCTIONS ---
 
 func _change_health(new: float, max_value: float):
@@ -145,7 +149,7 @@ func _spotted(delta) -> void:
 
 # i don't actually think this is necessary
 func _on_velocity_computed(safe_velocity: Vector2) -> void: #https://docs.godotengine.org/en/stable/tutorials/navigation/navigation_using_navigationagents.html
-	global_position += safe_velocity * get_physics_process_delta_time()
+	character.global_position += safe_velocity * get_physics_process_delta_time()
 
 func _duplicate_self() -> void:
 	# Make an animation, add that here
@@ -158,6 +162,17 @@ func _duplicate_self() -> void:
 		new_enemy.scale *= rand
 	get_parent().call_deferred("add_child",new_enemy)
 
+
+
+func _die() -> void:
+	state = State.dying
+	
+	var mat := $CharacterBody2D/Sprite2D.material as ShaderMaterial
+	var tween = create_tween()
+	tween.tween_property(mat, "shader_parameter/progress", 1.0, 0.6)
+	await tween.finished
+	queue_free()
+
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if state == State.dying:
 		return
@@ -168,15 +183,6 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	if health <= 0:
 		Events.enemy_died_sound.emit()
 		_die()
-
-func _die() -> void:
-	state = State.dying
-	
-	var mat := $Sprite2D.material as ShaderMaterial
-	var tween = create_tween()
-	tween.tween_property(mat, "shader_parameter/progress", 1.0, 0.6)
-	await tween.finished
-	queue_free()
   
   
 # obligatory pf 🏳️‍🌈
