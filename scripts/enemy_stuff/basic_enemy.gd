@@ -164,9 +164,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	
 	if body.is_in_group("Antigens"):
 		health -= body.get_meta("attack_damage")
-		Events.enemy_died_sound.emit()
 		_change_health(health,max_health)
-		_die()
 	if health <= 0:
 		Events.enemy_died_sound.emit()
 		_die()
