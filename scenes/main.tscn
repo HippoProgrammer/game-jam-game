@@ -22,7 +22,7 @@ texture = ExtResource("1_tefeu")
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=963121908]
 position = Vector2(113.5, -84.5)
 scale = Vector2(1.6054688, 1.7304688)
-color = Color(0.28414872, 0.28414872, 0.2841487, 1)
+color = Color(0.11858138, 0.11858139, 0.11858133, 1)
 
 [node name="Sound" parent="." unique_id=457052338 instance=ExtResource("1_tbgi4")]
 

@@ -11,9 +11,13 @@ normal_texture = ExtResource("2_dqkch")
 specular_texture = ExtResource("3_qlg0r")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
-radius = 520.3844
+radius = 520.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_22vlk"]
+polygon = PackedVector2Array(31, 0, 28.64, 11.86, 21.92, 21.92, 11.86, 28.64, 0, 31, -11.86, 28.64, -21.92, 21.92, -28.64, 11.86, -31, 0, -28.64, -11.86, -21.92, -21.92, -11.86, -28.64, 0, -31, 11.86, -28.64, 21.92, -21.92, 28.64, -11.86, 31, 0)
 
 [node name="Player" type="Node2D" unique_id=401100565]
+scale = Vector2(0.5, 0.5)
 
 [node name="Character" type="Sprite2D" parent="." unique_id=1076164463 groups=["Player"]]
 rotation = 1.5707964
@@ -41,5 +45,9 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Character/CharacterBody2D/Hitbox" unique_id=1071425055 groups=["Player"]]
 shape = SubResource("CircleShape2D_g2els")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=1895639393]
+position = Vector2(-8, 0)
+occluder = SubResource("OccluderPolygon2D_22vlk")
 
 [connection signal="body_entered" from="Character/CharacterBody2D/Hitbox" to="Character" method="_on_hitbox_body_entered"]

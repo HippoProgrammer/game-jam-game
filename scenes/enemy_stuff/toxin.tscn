@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://jkrfavnym865" path="res://scripts/enemy_stuff/toxin.gd" id="1_wx0fl"]
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="2_npgi2"]
+[ext_resource type="Texture2D" uid="uid://cfmw13ov4gnxv" path="res://artwork/Temp_Assets/neutral_light.webp" id="3_2nxk3"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_15cnv"]
 diffuse_texture = ExtResource("2_npgi2")
@@ -22,3 +23,9 @@ texture = SubResource("CanvasTexture_15cnv")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1296605289]
 scale = Vector2(0.234375, 0.234375)
 shape = SubResource("CircleShape2D_rmea8")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=930688253]
+scale = Vector2(4.5078125, 2.6914063)
+color = Color(1, 0, 0, 1)
+energy = 3.0
+texture = ExtResource("3_2nxk3")
