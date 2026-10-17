@@ -3,6 +3,13 @@
 [ext_resource type="Script" uid="uid://byuwvg1sm1gfe" path="res://scripts/enemy_stuff/basic_enemy.gd" id="1_7jpia"]
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="2_8xi43"]
 [ext_resource type="Script" uid="uid://qga0burrlqo7" path="res://scripts/enemy_stuff/enemy_nav_agent.gd" id="2_ibjif"]
+[ext_resource type="Shader" uid="uid://d4eavjtjvnlhs" path="res://scripts/enemy_stuff/enemy_dissolve.gdshader" id="3_3065o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qlg0r"]
+resource_local_to_scene = true
+shader = ExtResource("3_3065o")
+shader_parameter/progress = 0.0
+shader_parameter/block_size = 2.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_qhqgy"]
 diffuse_texture = ExtResource("2_8xi43")
@@ -33,6 +40,7 @@ script = ExtResource("2_ibjif")
 collision_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=529130266]
+material = SubResource("ShaderMaterial_qlg0r")
 texture = SubResource("CanvasTexture_qhqgy")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="Sprite2D" unique_id=1736612286]

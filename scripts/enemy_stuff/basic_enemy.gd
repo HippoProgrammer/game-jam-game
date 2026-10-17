@@ -23,7 +23,7 @@ var attack_timer: Timer
 
 
 # state
-enum State {idle, spotted, attack}
+enum State {idle, spotted, attack, dying}
 var state := State.idle
 
 # target the player
@@ -38,6 +38,7 @@ var probability_health_change = 100
 
 # health bar
 @onready var health_bar: ProgressBar = $HealthBar
+
 
 # Godot functions
 
@@ -60,7 +61,7 @@ func _physics_process(delta: float) -> void:
 	if state == State.attack:
 		pass
 	
-	if state != State.idle:
+	if state != State.idle or state != State.dying:
 		look_at(target.global_position) 
 
 
@@ -73,7 +74,11 @@ func _change_health(new: float, max_value: float):
 
 
 func _check_state() -> State:
-	if _check_attack():
+	if state == State.dying:
+		if not attack_timer.paused:
+			attack_timer.paused = true
+		return State.dying
+	elif _check_attack():
 		if attack_timer.paused:
 			attack_timer.paused = false
 		return State.attack
@@ -164,14 +169,24 @@ func _duplicate_self() -> void:
 	get_parent().call_deferred("add_child",new_enemy)
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
+	if state == State.dying:
+		return
+	
 	if body.is_in_group("Antigens"):
 		health -= body.get_meta("attack_damage")
+		Events.enemy_died_sound.emit()
 		_change_health(health,max_health)
-		body.queue_free()
+		_die()
 	if health <= 0:
 		Events.enemy_died_sound.emit()
-		queue_free()
+		_die()
 
-
-
+func _die() -> void:
+	state = State.dying
+	
+	var mat := $Sprite2D.material as ShaderMaterial
+	var tween = create_tween()
+	tween.tween_property(mat, "shader_parameter/progress", 1.0, 0.6)
+	await tween.finished
+	queue_free()
 # obligatory pf 🏳️‍🌈
