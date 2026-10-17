@@ -1,9 +1,74 @@
 [gd_scene format=3 uid="uid://baxuyhnqidfqg"]
 
-[node name="PauseMenu" type="Control" unique_id=1190140519]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[ext_resource type="Script" uid="uid://4u32uv0ptago" path="res://scripts/pause_menu.gd" id="1_n87rw"]
+[ext_resource type="FontFile" uid="uid://0aelhvskslt4" path="res://artwork/Fonts/Titles/Astloch-Bold.ttf" id="2_myx47"]
+[ext_resource type="FontFile" uid="uid://bamd7l21cxv7f" path="res://artwork/Fonts/Body/HennyPenny-Regular.ttf" id="3_kukqi"]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=174045680]
+[sub_resource type="LabelSettings" id="LabelSettings_myx47"]
+font = ExtResource("2_myx47")
+font_size = 150
+
+[sub_resource type="LabelSettings" id="LabelSettings_kukqi"]
+font = ExtResource("3_kukqi")
+font_size = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_5d2l8"]
+font = ExtResource("3_kukqi")
+font_size = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_7l7mv"]
+font = ExtResource("3_kukqi")
+font_size = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_v4r4p"]
+font = ExtResource("2_myx47")
+font_size = 60
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=505931995 groups=["PauseMenu"]]
+process_mode = 3
+script = ExtResource("1_n87rw")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=738399726]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.48235294)
+
+[node name="Title" type="Label" parent="." unique_id=1177029136]
+offset_top = 45.0
+offset_right = 1152.0
+offset_bottom = 191.0
+text = "Paused"
+label_settings = SubResource("LabelSettings_myx47")
+horizontal_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=1346528252 groups=["MMButtonsContainer"]]
+offset_top = 233.0
+offset_right = 1152.0
+offset_bottom = 508.0
+theme_override_constants/separation = -30
+
+[node name="_resume" type="Label" parent="Buttons" unique_id=1686630468]
+layout_mode = 2
+text = "Resume"
+label_settings = SubResource("LabelSettings_kukqi")
+horizontal_alignment = 1
+
+[node name="_options" type="Label" parent="Buttons" unique_id=27409834]
+layout_mode = 2
+text = "Options"
+label_settings = SubResource("LabelSettings_5d2l8")
+horizontal_alignment = 1
+
+[node name="_quit_game" type="Label" parent="Buttons" unique_id=1282550243]
+layout_mode = 2
+text = "Quit Game"
+label_settings = SubResource("LabelSettings_7l7mv")
+horizontal_alignment = 1
+
+[node name="SelectedButtonIndicator" type="Label" parent="." unique_id=1955574269 groups=["MMButtonIndicator"]]
+offset_top = 237.0
+offset_right = 1152.0
+offset_bottom = 322.0
+text = ">                             <"
+label_settings = SubResource("LabelSettings_v4r4p")
+horizontal_alignment = 1

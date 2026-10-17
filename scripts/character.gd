@@ -4,8 +4,9 @@ var antigen_scene = preload("res://scenes/antigen.tscn")
 
 @onready var antigen_spawner = $AntigenSpawner
 @onready var health_bar = get_tree().get_first_node_in_group("PlayerHealthBar")
+@onready var pause_menu = get_tree().get_first_node_in_group("PauseMenu")
 
-var health_bar_inter_frame_time = 0.1
+var health_bar_inter_frame_time = 0.08
 
 # --- PLAYER STATS ---
 
@@ -157,6 +158,9 @@ func _process(delta: float) -> void:
 		glucose_changed.emit(glucose, max_glucose)
 	if health != old_health:
 		health_changed.emit(health, max_health)
+	
+	if Input.is_action_just_pressed("escape"):
+		pause_menu.show()
 
 func _game_over() -> void:
 	# Display end screen, this is temporary
