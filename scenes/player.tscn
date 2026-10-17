@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dlfkmnvkalefo"]
 
-[ext_resource type="Texture2D" uid="uid://bgb752s0c0e22" path="res://artwork/MainChara/WhiteBlood.png" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://c30j8uh45y7vl" path="res://artwork/MainChara/WhiteBlood.png" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://uah1qe25348k" path="res://artwork/MainChara/WhiteBlood_n.png" id="2_dqkch"]
 [ext_resource type="Script" uid="uid://bri8518e6eia3" path="res://scripts/character.gd" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://b2l0583ciqvri" path="res://artwork/MainChara/WhiteBlood_s.png" id="3_qlg0r"]
