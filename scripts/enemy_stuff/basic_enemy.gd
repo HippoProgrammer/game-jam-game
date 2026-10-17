@@ -72,8 +72,8 @@ func _change_health(new: float, max_value: float):
 	health_bar.value = new
 
 func _check_state() -> State:
-  if state == State.dying:
-    return State.dying
+	if state == State.dying:
+		return State.dying
 	elif _check_attack():
 		return State.attack
 	elif _check_los():
