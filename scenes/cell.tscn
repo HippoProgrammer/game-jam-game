@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://b5mm4pbq332bq"]
+
+[ext_resource type="Script" uid="uid://c6v7qof2dbml5" path="res://scripts/cell.gd" id="1_upbjj"]
+[ext_resource type="Texture2D" uid="uid://cfmw13ov4gnxv" path="res://artwork/Temp_Assets/neutral_light.webp" id="2_0s7o3"]
+[ext_resource type="Shader" uid="uid://d4eavjtjvnlhs" path="res://scripts/enemy_stuff/enemy_dissolve.gdshader" id="2_ds1sf"]
+[ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="3_ecwuj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k6tqi"]
+resource_local_to_scene = true
+shader = ExtResource("2_ds1sf")
+shader_parameter/progress = 0.0
+shader_parameter/block_size = 2.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_4kve2"]
+diffuse_texture = ExtResource("3_ecwuj")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k4tsc"]
+size = Vector2(109, 113)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ds1sf"]
+size = Vector2(109, 113)
+
+[node name="Cell" type="Node2D" unique_id=1873970965]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_upbjj")
+metadata/max_health = 500
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=310833080]
+material = SubResource("ShaderMaterial_k6tqi")
+texture = SubResource("CanvasTexture_4kve2")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Sprite2D" unique_id=1925479969]
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/CharacterBody2D" unique_id=1243945999]
+rotation = 0.00016523933
+shape = SubResource("RectangleShape2D_k4tsc")
+
+[node name="Hitbox" type="Area2D" parent="Sprite2D/CharacterBody2D" unique_id=1743522092]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/CharacterBody2D/Hitbox" unique_id=1112966124]
+rotation = 0.00016523933
+shape = SubResource("RectangleShape2D_ds1sf")
+
+[node name="PointLight2D" type="PointLight2D" parent="Sprite2D" unique_id=1752685726]
+scale = Vector2(4.5078125, 2.6914063)
+color = Color(0.10980392, 0.93333334, 0.14117648, 1)
+energy = 3.0
+shadow_enabled = true
+texture = ExtResource("2_0s7o3")
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=780294916]
+offset_left = -63.0
+offset_top = -95.0
+offset_right = 61.0
+offset_bottom = -65.0
+
+[connection signal="body_entered" from="Sprite2D/CharacterBody2D/Hitbox" to="." method="_on_hitbox_body_entered"]

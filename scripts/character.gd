@@ -47,10 +47,10 @@ func _ready() -> void:
 	health_changed.emit.call_deferred(health, max_health)
 
 func shoot_antigen():
-	if ammo == 0: # @GoldenFootie should we do glucose for this?
-		Events.error_sound.emit()
-		return
-	ammo -= 1
+	#if ammo == 0: # @GoldenFootie should we do glucose for this?
+		#Events.error_sound.emit()
+		#return
+	#ammo -= 1
 	
 	var antigen = antigen_scene.instantiate()
 	owner.add_child(antigen)
