@@ -43,7 +43,6 @@ var probability_health_change = 100
 # Godot functions
 
 func _ready() -> void:
-	
 	attack_timer = Timer.new()
 	attack_timer.wait_time = reload
 	attack_timer.autostart = true
@@ -59,12 +58,12 @@ func _physics_process(delta: float) -> void:
 	if state == State.spotted:
 		_spotted(delta)
 	if state == State.attack:
-		pass
+		attack_timer.paused = false
+	else:
+		attack_timer.paused = true
 	
 	if state != State.idle or state != State.dying:
 		look_at(target.global_position) 
-
-
 
 # --- USER FUNCTIONS ---
 
@@ -72,15 +71,10 @@ func _change_health(new: float, max_value: float):
 	health_bar.max_value = max_value
 	health_bar.value = new
 
-
 func _check_state() -> State:
-	if state == State.dying:
-		if not attack_timer.paused:
-			attack_timer.paused = true
-		return State.dying
+  if state == State.dying:
+    return State.dying
 	elif _check_attack():
-		if attack_timer.paused:
-			attack_timer.paused = false
 		return State.attack
 	elif _check_los():
 		if not attack_timer.paused:
@@ -93,8 +87,6 @@ func _check_state() -> State:
 
 
 # then we can just derive behavoiur from here, ie. state idle has its own distinct behavoiur from attack...
-
-
 
 # attack
 
@@ -124,8 +116,6 @@ func _check_los() -> bool:
 	raycast.target_position = raycast.to_local(target.global_position)
 	raycast.force_raycast_update()
 	return raycast.is_colliding() and raycast.get_collider().is_in_group("Player")
-
-
 
 func _chase(delta) -> void:
 	#print("chasing")
@@ -189,4 +179,6 @@ func _die() -> void:
 	tween.tween_property(mat, "shader_parameter/progress", 1.0, 0.6)
 	await tween.finished
 	queue_free()
+  
+  
 # obligatory pf 🏳️‍🌈
