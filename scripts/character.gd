@@ -67,6 +67,7 @@ func dash():
 	glucose -= dash_glucose_use
 	
 	dashing = true
+	Events.dash_sound.emit()
 	dash_direction = (get_global_mouse_position() - global_position).normalized()
 
 	if dash_tween:

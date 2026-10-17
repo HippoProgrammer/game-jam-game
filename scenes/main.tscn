@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://c42rvvvlc7iwv" path="res://scenes/enemy_stuff/basic_enemy.tscn" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dlfkmnvkalefo" path="res://scenes/player.tscn" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://df56635vv31xq" path="res://scenes/sound.tscn" id="1_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://cfmw13ov4gnxv" path="res://artwork/Temp_Assets/neutral_light.webp" id="1_tefeu"]
 [ext_resource type="Script" uid="uid://coedyelriw41n" path="res://scripts/camera_script.gd" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://cilmvhpq6adfm" path="res://scenes/HUD.tscn" id="3_sugp2"]
 
@@ -12,6 +13,16 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-968, 396, 165, 410, 177, -218, -975, -221)])
 
 [node name="Main" type="Node2D" unique_id=577279995]
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=816433477]
+position = Vector2(11.000015, -27.5)
+scale = Vector2(4.5078125, 2.6914063)
+texture = ExtResource("1_tefeu")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=963121908]
+position = Vector2(113.5, -84.5)
+scale = Vector2(1.6054688, 1.7304688)
+color = Color(0.28414872, 0.28414872, 0.2841487, 1)
 
 [node name="Sound" parent="." unique_id=457052338 instance=ExtResource("1_tbgi4")]
 
