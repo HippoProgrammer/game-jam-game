@@ -1,7 +1,7 @@
 extends Node2D
 
 var controlled_by = "enemy"
-var regen = 5 # Regenerated health per second, while state = regen
+var regen = 1 # Regenerated health per second, while state = regen
 
 enum State {no_regen,regen}
 var state = State.no_regen
@@ -37,13 +37,12 @@ func _process(delta: float) -> void:
 	
 	if health <= 0:
 		state = State.regen
+		health = 0.1
 		
 		if controlled_by == "player":
 			_virus_capture()
 		elif controlled_by == "enemy":
 			_player_capture()
-		
-		health += 1
 	
 	elif health == max_health:
 		state = State.no_regen
@@ -71,4 +70,5 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Toxins") and controlled_by == "player":
 		health -= body.get_meta("attack_damage")
 		body.queue_free()
+		
 	_change_health(health,max_health)
