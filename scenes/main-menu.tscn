@@ -1,21 +1,28 @@
 [gd_scene format=3 uid="uid://cua5eq4mtfe3n"]
 
 [ext_resource type="Script" uid="uid://dl0owis63ky18" path="res://scripts/main_menu_script.gd" id="1_rk22q"]
+[ext_resource type="FontFile" uid="uid://bjqteeg6g7sul" path="res://artwork/Fonts/Titles/RubikMicrobe-Regular.ttf" id="2_hf3n6"]
+[ext_resource type="FontFile" uid="uid://clm4igkhbs182" path="res://artwork/Fonts/Body/PT Sans/PTSans-BoldItalic.ttf" id="3_xg1py"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_22vlk"]
-font_size = 80
+font = ExtResource("2_hf3n6")
+font_size = 120
 
 [sub_resource type="LabelSettings" id="LabelSettings_v7ihv"]
-font_size = 50
+font = ExtResource("3_xg1py")
+font_size = 60
 
 [sub_resource type="LabelSettings" id="LabelSettings_vapsj"]
-font_size = 50
+font = ExtResource("3_xg1py")
+font_size = 60
 
 [sub_resource type="LabelSettings" id="LabelSettings_f1fi5"]
-font_size = 50
+font = ExtResource("3_xg1py")
+font_size = 60
 
 [sub_resource type="LabelSettings" id="LabelSettings_lyxsl"]
-font_size = 50
+font = ExtResource("3_xg1py")
+font_size = 60
 
 [node name="MainMenu" type="Node2D" unique_id=818658080]
 script = ExtResource("1_rk22q")
@@ -23,18 +30,17 @@ script = ExtResource("1_rk22q")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1097024666]
 
 [node name="Title" type="Label" parent="CanvasLayer" unique_id=936128786]
-offset_left = 321.0
-offset_top = 33.0
-offset_right = 831.0
-offset_bottom = 143.0
+offset_top = 61.0
+offset_right = 1152.0
+offset_bottom = 204.0
 text = "Lorem Ipsum"
 label_settings = SubResource("LabelSettings_22vlk")
 horizontal_alignment = 1
 
 [node name="Buttons" type="VBoxContainer" parent="CanvasLayer" unique_id=2088601510 groups=["MMButtonsContainer"]]
-offset_top = 200.0
+offset_top = 229.0
 offset_right = 1152.0
-offset_bottom = 415.0
+offset_bottom = 474.0
 
 [node name="_start_game" type="Label" parent="CanvasLayer/Buttons" unique_id=223562830]
 layout_mode = 2
@@ -55,9 +61,9 @@ label_settings = SubResource("LabelSettings_f1fi5")
 horizontal_alignment = 1
 
 [node name="SelectedButtonIndicator" type="Label" parent="CanvasLayer" unique_id=513903811 groups=["MMButtonIndicator"]]
-offset_top = 200.0
+offset_top = 228.0
 offset_right = 1152.0
-offset_bottom = 269.0
+offset_bottom = 307.0
 text = ">                             <"
 label_settings = SubResource("LabelSettings_lyxsl")
 horizontal_alignment = 1

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="1_15cnv"]
 [ext_resource type="Script" uid="uid://dxd6noxsqiax8" path="res://scripts/antigen.gd" id="1_rmea8"]
-[ext_resource type="Texture2D" uid="uid://cfmw13ov4gnxv" path="res://artwork/Temp_Assets/neutral_light.webp" id="3_vghym"]
+[ext_resource type="Texture2D" uid="uid://cfmw13ov4gnxv" path="res://artwork/MainChara/neutral_light.webp" id="3_vghym"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_15cnv"]
 diffuse_texture = ExtResource("1_15cnv")

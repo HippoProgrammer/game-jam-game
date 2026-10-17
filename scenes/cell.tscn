@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b5mm4pbq332bq"]
 
 [ext_resource type="Script" uid="uid://c6v7qof2dbml5" path="res://scripts/cell.gd" id="1_upbjj"]
-[ext_resource type="Texture2D" uid="uid://cfmw13ov4gnxv" path="res://artwork/Temp_Assets/neutral_light.webp" id="2_0s7o3"]
+[ext_resource type="Texture2D" uid="uid://cfmw13ov4gnxv" path="res://artwork/MainChara/neutral_light.webp" id="2_0s7o3"]
 [ext_resource type="Shader" uid="uid://d4eavjtjvnlhs" path="res://scripts/enemy_stuff/enemy_dissolve.gdshader" id="2_ds1sf"]
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="3_ecwuj"]
 
@@ -38,7 +38,7 @@ shape = SubResource("RectangleShape2D_k4tsc")
 
 [node name="Hitbox" type="Area2D" parent="Sprite2D/CharacterBody2D" unique_id=1743522092]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/CharacterBody2D/Hitbox" unique_id=1112966124]
 rotation = 0.00016523933

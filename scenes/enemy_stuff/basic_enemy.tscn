@@ -34,42 +34,42 @@ metadata/los_range = 100.0
 metadata/scale = 1.0
 metadata/attack_damage = 10.0
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=507440377]
-script = ExtResource("2_ibjif")
-
-[node name="LOS" type="RayCast2D" parent="." unique_id=431441184]
-collision_mask = 3
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=529130266]
-material = SubResource("ShaderMaterial_qlg0r")
-texture = SubResource("CanvasTexture_qhqgy")
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="Sprite2D" unique_id=1736612286]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1736612286]
 collision_mask = 5
 motion_mode = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/CharacterBody2D" unique_id=950839941]
-rotation = 0.00016523933
-shape = SubResource("RectangleShape2D_ibjif")
-
-[node name="Hitbox" type="Area2D" parent="Sprite2D/CharacterBody2D" unique_id=903805313]
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/CharacterBody2D/Hitbox" unique_id=1382414125]
-rotation = 0.00016523933
-shape = SubResource("RectangleShape2D_ibjif")
-
-[node name="ToxinSpawner" type="Marker2D" parent="Sprite2D" unique_id=283802102]
-position = Vector2(72, 0)
-
-[node name="HealthBar" type="ProgressBar" parent="." unique_id=1359599168]
+[node name="HealthBar" type="ProgressBar" parent="CharacterBody2D" unique_id=1359599168]
 offset_left = -63.0
 offset_top = -95.0
 offset_right = 61.0
 offset_bottom = -65.0
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=1954342921]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D" unique_id=507440377]
+script = ExtResource("2_ibjif")
+
+[node name="LOS" type="RayCast2D" parent="CharacterBody2D" unique_id=431441184]
+collision_mask = 3
+
+[node name="ToxinSpawner" type="Marker2D" parent="CharacterBody2D" unique_id=283802102]
+position = Vector2(72, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=529130266]
+material = SubResource("ShaderMaterial_qlg0r")
+texture = SubResource("CanvasTexture_qhqgy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=950839941]
+rotation = 0.00016523933
+shape = SubResource("RectangleShape2D_ibjif")
+
+[node name="Hitbox" type="Area2D" parent="CharacterBody2D" unique_id=903805313]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Hitbox" unique_id=1382414125]
+rotation = 0.00016523933
+shape = SubResource("RectangleShape2D_ibjif")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="CharacterBody2D" unique_id=1954342921]
 occluder = SubResource("OccluderPolygon2D_yx0xg")
 
-[connection signal="body_entered" from="Sprite2D/CharacterBody2D/Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="CharacterBody2D/Hitbox" to="." method="_on_hitbox_body_entered"]

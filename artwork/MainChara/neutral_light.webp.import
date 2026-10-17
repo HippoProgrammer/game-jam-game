@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmt5wigqslbeg"
-path="res://.godot/imported/White-Blood-Cell_n.png-7a5bcb7ebf786c9203131d698e528716.ctex"
+uid="uid://cfmw13ov4gnxv"
+path="res://.godot/imported/neutral_light.webp-0aa8827092474ea2d09138264710fd72.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://artwork/Temp_Assets/White-Blood-Cell_n.png"
-dest_files=["res://.godot/imported/White-Blood-Cell_n.png-7a5bcb7ebf786c9203131d698e528716.ctex"]
+source_file="res://artwork/MainChara/neutral_light.webp"
+dest_files=["res://.godot/imported/neutral_light.webp-0aa8827092474ea2d09138264710fd72.ctex"]
 
 [params]
 
