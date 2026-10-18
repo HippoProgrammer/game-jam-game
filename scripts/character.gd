@@ -158,7 +158,8 @@ func _game_over() -> void:
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if not dashing:
 		if body.is_in_group("Toxins"):
-			print("Player hit")
+			Events.player_take_damage.emit()
+			#print("Player hit")
 			health -= body.get_meta("attack_damage",0)
 			body.queue_free()
 			_animate_health_bar()
