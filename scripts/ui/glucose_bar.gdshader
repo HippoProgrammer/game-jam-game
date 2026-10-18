@@ -40,9 +40,12 @@ float calculate_wave_offset(float frequency, float amplitude, float time_multipl
     return sin(uv.x * frequency + TIME * time_multiplier) * amplitude;
 }
 
-// Encapsulates color blending logic
+// Encapsulates color blending logic (alpha-aware "over" compositing)
 vec4 blend_water_color(vec4 base_color, vec4 water_color, float mask) {
-    return mix(base_color, water_color, water_color.a * mask);
+    float a = water_color.a * mask;
+    float out_a = a + base_color.a * (1.0 - a);
+    vec3 out_rgb = (water_color.rgb * a + base_color.rgb * base_color.a * (1.0 - a)) / max(out_a, 0.0001);
+    return vec4(out_rgb, out_a);
 }
 
 void fragment() {
@@ -79,7 +82,8 @@ void fragment() {
     float noise_offset = noise * 0.05;
     vec2 noisy_uv = uv + vec2(noise_offset);
 
-    vec4 final_color = tex_color;
+    // Start fully transparent so anything not shaded stays see-through
+    vec4 final_color = vec4(0.0);
 
     if (is_below_water_1 && mask > 0.0) {
         final_color = blend_water_color(final_color, water_color_1, mask);
