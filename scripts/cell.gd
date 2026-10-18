@@ -1,5 +1,6 @@
 extends Node2D
 
+# Please tell me that this works...
 var controlled_by = "enemy"
 
 var regen = 5 # Regenerated health per second, while state = regen
