@@ -38,10 +38,16 @@ text = "Back"
 label_settings = ExtResource("3_snsgv")
 horizontal_alignment = 1
 
+[node name="_meme_SFX" type="Label" parent="Buttons" unique_id=245655672]
+layout_mode = 2
+text = "Meme Sound Effects: Off"
+label_settings = ExtResource("3_snsgv")
+horizontal_alignment = 1
+
 [node name="Sliders" type="VBoxContainer" parent="." unique_id=316695657 groups=["MMButtonsContainer"]]
-offset_top = 375.0
+offset_top = 390.0
 offset_right = 1152.0
-offset_bottom = 547.0
+offset_bottom = 562.0
 theme_override_constants/separation = -30
 
 [node name="_effects_scale_label" type="Label" parent="Sliders" unique_id=1927188060]
@@ -60,6 +66,6 @@ ticks_on_borders = true
 offset_top = 237.0
 offset_right = 1152.0
 offset_bottom = 322.0
-text = ">                             <"
+text = ">                                              <"
 label_settings = SubResource("LabelSettings_v4r4p")
 horizontal_alignment = 1

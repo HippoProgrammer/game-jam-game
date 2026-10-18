@@ -52,3 +52,10 @@ func _back() -> void:
 	hide()
 	pause_menu.show()
 	get_tree().paused = false
+func _meme_SFX() -> void:
+	if Events.meme_SFX:
+		Events.meme_SFX = false
+		$Buttons/_meme_SFX.text = "Meme Sound Effects: Off"
+	else:
+		Events.meme_SFX = true
+		$Buttons/_meme_SFX.text = "Meme Sound Effects: On"
