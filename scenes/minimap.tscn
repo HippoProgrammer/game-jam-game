@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dmrjqd12j74cf"]
+
+[ext_resource type="Script" uid="uid://cpmk3pbein8s3" path="res://scripts/minimap_subviewport.gd" id="1_lj7mc"]
+
+[node name="Minimap" type="CanvasLayer" unique_id=454228334]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1011507874]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -197.0
+offset_top = -197.0
+offset_right = -22.0
+offset_bottom = -22.0
+grow_horizontal = 0
+grow_vertical = 0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=2022942081 node_paths=PackedStringArray("camera_node")]
+handle_input_locally = false
+size = Vector2i(175, 175)
+render_target_update_mode = 4
+script = ExtResource("1_lj7mc")
+camera_node = NodePath("Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport" unique_id=765652256]
