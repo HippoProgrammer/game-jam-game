@@ -184,5 +184,8 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		Events.enemy_died_sound.emit()
 		_die()
   
+func _ext_heal(amount:float, delta):
+	health += amount*delta
+
   
 # obligatory pf 🏳️‍🌈

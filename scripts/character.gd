@@ -174,4 +174,8 @@ func _animate_health_bar() -> void:
 	await get_tree().create_timer(health_bar_inter_frame_time).timeout
 	health_bar.material = load("res://palette_swap_resources/0_health_bar.tres")
 	
+	
+func _ext_heal(amount:float, delta):
+	health += amount*delta
+
 # obligatory pf 🏳️‍🌈

@@ -64,7 +64,7 @@ func _process(delta: float) -> void:
 		state = State.no_regen
 	elif timer_until_regen >= time_until_regen:
 		state = State.regen
-	regen_entites(controlled_by)
+	regen_entites(controlled_by, delta)
 
 func _virus_capture() -> void:
 	controlled_by = "enemy"
@@ -104,7 +104,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		
 	_change_health(health,max_health)
 
-func regen_entites(controlled_by) -> void:
+func regen_entites(controlled_by, delta) -> void:
 	
 	var target: Node2D = null
 	if controlled_by == "player":
@@ -119,6 +119,10 @@ func regen_entites(controlled_by) -> void:
 		regen_emitter.emitting = true
 		#print("regenning")
 		#print(target)
+		if controlled_by == "enemy":
+			target.get_parent()._ext_heal(friendly_regen,delta)
+		else:
+			target._ext_heal(friendly_regen,delta) #damnthisisjammycodeandtotalllywon'tbreak
 		
 	else:
 		regen_emitter.emitting = false
