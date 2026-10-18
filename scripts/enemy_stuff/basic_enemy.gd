@@ -21,7 +21,7 @@ var movement_delta: float
 
 # attack
 var attack_timer: Timer
-@onready var reload = 2.0
+@onready var reload = get_meta("attack_reload")
 @onready var attack_damage = get_meta("attack_damage")
 
 

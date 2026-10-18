@@ -38,6 +38,7 @@ navigation_polygon = SubResource("NavigationPolygon_glkys")
 position = Vector2(424, -104)
 metadata/movement_speed = 100.0
 metadata/los_range = 100000.0
+metadata/attack_reload = 0.5
 
 [node name="Player" parent="." unique_id=401100565 instance=ExtResource("1_sugp2")]
 position = Vector2(-1258, 0)
