@@ -59,6 +59,12 @@ text = "Options"
 label_settings = SubResource("LabelSettings_5d2l8")
 horizontal_alignment = 1
 
+[node name="_save_game" type="Label" parent="Buttons" unique_id=1820581360]
+layout_mode = 2
+text = "Save Game"
+label_settings = SubResource("LabelSettings_5d2l8")
+horizontal_alignment = 1
+
 [node name="_quit_game" type="Label" parent="Buttons" unique_id=1282550243]
 layout_mode = 2
 text = "Quit Game"

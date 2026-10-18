@@ -65,7 +65,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		attack_timer.paused = true
 	
-	if state != State.idle or state != State.dying:
+	if (state != State.idle or state != State.dying) and target != null:
 		look_at(target.global_position) 
 	
 	character.move_and_slide()
@@ -95,6 +95,8 @@ func _check_state() -> State:
 # attack
 
 func _check_attack() -> bool:
+	if target == null:
+		return false
 	if global_position.distance_to(target.global_position) > get_meta("attack_range"):
 		return false
 	if not get_meta("needs_los"):
@@ -111,6 +113,8 @@ func _attack() -> void:
 	toxin.set_meta("attack_damage",attack_damage)
 
 func _check_los() -> bool:
+	if target == null:
+		return false
 	if global_position.distance_to(target.global_position) > get_meta("los_range"):
 		return false
 
@@ -187,5 +191,42 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 func _ext_heal(amount:float, delta):
 	health += amount*delta
 
+# --- SAVING ---
+func save() -> Dictionary:
+	var save_dict = {
+		"filename": get_scene_file_path(),
+		"parent": get_tree().current_scene.get_path_to(get_parent()),
+		"pos_x": position.x,
+		"pos_y": position.y,
+		"rotation": rotation,
+		"scale_x": scale.x,
+		"scale_y": scale.y,
+		"body_x": character.position.x,
+		"body_y": character.position.y,
+		"health": health,
+		"max_health": max_health,
+		"glucose": glucose,
+		"max_glucose": max_glucose,
+		"movement_speed": movement_speed,
+		"attack_damage": attack_damage,
+		"reload": reload,
+	}
+
+	return save_dict
+
+func load_data(data: Dictionary) -> void:
+	rotation = data["rotation"]
+	scale = Vector2(data["scale_x"], data["scale_y"])
+	character.position = Vector2(data["body_x"], data["body_y"])
+	health = data["health"]
+	max_health = data["max_health"]
+	glucose = data["glucose"]
+	max_glucose = data["max_glucose"]
+	movement_speed = data["movement_speed"]
+	attack_damage = data["attack_damage"]
+	reload = data["reload"]
+
+	attack_timer.wait_time = reload
+	_change_health(health, max_health)
   
 # obligatory pf 🏳️‍🌈

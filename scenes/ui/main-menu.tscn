@@ -54,6 +54,12 @@ text = "Options"
 label_settings = SubResource("LabelSettings_vapsj")
 horizontal_alignment = 1
 
+[node name="_load_game" type="Label" parent="CanvasLayer/Buttons" unique_id=419398491]
+layout_mode = 2
+text = "Load Game"
+label_settings = SubResource("LabelSettings_vapsj")
+horizontal_alignment = 1
+
 [node name="_quit_game" type="Label" parent="CanvasLayer/Buttons" unique_id=1230239882]
 layout_mode = 2
 text = "Quit Game"

@@ -138,3 +138,41 @@ func get_closest_enemy() -> Node2D:
 			closest = enemy
 
 	return closest
+
+
+# --- SAVING ---
+func save() -> Dictionary:
+	var save_dict = {
+		"filename": get_scene_file_path(),
+		"parent": get_tree().current_scene.get_path_to(get_parent()),
+		"pos_x": position.x,
+		"pos_y": position.y,
+		"rotation": rotation,
+		"scale_x": scale.x,
+		"scale_y": scale.y,
+		"controlled_by": controlled_by,
+		"health": health,
+		"max_health": max_health,
+		"state": state,
+		"timer_until_regen": timer_until_regen,
+	}
+
+	return save_dict
+
+func load_data(data: Dictionary) -> void:
+	rotation = data["rotation"]
+	scale = Vector2(data["scale_x"], data["scale_y"])
+	controlled_by = data["controlled_by"]
+	max_health = data["max_health"]
+	health = data["health"]
+	state = int(data["state"])
+	timer_until_regen = data["timer_until_regen"]
+
+	if controlled_by == "player":
+		light.color = "1CEE24"
+		regen_emitter.texture = player_regen_texture
+	else:
+		light.color = "EE1C24"
+		regen_emitter.texture = enemy_regen_texture
+
+	_change_health(health, max_health)

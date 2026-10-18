@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dr5jhi3n2ka75"]
 
+[ext_resource type="Script" uid="uid://ccccf7bucomlw" path="res://scripts/global/level_loader.gd" id="1_choun"]
 [ext_resource type="PackedScene" uid="uid://c42rvvvlc7iwv" path="res://scenes/enemy_stuff/basic_enemy.tscn" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dlfkmnvkalefo" path="res://scenes/player.tscn" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://df56635vv31xq" path="res://scenes/global/sound.tscn" id="1_tbgi4"]
@@ -16,6 +17,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-968, 396, 165, 410, 177, -218, -975, -221)])
 
 [node name="Main" type="Node2D" unique_id=577279995]
+script = ExtResource("1_choun")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=816433477]
 visible = false

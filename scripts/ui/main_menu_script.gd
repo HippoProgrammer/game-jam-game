@@ -40,6 +40,9 @@ func _start_game():
 func _options():
 	pass
 	#print("Options button pressed")
+func _load_game():
+	GameState.load_game()
+	get_tree().change_scene_to_file(main_game_scene)
 func _quit_game():
 	#print("Quit Game button pressed")
 	get_tree().quit() # Quits game

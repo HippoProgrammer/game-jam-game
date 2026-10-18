@@ -179,4 +179,39 @@ func _ext_heal(amount:float, delta):
 	health += amount*delta
 	health_changed.emit(health, max_health)
 
+# --- SAVING ---
+func save() -> Dictionary:
+	var save_dict = {
+		"filename": get_scene_file_path(),
+		"parent": get_tree().current_scene.get_path_to(get_parent()),
+		"pos_x": position.x,
+		"pos_y": position.y,
+		"rotation": rotation,
+		"velocity_x": velocity.x,
+		"velocity_y": velocity.y,
+		"health": health,
+		"max_health": max_health,
+		"glucose": glucose,
+		"max_glucose": max_glucose,
+		"glucose_regen": glucose_regen,
+		"attack_damage": attack_damage,
+		"ammo": ammo,
+	}
+
+	return save_dict
+
+func load_data(data: Dictionary) -> void:
+	rotation = data["rotation"]
+	velocity = Vector2(data["velocity_x"], data["velocity_y"])
+	health = data["health"]
+	max_health = data["max_health"]
+	glucose = data["glucose"]
+	max_glucose = data["max_glucose"]
+	glucose_regen = data["glucose_regen"]
+	attack_damage = data["attack_damage"]
+	ammo = int(data["ammo"])
+
+	health_changed.emit(health, max_health)
+	glucose_changed.emit(glucose, max_glucose)
+
 # obligatory pf 🏳️‍🌈

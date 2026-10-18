@@ -48,5 +48,7 @@ func _resume() -> void:
 	get_tree().paused = false
 func _options() -> void:
 	pass
+func _save_game():
+	GameState.save_game()
 func _quit_game() -> void:
 	get_tree().quit()
