@@ -1,17 +1,17 @@
 extends Node2D
 
-# Please tell me that this works...
 var controlled_by = "enemy"
 
 var regen = 5 # Regenerated health per second, while state = regen
 
-var friendly_regen = 5.0
+var friendly_regen = 10.0
 var regen_range = 200
-@onready var regen_emitter: GPUParticles2D = $RegenEmmiter # maybe use CPU but idk..
+@onready var regen_emitter: GPUParticles2D = $RegenEmitter # maybe use CPU but idk..
 @onready var enemy_regen_texture = preload("res://artwork/enemy_stuff/enemy_heal_particle.png")
 @onready var player_regen_texture = preload("res://artwork/MainChara/player_heal_particle.png")
 var regen_particle_speed = 700
-var base_particle_amount = 5
+var base_particle_amount = 2.5
+var particle_speed
 
 @onready var player = get_tree().get_first_node_in_group("Player")
 
@@ -28,7 +28,7 @@ var light
 var health_bar
 
 func _ready() -> void:
-	regen_emitter.amount = base_particle_amount * (Events.effects_scale/100)
+	regen_emitter.amount = round(base_particle_amount * (Events.effects_scale/100))
 	
 	# --- SET VARIABLES ---
 	max_health = get_meta("max_health",500)
@@ -105,18 +105,24 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		
 	_change_health(health,max_health)
 
-func regen_entites(controlled_by, delta) -> void:
-	
+func regen_entites(_controlled_by, delta) -> void:
 	var target: Node2D = null
-	if controlled_by == "player":
+	if _controlled_by == "player":
 		target = player
 	else:
 		target = get_closest_enemy()
 	
+
 	if target != null and global_position.distance_to(target.global_position) < regen_range:
+	
 		regen_emitter.look_at(target.global_position)
 		# idk how to get the next line to work
-		#regen_emitter.lifetime = global_position.distance_to(target.global_position) / 700
+		particle_speed = global_position.distance_to(target.global_position) * 2 / regen_emitter.lifetime 
+		
+		var mat = regen_emitter.process_material as ParticleProcessMaterial
+		if mat:
+			mat.set_param_min(ParticleProcessMaterial.PARAM_INITIAL_LINEAR_VELOCITY, particle_speed)
+			mat.set_param_max(ParticleProcessMaterial.PARAM_INITIAL_LINEAR_VELOCITY, particle_speed)
 		regen_emitter.emitting = true
 		#print("regenning")
 		#print(target)
@@ -166,7 +172,7 @@ func load_data(data: Dictionary) -> void:
 	controlled_by = data["controlled_by"]
 	max_health = data["max_health"]
 	health = data["health"]
-	state = int(data["state"])
+	state = (data["state"])
 	timer_until_regen = data["timer_until_regen"]
 
 	if controlled_by == "player":
