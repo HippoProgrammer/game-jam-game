@@ -4,7 +4,7 @@ extends CanvasLayer
 @onready var buttons = buttons_group.find_children("*")
 @onready var button_indicator = $SelectedButtonIndicator
 
-@onready var effects_scale: HSlider = $Buttons/_effects_scale_bar
+@onready var effects_scale: HSlider = $Sliders/_effects_scale_bar
 
 @onready var pause_menu: CanvasLayer = get_tree().get_first_node_in_group("PauseMenu")
 
