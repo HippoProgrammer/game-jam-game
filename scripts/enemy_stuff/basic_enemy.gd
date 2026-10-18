@@ -111,7 +111,7 @@ func _check_attack() -> bool:
 
 func _attack() -> void:
 	var toxin = toxin_scene.instantiate()
-	print(target)
+	#print(target)
 	owner.add_child(toxin)
 	toxin.global_transform = toxin_spawner.global_transform
 	toxin.set_meta("attack_damage",attack_damage)
@@ -199,7 +199,7 @@ func _get_target() -> Node2D:
 	var closest_cell = get_closest_cell()
 	if closest_cell == null:
 		return player_character
-	elif global_position.distance_squared_to(closest_cell.global_position) < global_position.distance_squared_to(player_character.global_position) and closest_cell.controlled_by != "enemy":
+	elif global_position.distance_squared_to(closest_cell.global_position) < global_position.distance_squared_to(player_character.global_position):
 		return closest_cell
 	else:
 		return player_character
@@ -210,11 +210,13 @@ func get_closest_cell() -> Node2D:
 
 	for cell in get_tree().get_nodes_in_group("cells"):
 		var distance := global_position.distance_squared_to(cell.global_position)
-		if distance < closest_dist:
+		if distance < closest_dist and not cell.controlled_by == "enemy":
 			closest_dist = distance
 			closest = cell
-
-	return closest
+	if closest_dist != INF:
+		return closest
+	else:
+		return null
 
 
 
