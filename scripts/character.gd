@@ -177,5 +177,6 @@ func _animate_health_bar() -> void:
 	
 func _ext_heal(amount:float, delta):
 	health += amount*delta
+	health_changed.emit(health, max_health)
 
 # obligatory pf 🏳️‍🌈
