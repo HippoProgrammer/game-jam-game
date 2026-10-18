@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cilmvhpq6adfm"]
 
-[ext_resource type="Script" uid="uid://dxyf76kw2wrvm" path="res://scripts/hud.gd" id="1_qpvh6"]
+[ext_resource type="Script" uid="uid://dxyf76kw2wrvm" path="res://scripts/ui/hud.gd" id="1_qpvh6"]
 [ext_resource type="Texture2D" uid="uid://d0el3v10rvch" path="res://artwork/MainChara/HealthBar_outline.png" id="2_1etfg"]
 [ext_resource type="Texture2D" uid="uid://csvxy05xfa8g3" path="res://artwork/MainChara/HealthBar_filling.png" id="3_7hsmw"]
 

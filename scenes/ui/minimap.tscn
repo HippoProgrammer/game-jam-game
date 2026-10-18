@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dmrjqd12j74cf"]
 
-[ext_resource type="Script" uid="uid://cpmk3pbein8s3" path="res://scripts/minimap_subviewport.gd" id="1_lj7mc"]
+[ext_resource type="Script" uid="uid://cpmk3pbein8s3" path="res://scripts/ui/minimap_subviewport.gd" id="1_lj7mc"]
 
 [node name="Minimap" type="CanvasLayer" unique_id=454228334]
 

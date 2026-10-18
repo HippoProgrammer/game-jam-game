@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://df56635vv31xq"]
 
-[ext_resource type="Script" uid="uid://b10kdcq0qkger" path="res://scripts/sound.gd" id="1_ii1ul"]
+[ext_resource type="Script" uid="uid://b10kdcq0qkger" path="res://scripts/global/sound.gd" id="1_ii1ul"]
 
 [node name="Sound" type="Node2D" unique_id=457052338]
 script = ExtResource("1_ii1ul")
