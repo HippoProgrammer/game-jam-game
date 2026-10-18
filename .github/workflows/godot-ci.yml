@@ -28,7 +28,7 @@ jobs:
           mkdir -v -p build/web
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
-          godot --headless --verbose --export-release "Web" "$EXPORT_DIR/web/index.html"
+          godot --headless --verbose --export-release "GH Pages Test" "$EXPORT_DIR/web/index.html"
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
