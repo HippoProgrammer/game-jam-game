@@ -1,5 +1,7 @@
 shader_type canvas_item;
 
+uniform float pixel_size : hint_range(1.0, 32.0, 1.0) = 1.0;
+
 // First wave color, adjustable via color picker in the editor
 uniform vec4 water_color_1 : source_color = vec4(0.2, 0.6, 0.8, 0.5);
 // Second wave color, adjustable via color picker in the editor
@@ -44,7 +46,13 @@ vec4 blend_water_color(vec4 base_color, vec4 water_color, float mask) {
 }
 
 void fragment() {
-    vec2 uv = UV;
+    // Size of one texel in UV space, taken from the actual texture
+    vec2 tex_size = 1.0 / TEXTURE_PIXEL_SIZE;
+    vec2 grid = tex_size / pixel_size;
+
+    // Snap UV to the center of its pixel block
+    vec2 uv = (floor(UV * grid) + 0.5) / grid;
+
     // Get texture color
     vec4 tex_color = texture(TEXTURE, uv);
     // Use texture alpha as mask
@@ -82,4 +90,4 @@ void fragment() {
     }
 
     COLOR = final_color;
-}    
+}
