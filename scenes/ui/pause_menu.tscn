@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://baxuyhnqidfqg"]
 
-[ext_resource type="Script" uid="uid://4u32uv0ptago" path="res://scripts/pause_menu.gd" id="1_n87rw"]
+[ext_resource type="Script" uid="uid://4u32uv0ptago" path="res://scripts/ui/pause_menu.gd" id="1_n87rw"]
 [ext_resource type="FontFile" uid="uid://0aelhvskslt4" path="res://artwork/Fonts/Titles/Astloch-Bold.ttf" id="2_myx47"]
 [ext_resource type="FontFile" uid="uid://bamd7l21cxv7f" path="res://artwork/Fonts/Body/HennyPenny-Regular.ttf" id="3_kukqi"]
 

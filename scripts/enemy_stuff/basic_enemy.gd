@@ -21,7 +21,7 @@ var movement_delta: float
 
 # attack
 var attack_timer: Timer
-@onready var reload = 2.0
+@onready var reload = get_meta("attack_reload")
 @onready var attack_damage = get_meta("attack_damage")
 
 
@@ -184,5 +184,8 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		Events.enemy_died_sound.emit()
 		_die()
   
+func _ext_heal(amount:float, delta):
+	health += amount*delta
+
   
 # obligatory pf 🏳️‍🌈
