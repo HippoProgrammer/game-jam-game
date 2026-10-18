@@ -33,6 +33,7 @@ Antigens="The antigen must be in here"
 Toxins="All toxins should be in here"
 PlayerHealthBar="This is the player's health bar"
 PauseMenu="The parent and root node of the pause menu"
+enemies=""
 
 [input]
 
