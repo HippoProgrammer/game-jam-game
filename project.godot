@@ -36,6 +36,7 @@ PlayerHealthBar="This is the player's health bar"
 PauseMenu="The parent and root node of the pause menu"
 enemies=""
 Persist=""
+options_menu=""
 
 [input]
 

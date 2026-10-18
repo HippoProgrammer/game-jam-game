@@ -7,6 +7,9 @@ extends CanvasLayer
 var button_index = 0
 var paused_for_frame = false
 
+@onready var options_menu: CanvasLayer = get_tree().get_first_node_in_group("options_menu")
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hide()
@@ -47,7 +50,8 @@ func _resume() -> void:
 	hide()
 	get_tree().paused = false
 func _options() -> void:
-	pass
+	hide()
+	options_menu.show()
 func _save_game():
 	GameState.save_game()
 func _quit_game() -> void:
