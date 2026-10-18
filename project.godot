@@ -37,6 +37,7 @@ PauseMenu="The parent and root node of the pause menu"
 enemies=""
 Persist=""
 options_menu=""
+cells=""
 
 [input]
 

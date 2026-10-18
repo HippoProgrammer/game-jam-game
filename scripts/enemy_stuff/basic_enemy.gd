@@ -24,13 +24,16 @@ var attack_timer: Timer
 @onready var reload = get_meta("attack_reload")
 @onready var attack_damage = get_meta("attack_damage")
 
+# target the player
+@onready var player_character = get_tree().get_first_node_in_group("Player")
+
 
 # state
 enum State {idle, spotted, attack, dying}
 var state := State.idle
+#enum Target_type {player, cell}
+@onready var target := _get_target()
 
-# target the player
-@onready var target = get_tree().get_first_node_in_group("Player")
 
 # get navigation agent and raycast
 @onready var nav: NavigationAgent2D = $CharacterBody2D/NavigationAgent2D
@@ -108,6 +111,7 @@ func _check_attack() -> bool:
 
 func _attack() -> void:
 	var toxin = toxin_scene.instantiate()
+	print(target)
 	owner.add_child(toxin)
 	toxin.global_transform = toxin_spawner.global_transform
 	toxin.set_meta("attack_damage",attack_damage)
@@ -190,6 +194,29 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
   
 func _ext_heal(amount:float, delta):
 	health += amount*delta
+
+func _get_target() -> Node2D:
+	var closest_cell = get_closest_cell()
+	if closest_cell == null:
+		return player_character
+	elif global_position.distance_squared_to(closest_cell.global_position) < global_position.distance_squared_to(player_character.global_position) and closest_cell.controlled_by != "enemy":
+		return closest_cell
+	else:
+		return player_character
+
+func get_closest_cell() -> Node2D:
+	var closest: Node2D = null
+	var closest_dist := INF # apparently you can do this...
+
+	for cell in get_tree().get_nodes_in_group("cells"):
+		var distance := global_position.distance_squared_to(cell.global_position)
+		if distance < closest_dist:
+			closest_dist = distance
+			closest = cell
+
+	return closest
+
+
 
 # --- SAVING ---
 func save() -> Dictionary:
