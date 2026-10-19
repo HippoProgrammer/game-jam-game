@@ -50,6 +50,8 @@ var probability_health_change = 100
 # Godot functions
 
 func _ready() -> void:
+	scale = Vector2(get_meta("scale")/4,get_meta("scale")/4)
+	
 	attack_timer = Timer.new()
 	attack_timer.wait_time = reload
 	attack_timer.autostart = true
@@ -69,7 +71,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		attack_timer.paused = true
 	
-	toxin_spawner.look_at(target.global_position)
+	$CharacterBody2D/Rotation.look_at(target.global_position)
 	
 	character.move_and_slide()
 # --- USER FUNCTIONS ---
@@ -83,12 +85,10 @@ func _check_state() -> State:
 		return State.dying
 	elif _check_attack():
 		character.velocity = Vector2(0,0)
-		print("Attacking")
 		return State.attack
 	elif _check_los():
 		if not attack_timer.paused:
 			attack_timer.paused = true
-		print("Spotted")
 		return State.spotted
 	else:
 		if not attack_timer.paused:
