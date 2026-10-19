@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://beqtdetla8wk"]
+
+[ext_resource type="Script" path="res://scripts/main_menu_script.gd" id="1_rk22q"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_22vlk"]
+font_size = 80
+
+[sub_resource type="LabelSettings" id="LabelSettings_v7ihv"]
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_vapsj"]
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_f1fi5"]
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_lyxsl"]
+font_size = 50
+
+[node name="MainMenu" type="Node2D" unique_id=818658080]
+script = ExtResource("1_rk22q")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1097024666]
+
+[node name="Title" type="Label" parent="CanvasLayer" unique_id=936128786]
+offset_left = 321.0
+offset_top = 33.0
+offset_right = 831.0
+offset_bottom = 143.0
+text = "Lorem Ipsum"
+label_settings = SubResource("LabelSettings_22vlk")
+horizontal_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="CanvasLayer" unique_id=2088601510 groups=["MMButtonsContainer"]]
+offset_top = 200.0
+offset_right = 1152.0
+offset_bottom = 415.0
+
+[node name="_start_game" type="Label" parent="CanvasLayer/Buttons" unique_id=223562830]
+layout_mode = 2
+text = "Start Game"
+label_settings = SubResource("LabelSettings_v7ihv")
+horizontal_alignment = 1
+
+[node name="_options" type="Label" parent="CanvasLayer/Buttons" unique_id=2125740076]
+layout_mode = 2
+text = "Options"
+label_settings = SubResource("LabelSettings_vapsj")
+horizontal_alignment = 1
+
+[node name="_quit_game" type="Label" parent="CanvasLayer/Buttons" unique_id=1230239882]
+layout_mode = 2
+text = "Quit Game"
+label_settings = SubResource("LabelSettings_f1fi5")
+horizontal_alignment = 1
+
+[node name="SelectedButtonIndicator" type="Label" parent="CanvasLayer" unique_id=513903811 groups=["MMButtonIndicator"]]
+offset_top = 200.0
+offset_right = 1152.0
+offset_bottom = 269.0
+text = ">                             <"
+label_settings = SubResource("LabelSettings_lyxsl")
+horizontal_alignment = 1
