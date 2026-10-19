@@ -1,6 +1,18 @@
 extends Node2D
 
-var controlled_by = "enemy"
+# Variables for Enemy Replication
+var enemy_max_health = 100.0
+var enemy_max_glucose = 100.0
+var enemy_glucose_regen = 0.0
+var enemy_health_regen = 0.0
+var enemy_movement_speed = 100.0
+var enemy_attack_range = 400.0
+var enemy_los_range = 800.0
+var enemy_scale = 1.0
+var enemy_attack_damage = 10.0
+var enemy_attack_reload = 2.0
+
+var controlled_by = "player"
 
 var regen = 5 # Regenerated health per second, while state = regen
 
@@ -20,6 +32,10 @@ var state = State.no_regen
 
 var time_until_regen = 10 # The time in seconds after being hit by an opponent until the cell can regen
 var timer_until_regen = time_until_regen
+
+var virus_cell_attack_mult = 4
+
+var recent_shooter : Node
 
 # --- SET IN ready() ---
 var max_health
@@ -48,6 +64,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("right_click"):
+		create_enemy()
+	
 	timer_until_regen += delta
 	
 	if state == State.regen:
@@ -74,6 +93,8 @@ func _virus_capture() -> void:
 	
 	state = State.regen
 	timer_until_regen = time_until_regen
+	
+	# Set variables for duplication
 
 func _player_capture() -> void:
 	controlled_by = "player"
@@ -88,19 +109,26 @@ func _change_health(new: float, max_value: float):
 	health_bar.value = new
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Antigens") and controlled_by == "enemy":
-		if state == State.regen:
-			timer_until_regen = 0
-			state = State.no_regen
-		health -= body.get_meta("attack_damage")
-		body.queue_free()
-			
+	if body.is_in_group("Antigens"):
+		if controlled_by == "enemy":
+			if state == State.regen:
+				timer_until_regen = 0
+				state = State.no_regen
+				print(state)
+			health -= body.get_meta("attack_damage")
+			body.queue_free()
+		elif controlled_by == "player":
+			health = clamp(health + body.get_meta("attack_damage"),0,max_health)
+			body.queue_free()
+		
 	if body.is_in_group("Toxins") and controlled_by == "player":
 		if state == State.regen:
 			timer_until_regen = 0
 			state = State.no_regen
 			
-		health -= body.get_meta("attack_damage")
+		health -= body.get_meta("attack_damage") * virus_cell_attack_mult
+		if body.get_node(body.get_meta("shooter")):
+			recent_shooter = body.get_node(body.get_meta("shooter"))
 		body.queue_free()
 		
 	_change_health(health,max_health)
@@ -114,9 +142,7 @@ func regen_entites(_controlled_by, delta) -> void:
 	
 
 	if target != null and global_position.distance_to(target.global_position) < regen_range:
-	
 		regen_emitter.look_at(target.global_position)
-		# idk how to get the next line to work
 		particle_speed = global_position.distance_to(target.global_position) * 2 / regen_emitter.lifetime 
 		
 		var mat = regen_emitter.process_material as ParticleProcessMaterial
@@ -124,19 +150,18 @@ func regen_entites(_controlled_by, delta) -> void:
 			mat.set_param_min(ParticleProcessMaterial.PARAM_INITIAL_LINEAR_VELOCITY, particle_speed)
 			mat.set_param_max(ParticleProcessMaterial.PARAM_INITIAL_LINEAR_VELOCITY, particle_speed)
 		regen_emitter.emitting = true
-		#print("regenning")
-		#print(target)
+		
 		if controlled_by == "enemy":
 			target.get_parent()._ext_heal(friendly_regen,delta)
 		else:
-			target._ext_heal(friendly_regen,delta) #damnthisisjammycodeandtotalllywon'tbreak
+			target._ext_heal(friendly_regen,delta)
 		
 	else:
 		regen_emitter.emitting = false
 
 func get_closest_enemy() -> Node2D:
 	var closest: Node2D = null
-	var closest_dist := INF # apparently you can do this...
+	var closest_dist := INF
 
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		var distance := global_position.distance_squared_to(enemy.global_position)
@@ -146,6 +171,25 @@ func get_closest_enemy() -> Node2D:
 
 	return closest
 
+func create_enemy() -> void:
+	var node = load("res://scenes/enemy_stuff/basic_enemy.tscn").instantiate()
+	
+	print("Setting Properties")
+	node.set_meta("attack_damage",enemy_attack_damage)
+	node.set_meta("attack_range",enemy_attack_range)
+	node.set_meta("glucose_regen",enemy_glucose_regen)
+	node.set_meta("health_regen",enemy_health_regen)
+	node.set_meta("movement_speed",enemy_movement_speed)
+	node.set_meta("attack_range",enemy_attack_range)
+	node.set_meta("los_range",enemy_los_range)
+	node.set_meta("scale",enemy_scale)
+	node.set_meta("max_health",enemy_max_health)
+	node.set_meta("max_glucose",enemy_max_glucose)
+	print("Finished Setting Properties")
+	
+	node.global_position = global_position + Vector2(80,0)
+	get_parent().add_child(node)
+	
 
 # --- SAVING ---
 func save() -> Dictionary:

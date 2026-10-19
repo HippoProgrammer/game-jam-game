@@ -37,10 +37,10 @@ color = Color(0.11858138, 0.11858139, 0.11858133, 1)
 position = Vector2(395, -90)
 navigation_polygon = SubResource("NavigationPolygon_glkys")
 
-[node name="BasicEnemy" parent="." unique_id=1883996621 instance=ExtResource("1_jyhfs")]
+[node name="Cell" parent="." unique_id=1873970965 instance=ExtResource("7_o6xl0")]
+
+[node name="BasicEnemy" parent="." unique_id=1982594230 instance=ExtResource("1_jyhfs")]
 position = Vector2(424, -104)
-metadata/movement_speed = 100.0
-metadata/los_range = 100000.0
 
 [node name="Player" parent="." unique_id=401100565 instance=ExtResource("1_sugp2")]
 position = Vector2(-1258, 0)
@@ -48,18 +48,17 @@ position = Vector2(-1258, 0)
 [node name="Camera2D" type="Camera2D" parent="." unique_id=943063168]
 script = ExtResource("2_0wfyh")
 
-[node name="Cell" parent="." unique_id=1873970965 instance=ExtResource("7_o6xl0")]
-
-[node name="Minimap" parent="." unique_id=454228334 instance=ExtResource("7_85g3d")]
-
 [node name="UI" type="Control" parent="." unique_id=709235619]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="Minimap" parent="UI" unique_id=454228334 groups=["Minimap"] instance=ExtResource("7_85g3d")]
+
 [node name="HUD" parent="UI" unique_id=735888115 instance=ExtResource("3_sugp2")]
 
 [node name="PauseMenu" parent="UI" unique_id=505931995 instance=ExtResource("8_tipki")]
 
 [node name="OptionsMenu" parent="UI" unique_id=1158732603 instance=ExtResource("11_ya4ey")]
+return_node_path = NodePath("../PauseMenu")

@@ -5,11 +5,10 @@ extends Node2D
 # --- VARIABLES ---
 var rand : float
 
-
 # import toxins
 var toxin_scene = preload("res://scenes/enemy_stuff/toxin.tscn")
 
-@onready var toxin_spawner = $CharacterBody2D/ToxinSpawner
+@onready var toxin_spawner = $CharacterBody2D/Rotation/ToxinSpawner
 
 # stats and meta
 @onready var max_health = get_meta("max_health")
@@ -17,6 +16,8 @@ var toxin_scene = preload("res://scenes/enemy_stuff/toxin.tscn")
 @onready var health = max_health
 @onready var glucose = max_glucose
 @onready var movement_speed = get_meta("movement_speed")
+@onready var attack_range = get_meta("attack_range")
+@onready var los_range = get_meta("los_range")
 var movement_delta: float
 
 # attack
@@ -32,7 +33,7 @@ var attack_timer: Timer
 enum State {idle, spotted, attack, dying}
 var state := State.idle
 #enum Target_type {player, cell}
-@onready var target := _get_target()
+@onready var target
 
 
 # get navigation agent and raycast
@@ -49,6 +50,8 @@ var probability_health_change = 100
 # Godot functions
 
 func _ready() -> void:
+	scale = Vector2(get_meta("scale")/4,get_meta("scale")/4)
+	
 	attack_timer = Timer.new()
 	attack_timer.wait_time = reload
 	attack_timer.autostart = true
@@ -60,6 +63,8 @@ func _ready() -> void:
 	_change_health(health, max_health)
 
 func _physics_process(delta: float) -> void:
+	target = _get_target()
+	
 	state = _check_state()
 	if state == State.spotted:
 		_spotted(delta)
@@ -68,9 +73,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		attack_timer.paused = true
 	
-	#if (state != State.idle or state != State.dying) and target != null:
-		#look_at(target.global_position) 
-	look_at(target.global_position) 
+	$CharacterBody2D/Rotation.look_at(target.global_position)
+	
 	character.move_and_slide()
 # --- USER FUNCTIONS ---
 
@@ -82,6 +86,7 @@ func _check_state() -> State:
 	if state == State.dying:
 		return State.dying
 	elif _check_attack():
+		character.velocity = Vector2(0,0)
 		return State.attack
 	elif _check_los():
 		if not attack_timer.paused:
@@ -100,26 +105,28 @@ func _check_state() -> State:
 func _check_attack() -> bool:
 	if target == null:
 		return false
-	if global_position.distance_to(target.global_position) > get_meta("attack_range"):
+	if character.global_position.distance_to(target.global_position) > attack_range:
 		return false
 	if not get_meta("needs_los"):
 		return true
-
+	
 	raycast.target_position = raycast.to_local(target.global_position)
 	raycast.force_raycast_update()
-	return raycast.is_colliding() and raycast.get_collider().is_in_group("Player")
+	return raycast.is_colliding() and \
+		(raycast.get_collider().is_in_group("Player") or raycast.get_collider().is_in_group("cells"))
 
 func _attack() -> void:
 	var toxin = toxin_scene.instantiate()
 	#print(target)
-	owner.add_child(toxin)
+	get_parent().add_child(toxin)
 	toxin.global_transform = toxin_spawner.global_transform
 	toxin.set_meta("attack_damage",attack_damage)
+	toxin.set_meta("shooter",toxin.get_path_to(self))
 
 func _check_los() -> bool:
 	if target == null:
 		return false
-	if global_position.distance_to(target.global_position) > get_meta("los_range"):
+	if character.global_position.distance_to(target.global_position) > los_range:
 		return false
 
 	if not get_meta("needs_los"):
@@ -127,49 +134,35 @@ func _check_los() -> bool:
 
 	raycast.target_position = raycast.to_local(target.global_position)
 	raycast.force_raycast_update()
-	return raycast.is_colliding() and raycast.get_collider().is_in_group("Player")
+	return raycast.is_colliding() and (raycast.get_collider().is_in_group("Player") or raycast.get_collider().is_in_group("cells"))
 
-func _chase(delta) -> void:
-	#print("chasing")
-	movement_delta = movement_speed * delta
+func _chase(_delta: float) -> void:
 	nav.set_target_position(target.global_position)
-	#print(target)
 
 	if NavigationServer2D.map_get_iteration_id(nav.get_navigation_map()) == 0:
-		#print(NavigationServer2D.map_get_iteration_id(nav.get_navigation_map()))
+		character.velocity = Vector2.ZERO
 		return
 	if nav.is_navigation_finished():
-		#print(nav.is_navigation_finished())
+		character.velocity = Vector2.ZERO
 		return
 	
 	var next_path_position: Vector2 = nav.get_next_path_position()
-	#print(nav.get_next_path_position())
-	#var new_velocity: Vector2 = global_position.direction_to(next_path_position) * movement_delta
+	var target_direction: Vector2 = character.global_position.direction_to(next_path_position)
+	var preferred_velocity: Vector2 = target_direction * movement_speed
+	
+	if nav.avoidance_enabled:
+		nav.set_velocity(preferred_velocity)
+	else:
+		character.velocity.x = clamp(preferred_velocity.x,-movement_speed,movement_speed)
+		character.velocity.y = clamp(preferred_velocity.y,-movement_speed,movement_speed)
 
-	nav.set_velocity(global_position.direction_to(next_path_position) * movement_speed)
-	var direction: Vector2 = global_position.direction_to(next_path_position)
-	global_position += direction * movement_delta
+func _on_velocity_computed(safe_velocity: Vector2) -> void:
+	character.velocity = safe_velocity
 
 func _spotted(delta) -> void:
 	#print("player spotted")
 	_chase(delta)
 	# sound effects, animations etc..
-
-# i don't actually think this is necessary
-func _on_velocity_computed(safe_velocity: Vector2) -> void: #https://docs.godotengine.org/en/stable/tutorials/navigation/navigation_using_navigationagents.html
-	character.global_position += safe_velocity * get_physics_process_delta_time()
-
-func _duplicate_self() -> void:
-	# Make an animation, add that here
-	
-	var new_enemy = duplicate()
-	if randf() * 100 <= probability_health_change:
-		rand = randf_range(0.9,1.2)
-		new_enemy.set_meta("max_health",get_meta("max_health")*rand)
-		new_enemy.set_meta("scale",new_enemy.get_meta("scale")*rand)
-		new_enemy.scale *= rand
-	get_parent().call_deferred("add_child",new_enemy)
-
 
 
 func _die() -> void:
@@ -193,14 +186,15 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		_die()
   
 func _ext_heal(amount:float, delta):
-	health += amount*delta
+	health += amount * delta
 
 func _get_target() -> Node2D:
 	var closest_cell = get_closest_cell()
-	if closest_cell == null:
-		return player_character
-	elif global_position.distance_squared_to(closest_cell.global_position) < global_position.distance_squared_to(player_character.global_position):
-		return closest_cell
+	if closest_cell:
+		if character.global_position.distance_squared_to(closest_cell.global_position) < character.global_position.distance_squared_to(player_character.global_position):
+			return closest_cell
+		else:
+			return player_character
 	else:
 		return player_character
 
@@ -209,7 +203,7 @@ func get_closest_cell() -> Node2D:
 	var closest_dist := INF # apparently you can do this...
 
 	for cell in get_tree().get_nodes_in_group("cells"):
-		var distance := global_position.distance_squared_to(cell.global_position)
+		var distance = character.global_position.distance_squared_to(cell.global_position)
 		if distance < closest_dist and not cell.controlled_by == "enemy":
 			closest_dist = distance
 			closest = cell
@@ -217,7 +211,6 @@ func get_closest_cell() -> Node2D:
 		return closest
 	else:
 		return null
-
 
 
 # --- SAVING ---

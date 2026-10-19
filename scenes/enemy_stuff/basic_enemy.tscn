@@ -27,10 +27,10 @@ metadata/max_health = 100.0
 metadata/max_glucose = 100.0
 metadata/glucose_regen = 0.0
 metadata/health_regen = 0.0
-metadata/movement_speed = 10.0
+metadata/movement_speed = 100.0
 metadata/attack_range = 400.0
 metadata/needs_los = false
-metadata/los_range = 100.0
+metadata/los_range = 800.0
 metadata/scale = 1.0
 metadata/attack_damage = 10.0
 metadata/attack_reload = 2.0
@@ -51,9 +51,6 @@ script = ExtResource("2_ibjif")
 [node name="LOS" type="RayCast2D" parent="CharacterBody2D" unique_id=431441184]
 collision_mask = 3
 
-[node name="ToxinSpawner" type="Marker2D" parent="CharacterBody2D" unique_id=283802102]
-position = Vector2(64, 0)
-
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=529130266]
 material = SubResource("ShaderMaterial_qlg0r")
 texture = SubResource("CanvasTexture_qhqgy")
@@ -72,5 +69,10 @@ shape = SubResource("RectangleShape2D_ibjif")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="CharacterBody2D" unique_id=1954342921]
 occluder = SubResource("OccluderPolygon2D_yx0xg")
+
+[node name="Rotation" type="Node2D" parent="CharacterBody2D" unique_id=39435725]
+
+[node name="ToxinSpawner" type="Marker2D" parent="CharacterBody2D/Rotation" unique_id=283802102]
+position = Vector2(64, 0)
 
 [connection signal="body_entered" from="CharacterBody2D/Hitbox" to="." method="_on_hitbox_body_entered"]

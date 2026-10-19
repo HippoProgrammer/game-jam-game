@@ -27,7 +27,7 @@ initial_velocity_min = 700.0
 initial_velocity_max = 700.0
 gravity = Vector3(0, 0, 0)
 
-[node name="Cell" type="Node2D" unique_id=1873970965]
+[node name="Cell" type="Node2D" unique_id=1873970965 groups=["cells"]]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_upbjj")
 metadata/max_health = 500
@@ -36,18 +36,18 @@ metadata/max_health = 500
 material = SubResource("ShaderMaterial_k6tqi")
 texture = SubResource("CanvasTexture_4kve2")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="Sprite2D" unique_id=1925479969]
+[node name="CellBody" type="CharacterBody2D" parent="Sprite2D" unique_id=1925479969]
 collision_mask = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/CharacterBody2D" unique_id=1243945999]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/CellBody" unique_id=1243945999]
 rotation = 0.00016523933
 shape = SubResource("RectangleShape2D_k4tsc")
 
-[node name="Hitbox" type="Area2D" parent="Sprite2D/CharacterBody2D" unique_id=1743522092]
+[node name="Hitbox" type="Area2D" parent="Sprite2D/CellBody" unique_id=1743522092]
 collision_layer = 0
 collision_mask = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/CharacterBody2D/Hitbox" unique_id=1112966124]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/CellBody/Hitbox" unique_id=1112966124]
 rotation = 0.00016523933
 shape = SubResource("RectangleShape2D_ds1sf")
 
@@ -72,4 +72,4 @@ randomness = 0.2
 fixed_fps = 10
 process_material = SubResource("ParticleProcessMaterial_yx0xg")
 
-[connection signal="body_entered" from="Sprite2D/CharacterBody2D/Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="Sprite2D/CellBody/Hitbox" to="." method="_on_hitbox_body_entered"]

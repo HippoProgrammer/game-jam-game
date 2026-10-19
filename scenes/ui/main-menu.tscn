@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dl0owis63ky18" path="res://scripts/ui/main_menu_script.gd" id="1_rk22q"]
 [ext_resource type="FontFile" uid="uid://bjqteeg6g7sul" path="res://artwork/Fonts/Titles/RubikMicrobe-Regular.ttf" id="2_hf3n6"]
+[ext_resource type="PackedScene" uid="uid://dveyeae21syku" path="res://scenes/ui/options_menu.tscn" id="2_n70rl"]
 [ext_resource type="FontFile" uid="uid://clm4igkhbs182" path="res://artwork/Fonts/Body/PT Sans/PTSans-BoldItalic.ttf" id="3_xg1py"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_22vlk"]
@@ -73,3 +74,6 @@ offset_bottom = 307.0
 text = ">                             <"
 label_settings = SubResource("LabelSettings_lyxsl")
 horizontal_alignment = 1
+
+[node name="OptionsMenu" parent="." unique_id=505931995 instance=ExtResource("2_n70rl")]
+return_node_path = NodePath("../CanvasLayer")
