@@ -36,6 +36,7 @@ var timer_until_regen = time_until_regen
 var virus_cell_attack_mult = 4
 
 var recent_shooter : Node
+var previous_collisions = []
 
 # --- SET IN ready() ---
 var max_health
@@ -107,31 +108,6 @@ func _player_capture() -> void:
 func _change_health(new: float, max_value: float):
 	health_bar.max_value = max_value
 	health_bar.value = new
-
-func _on_hitbox_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Antigens"):
-		if controlled_by == "enemy":
-			if state == State.regen:
-				timer_until_regen = 0
-				state = State.no_regen
-				print(state)
-			health -= body.get_meta("attack_damage")
-			body.queue_free()
-		elif controlled_by == "player":
-			health = clamp(health + body.get_meta("attack_damage"),0,max_health)
-			body.queue_free()
-		
-	if body.is_in_group("Toxins") and controlled_by == "player":
-		if state == State.regen:
-			timer_until_regen = 0
-			state = State.no_regen
-			
-		health -= body.get_meta("attack_damage") * virus_cell_attack_mult
-		if body.get_node(body.get_meta("shooter")):
-			recent_shooter = body.get_node(body.get_meta("shooter"))
-		body.queue_free()
-		
-	_change_health(health,max_health)
 
 func regen_entites(_controlled_by, delta) -> void:
 	var target: Node2D = null
@@ -227,3 +203,30 @@ func load_data(data: Dictionary) -> void:
 		regen_emitter.texture = enemy_regen_texture
 
 	_change_health(health, max_health)
+
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	print(self.name)
+	if body.is_in_group("Antigens"):
+		if controlled_by == "enemy":
+			if state == State.regen:
+				timer_until_regen = 0
+				state = State.no_regen
+			health -= body.get_meta("attack_damage")
+			body.queue_free()
+		elif controlled_by == "player":
+			health = clamp(health + body.get_meta("attack_damage"),0,max_health)
+			body.queue_free()
+		
+	if body.is_in_group("Toxins") and controlled_by == "player":
+		
+		if state == State.regen:
+			timer_until_regen = 0
+			state = State.no_regen
+			
+		health -= body.get_meta("attack_damage") * virus_cell_attack_mult
+		if body.get_node(body.get_meta("shooter")):
+			recent_shooter = body.get_node(body.get_meta("shooter"))
+		body.queue_free()
+		
+	_change_health(health,max_health)

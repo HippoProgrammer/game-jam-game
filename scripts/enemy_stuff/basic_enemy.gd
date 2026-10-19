@@ -6,9 +6,8 @@ extends Node2D
 var rand : float
 
 # import toxins
+var toxin_speed = 750
 var toxin_scene = preload("res://scenes/enemy_stuff/toxin.tscn")
-
-@onready var toxin_spawner = $CharacterBody2D/Rotation/ToxinSpawner
 
 # stats and meta
 @onready var max_health = get_meta("max_health")
@@ -72,9 +71,7 @@ func _physics_process(delta: float) -> void:
 		attack_timer.paused = false
 	else:
 		attack_timer.paused = true
-	
-	$CharacterBody2D/Rotation.look_at(target.global_position)
-	
+		
 	character.move_and_slide()
 # --- USER FUNCTIONS ---
 
@@ -117,11 +114,11 @@ func _check_attack() -> bool:
 
 func _attack() -> void:
 	var toxin = toxin_scene.instantiate()
-	#print(target)
-	get_parent().add_child(toxin)
-	toxin.global_transform = toxin_spawner.global_transform
 	toxin.set_meta("attack_damage",attack_damage)
+	get_parent().add_child(toxin)
 	toxin.set_meta("shooter",toxin.get_path_to(self))
+	toxin.global_position = character.global_position
+	toxin.velocity = (target.global_position - character.global_position).normalized() * toxin_speed
 
 func _check_los() -> bool:
 	if target == null:
@@ -186,7 +183,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		_die()
   
 func _ext_heal(amount:float, delta):
-	health += amount * delta
+	health = clamp(health + amount * delta, -max_health, max_health)
 
 func _get_target() -> Node2D:
 	var closest_cell = get_closest_cell()
