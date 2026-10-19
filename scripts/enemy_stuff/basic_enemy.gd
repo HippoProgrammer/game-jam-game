@@ -112,9 +112,10 @@ func _check_attack() -> bool:
 func _attack() -> void:
 	var toxin = toxin_scene.instantiate()
 	#print(target)
-	owner.add_child(toxin)
+	get_parent().add_child(toxin)
 	toxin.global_transform = toxin_spawner.global_transform
 	toxin.set_meta("attack_damage",attack_damage)
+	toxin.set_meta("shooter",toxin.get_path_to(self))
 
 func _check_los() -> bool:
 	if target == null:

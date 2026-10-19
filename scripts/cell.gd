@@ -1,5 +1,17 @@
 extends Node2D
 
+# Variables for Enemy Replication
+var enemy_max_health = 100.0
+var enemy_max_glucose = 100.0
+var enemy_glucose_regen = 0.0
+var enemy_health_regen = 0.0
+var enemy_movement_speed = 10.0
+var enemy_attack_range = 400.0
+var enemy_los_range = 100.0
+var enemy_scale = 1.0
+var enemy_attack_damage = 10.0
+var enemy_attack_reload = 2.0
+
 var controlled_by = "player"
 
 var regen = 5 # Regenerated health per second, while state = regen
@@ -22,6 +34,8 @@ var time_until_regen = 10 # The time in seconds after being hit by an opponent u
 var timer_until_regen = time_until_regen
 
 var virus_cell_attack_mult = 4
+
+var recent_shooter : Node
 
 # --- SET IN ready() ---
 var max_health
@@ -50,6 +64,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("right_click"):
+		create_enemy()
+	
 	timer_until_regen += delta
 	
 	if state == State.regen:
@@ -76,6 +93,8 @@ func _virus_capture() -> void:
 	
 	state = State.regen
 	timer_until_regen = time_until_regen
+	
+	# Set variables for duplication
 
 func _player_capture() -> void:
 	controlled_by = "player"
@@ -108,6 +127,8 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 			state = State.no_regen
 			
 		health -= body.get_meta("attack_damage") * virus_cell_attack_mult
+		if body.get_node(body.get_meta("shooter")):
+			recent_shooter = body.get_node(body.get_meta("shooter"))
 		body.queue_free()
 		
 	_change_health(health,max_health)
@@ -150,6 +171,23 @@ func get_closest_enemy() -> Node2D:
 
 	return closest
 
+func create_enemy() -> void:
+	var node = load("res://scenes/enemy_stuff/basic_enemy.tscn").instantiate()
+	
+	node.set_meta("attack_damage",enemy_attack_damage)
+	node.set_meta("attack_range",enemy_attack_range)
+	node.set_meta("glucose_regen",enemy_glucose_regen)
+	node.set_meta("health_regen",enemy_health_regen)
+	node.set_meta("movement_speed",enemy_movement_speed)
+	node.set_meta("attack_range",enemy_attack_range)
+	node.set_meta("los_range",enemy_los_range)
+	node.set_meta("scale",enemy_scale)
+	node.set_meta("max_health",enemy_max_health)
+	node.set_meta("max_glucose",enemy_max_glucose)
+	
+	node.global_position = global_position + Vector2(80,0)
+	get_parent().add_child(node)
+	
 
 # --- SAVING ---
 func save() -> Dictionary:

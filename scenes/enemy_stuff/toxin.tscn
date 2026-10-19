@@ -15,6 +15,7 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_wx0fl")
 metadata/attack_damage = 0.0
+metadata/shooter = NodePath("")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2138503294]
 scale = Vector2(0.054687526, 0.054687526)
