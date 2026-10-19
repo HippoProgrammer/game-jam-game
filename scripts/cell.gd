@@ -88,13 +88,18 @@ func _change_health(new: float, max_value: float):
 	health_bar.value = new
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Antigens") and controlled_by == "enemy":
-		if state == State.regen:
-			timer_until_regen = 0
-			state = State.no_regen
-		health -= body.get_meta("attack_damage")
-		body.queue_free()
-			
+	if body.is_in_group("Antigens"):
+		if controlled_by == "enemy":
+			if state == State.regen:
+				timer_until_regen = 0
+				state = State.no_regen
+				print(state)
+			health -= body.get_meta("attack_damage")
+			body.queue_free()
+		elif controlled_by == "player":
+			health = clamp(health + body.get_meta("attack_damage"),0,max_health)
+			body.queue_free()
+		
 	if body.is_in_group("Toxins") and controlled_by == "player":
 		if state == State.regen:
 			timer_until_regen = 0
