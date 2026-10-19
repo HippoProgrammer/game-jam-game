@@ -292,8 +292,7 @@ func load_data(data: Dictionary) -> void:
 
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	print(self.name)
-	if body.is_in_group("Antigens"):
+	if body.is_in_group("Antigens") and is_inside_tree():
 		if controlled_by == "enemy":
 			if state == State.regen:
 				timer_until_regen = 0
@@ -304,7 +303,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 			health = clamp(health + body.get_meta("attack_damage"),0,max_health)
 			body.queue_free()
 		
-	if body.is_in_group("Toxins") and controlled_by == "player":
+	if body.is_in_group("Toxins") and controlled_by == "player" and is_inside_tree():
 		
 		if state == State.regen:
 			timer_until_regen = 0
