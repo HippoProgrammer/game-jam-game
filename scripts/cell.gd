@@ -21,6 +21,8 @@ var state = State.no_regen
 var time_until_regen = 10 # The time in seconds after being hit by an opponent until the cell can regen
 var timer_until_regen = time_until_regen
 
+var virus_cell_attack_mult = 4
+
 # --- SET IN ready() ---
 var max_health
 var health
@@ -105,7 +107,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 			timer_until_regen = 0
 			state = State.no_regen
 			
-		health -= body.get_meta("attack_damage")
+		health -= body.get_meta("attack_damage") * virus_cell_attack_mult
 		body.queue_free()
 		
 	_change_health(health,max_health)
