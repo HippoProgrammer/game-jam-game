@@ -183,7 +183,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		_die()
   
 func _ext_heal(amount:float, delta):
-	health += amount * delta
+	health = clamp(health + amount * delta, -max_health, max_health)
 
 func _get_target() -> Node2D:
 	var closest_cell = get_closest_cell()
