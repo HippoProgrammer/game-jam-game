@@ -33,7 +33,7 @@ var attack_timer: Timer
 enum State {idle, spotted, attack, dying}
 var state := State.idle
 #enum Target_type {player, cell}
-@onready var target := _get_target()
+@onready var target
 
 
 # get navigation agent and raycast
@@ -63,6 +63,8 @@ func _ready() -> void:
 	_change_health(health, max_health)
 
 func _physics_process(delta: float) -> void:
+	target = _get_target()
+	
 	state = _check_state()
 	if state == State.spotted:
 		_spotted(delta)
@@ -110,7 +112,8 @@ func _check_attack() -> bool:
 	
 	raycast.target_position = raycast.to_local(target.global_position)
 	raycast.force_raycast_update()
-	return raycast.is_colliding() and raycast.get_collider().is_in_group("Player")
+	return raycast.is_colliding() and \
+		(raycast.get_collider().is_in_group("Player") or raycast.get_collider().is_in_group("cells"))
 
 func _attack() -> void:
 	var toxin = toxin_scene.instantiate()
@@ -123,7 +126,7 @@ func _attack() -> void:
 func _check_los() -> bool:
 	if target == null:
 		return false
-	if global_position.distance_to(target.global_position) > los_range:
+	if character.global_position.distance_to(target.global_position) > los_range:
 		return false
 
 	if not get_meta("needs_los"):
@@ -131,7 +134,7 @@ func _check_los() -> bool:
 
 	raycast.target_position = raycast.to_local(target.global_position)
 	raycast.force_raycast_update()
-	return raycast.is_colliding() and raycast.get_collider().is_in_group("Player")
+	return raycast.is_colliding() and (raycast.get_collider().is_in_group("Player") or raycast.get_collider().is_in_group("cells"))
 
 func _chase(_delta: float) -> void:
 	nav.set_target_position(target.global_position)
@@ -183,14 +186,15 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		_die()
   
 func _ext_heal(amount:float, delta):
-	health += amount*delta
+	health += amount * delta
 
 func _get_target() -> Node2D:
 	var closest_cell = get_closest_cell()
-	if closest_cell == null:
-		return player_character
-	elif global_position.distance_squared_to(closest_cell.global_position) < global_position.distance_squared_to(player_character.global_position):
-		return closest_cell
+	if closest_cell:
+		if character.global_position.distance_squared_to(closest_cell.global_position) < character.global_position.distance_squared_to(player_character.global_position):
+			return closest_cell
+		else:
+			return player_character
 	else:
 		return player_character
 
@@ -199,7 +203,7 @@ func get_closest_cell() -> Node2D:
 	var closest_dist := INF # apparently you can do this...
 
 	for cell in get_tree().get_nodes_in_group("cells"):
-		var distance := global_position.distance_squared_to(cell.global_position)
+		var distance = character.global_position.distance_squared_to(cell.global_position)
 		if distance < closest_dist and not cell.controlled_by == "enemy":
 			closest_dist = distance
 			closest = cell
@@ -207,7 +211,6 @@ func get_closest_cell() -> Node2D:
 		return closest
 	else:
 		return null
-
 
 
 # --- SAVING ---
