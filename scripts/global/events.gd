@@ -8,8 +8,18 @@ signal player_take_damage
 @warning_ignore_restore("unused_signal")
 
 var effects_scale: float = 100.0
+
+var master_volume: float = 100.0
+var music_volume: float = 100.0
+var sfx_volume: float = 100.0
+
 var meme_SFX: bool = false
 
 func _change_effects_scale(new: float) -> void:
 	effects_scale = new
-	#print(effects_scale)
+func _change_master_volume(new: float) -> void:
+	master_volume = new
+func _change_music_volume(new: float) -> void:
+	music_volume = new
+func _change_sfx_volume(new: float) -> void:
+	sfx_volume = new

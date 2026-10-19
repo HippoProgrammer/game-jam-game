@@ -19,48 +19,79 @@ offset_bottom = 648.0
 color = Color(0, 0, 0, 0.7764706)
 
 [node name="Title" type="Label" parent="." unique_id=1177029136]
-offset_top = 45.0
+offset_top = 22.0
 offset_right = 1152.0
-offset_bottom = 191.0
+offset_bottom = 168.0
 text = "Options"
 label_settings = ExtResource("2_0ejsc")
 horizontal_alignment = 1
 
 [node name="Buttons" type="VBoxContainer" parent="." unique_id=1346528252 groups=["MMButtonsContainer"]]
-offset_top = 233.0
-offset_right = 1152.0
-offset_bottom = 508.0
-theme_override_constants/separation = -30
+offset_left = 150.0
+offset_top = 170.0
+offset_right = 1002.0
+offset_bottom = 668.0
+theme_override_constants/separation = 0
 
-[node name="_back" type="Label" parent="Buttons" unique_id=1686630468]
+[node name="_back" type="Label" parent="Buttons" unique_id=1686630468 groups=["Buttons"]]
 layout_mode = 2
 text = "Back"
 label_settings = ExtResource("3_snsgv")
 horizontal_alignment = 1
 
-[node name="_meme_SFX" type="Label" parent="Buttons" unique_id=245655672]
+[node name="MasterVolume" type="VBoxContainer" parent="Buttons" unique_id=316695657 groups=["MMButtonsContainer"]]
 layout_mode = 2
-text = "Meme Sound Effects: Off"
-label_settings = ExtResource("3_snsgv")
-horizontal_alignment = 1
-
-[node name="Sliders" type="VBoxContainer" parent="." unique_id=316695657 groups=["MMButtonsContainer"]]
-offset_top = 390.0
-offset_right = 1152.0
-offset_bottom = 562.0
 theme_override_constants/separation = -30
 
-[node name="_effects_scale_label" type="Label" parent="Sliders" unique_id=1927188060]
+[node name="_effects_scale_label" type="Label" parent="Buttons/MasterVolume" unique_id=1927188060]
 layout_mode = 2
-text = "Effects Scale"
+text = "Master Volume"
 label_settings = ExtResource("3_snsgv")
 horizontal_alignment = 1
 
-[node name="_effects_scale_bar" type="HSlider" parent="Sliders" unique_id=19506919]
+[node name="_effects_scale_bar" type="HSlider" parent="Buttons/MasterVolume" unique_id=19506919]
 layout_mode = 2
 value = 100.0
 tick_count = 4
 ticks_on_borders = true
+
+[node name="MusicVolume" type="VBoxContainer" parent="Buttons" unique_id=1816462019 groups=["MMButtonsContainer"]]
+layout_mode = 2
+theme_override_constants/separation = -30
+
+[node name="_effects_scale_label" type="Label" parent="Buttons/MusicVolume" unique_id=2145376207]
+layout_mode = 2
+text = "Music Volume"
+label_settings = ExtResource("3_snsgv")
+horizontal_alignment = 1
+
+[node name="_effects_scale_bar" type="HSlider" parent="Buttons/MusicVolume" unique_id=2139316517]
+layout_mode = 2
+value = 100.0
+tick_count = 4
+ticks_on_borders = true
+
+[node name="SFXVolume" type="VBoxContainer" parent="Buttons" unique_id=838612328 groups=["MMButtonsContainer"]]
+layout_mode = 2
+theme_override_constants/separation = -30
+
+[node name="_effects_scale_label" type="Label" parent="Buttons/SFXVolume" unique_id=491581564]
+layout_mode = 2
+text = "SFX Volume"
+label_settings = ExtResource("3_snsgv")
+horizontal_alignment = 1
+
+[node name="_effects_scale_bar" type="HSlider" parent="Buttons/SFXVolume" unique_id=1774609227]
+layout_mode = 2
+value = 100.0
+tick_count = 4
+ticks_on_borders = true
+
+[node name="_meme_SFX" type="Label" parent="Buttons" unique_id=245655672 groups=["Buttons"]]
+layout_mode = 2
+text = "Meme Sound Effects: Off"
+label_settings = ExtResource("3_snsgv")
+horizontal_alignment = 1
 
 [node name="SelectedButtonIndicator" type="Label" parent="." unique_id=1955574269 groups=["MMButtonIndicator"]]
 offset_top = 237.0

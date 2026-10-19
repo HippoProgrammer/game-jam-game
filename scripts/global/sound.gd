@@ -19,6 +19,7 @@ func play_sound(player: AudioStreamPlayer, sound: AudioStream, meme_SFX = null) 
 	if Events.meme_SFX and meme_SFX != null:
 		player.stream = meme_SFX
 	else:
+		player.volume_linear = Events.sfx_volume * (Events.master_volume/100)
 		player.stream = sound
 	player.play()
 

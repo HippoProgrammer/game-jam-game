@@ -38,7 +38,7 @@ func _start_game():
 	#print("Start Game button pressed")
 	get_tree().change_scene_to_file(main_game_scene)
 func _options():
-	pass
+	$OptionsMenu.show()
 	#print("Options button pressed")
 func _load_game():
 	get_tree().change_scene_to_file(main_game_scene)
