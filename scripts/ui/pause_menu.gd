@@ -8,7 +8,7 @@ var button_index = 0
 var paused_for_frame = false
 
 @onready var options_menu: CanvasLayer = get_tree().get_first_node_in_group("options_menu")
-
+@onready var minimap: CanvasLayer = get_tree().get_first_node_in_group("Minimap")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,6 +17,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if visible:
+		if minimap.visible:
+			minimap.hide()
 		if get_tree().paused == false:
 			get_tree().paused = true
 		
@@ -39,7 +41,7 @@ func _process(_delta: float) -> void:
 		
 		if Input.is_action_just_pressed("escape") and paused_for_frame: # Needed to prevent instant returning to game
 				_resume()
-		if Input.is_action_just_pressed("ui_accept"):
+		if Input.is_action_just_pressed("ui_accept") and paused_for_frame:
 			call(buttons[button_index].name)
 			
 		paused_for_frame = true
@@ -48,6 +50,7 @@ func _process(_delta: float) -> void:
 
 func _resume() -> void:
 	hide()
+	minimap.show()
 	get_tree().paused = false
 func _options() -> void:
 	hide()
