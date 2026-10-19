@@ -52,7 +52,7 @@ script = ExtResource("2_ibjif")
 collision_mask = 3
 
 [node name="ToxinSpawner" type="Marker2D" parent="CharacterBody2D" unique_id=283802102]
-position = Vector2(72, 0)
+position = Vector2(64, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=529130266]
 material = SubResource("ShaderMaterial_qlg0r")

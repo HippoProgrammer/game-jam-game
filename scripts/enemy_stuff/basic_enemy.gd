@@ -68,9 +68,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		attack_timer.paused = true
 	
-	if (state != State.idle or state != State.dying) and target != null:
-		look_at(target.global_position) 
-	
+	#if (state != State.idle or state != State.dying) and target != null:
+		#look_at(target.global_position) 
+	look_at(target.global_position) 
 	character.move_and_slide()
 # --- USER FUNCTIONS ---
 
