@@ -108,7 +108,7 @@ func _physics_process(delta: float) -> void:
 	# --- DASHING ---
 	
 	if Input.is_action_just_pressed("right_click"):
-		dash()	
+		dash()
 	
 	if dashing:
 		move_and_slide()
