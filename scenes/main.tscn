@@ -37,6 +37,8 @@ color = Color(0.11858138, 0.11858139, 0.11858133, 1)
 position = Vector2(395, -90)
 navigation_polygon = SubResource("NavigationPolygon_glkys")
 
+[node name="Cell" parent="." unique_id=1873970965 instance=ExtResource("7_o6xl0")]
+
 [node name="BasicEnemy" parent="." unique_id=1883996621 instance=ExtResource("1_jyhfs")]
 position = Vector2(424, -104)
 metadata/movement_speed = 100.0
@@ -47,8 +49,6 @@ position = Vector2(-1258, 0)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=943063168]
 script = ExtResource("2_0wfyh")
-
-[node name="Cell" parent="." unique_id=1873970965 instance=ExtResource("7_o6xl0")]
 
 [node name="Minimap" parent="." unique_id=454228334 instance=ExtResource("7_85g3d")]
 

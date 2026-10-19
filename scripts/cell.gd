@@ -1,6 +1,6 @@
 extends Node2D
 
-var controlled_by = "enemy"
+var controlled_by = "player"
 
 var regen = 5 # Regenerated health per second, while state = regen
 
@@ -114,9 +114,7 @@ func regen_entites(_controlled_by, delta) -> void:
 	
 
 	if target != null and global_position.distance_to(target.global_position) < regen_range:
-	
 		regen_emitter.look_at(target.global_position)
-		# idk how to get the next line to work
 		particle_speed = global_position.distance_to(target.global_position) * 2 / regen_emitter.lifetime 
 		
 		var mat = regen_emitter.process_material as ParticleProcessMaterial
@@ -124,19 +122,18 @@ func regen_entites(_controlled_by, delta) -> void:
 			mat.set_param_min(ParticleProcessMaterial.PARAM_INITIAL_LINEAR_VELOCITY, particle_speed)
 			mat.set_param_max(ParticleProcessMaterial.PARAM_INITIAL_LINEAR_VELOCITY, particle_speed)
 		regen_emitter.emitting = true
-		#print("regenning")
-		#print(target)
+		
 		if controlled_by == "enemy":
 			target.get_parent()._ext_heal(friendly_regen,delta)
 		else:
-			target._ext_heal(friendly_regen,delta) #damnthisisjammycodeandtotalllywon'tbreak
+			target._ext_heal(friendly_regen,delta)
 		
 	else:
 		regen_emitter.emitting = false
 
 func get_closest_enemy() -> Node2D:
 	var closest: Node2D = null
-	var closest_dist := INF # apparently you can do this...
+	var closest_dist := INF
 
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		var distance := global_position.distance_squared_to(enemy.global_position)
