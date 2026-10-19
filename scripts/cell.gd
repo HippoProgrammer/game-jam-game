@@ -5,9 +5,9 @@ var enemy_max_health = 100.0
 var enemy_max_glucose = 100.0
 var enemy_glucose_regen = 0.0
 var enemy_health_regen = 0.0
-var enemy_movement_speed = 10.0
+var enemy_movement_speed = 100.0
 var enemy_attack_range = 400.0
-var enemy_los_range = 100.0
+var enemy_los_range = 800.0
 var enemy_scale = 1.0
 var enemy_attack_damage = 10.0
 var enemy_attack_reload = 2.0
@@ -174,6 +174,7 @@ func get_closest_enemy() -> Node2D:
 func create_enemy() -> void:
 	var node = load("res://scenes/enemy_stuff/basic_enemy.tscn").instantiate()
 	
+	print("Setting Properties")
 	node.set_meta("attack_damage",enemy_attack_damage)
 	node.set_meta("attack_range",enemy_attack_range)
 	node.set_meta("glucose_regen",enemy_glucose_regen)
@@ -184,6 +185,7 @@ func create_enemy() -> void:
 	node.set_meta("scale",enemy_scale)
 	node.set_meta("max_health",enemy_max_health)
 	node.set_meta("max_glucose",enemy_max_glucose)
+	print("Finished Setting Properties")
 	
 	node.global_position = global_position + Vector2(80,0)
 	get_parent().add_child(node)
