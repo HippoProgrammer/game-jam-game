@@ -66,13 +66,15 @@ func _physics_process(delta: float) -> void:
 	
 	state = _check_state()
 	if state == State.spotted:
-		_spotted(delta)
+		_chase(delta)
 	if state == State.attack:
 		attack_timer.paused = false
 	else:
 		attack_timer.paused = true
 		
 	character.move_and_slide()
+
+
 # --- USER FUNCTIONS ---
 
 func _change_health(new: float, max_value: float):
@@ -94,9 +96,6 @@ func _check_state() -> State:
 			attack_timer.paused = true
 		return State.idle
 
-
-# then we can just derive behavoiur from here, ie. state idle has its own distinct behavoiur from attack...
-
 # attack
 
 func _check_attack() -> bool:
@@ -110,7 +109,8 @@ func _check_attack() -> bool:
 	raycast.target_position = raycast.to_local(target.global_position)
 	raycast.force_raycast_update()
 	return raycast.is_colliding() and \
-		(raycast.get_collider().is_in_group("Player") or raycast.get_collider().is_in_group("cells"))
+		(raycast.get_collider().is_in_group("Player") or \
+		raycast.get_collider().is_in_group("cells"))
 
 func _attack() -> void:
 	var toxin = toxin_scene.instantiate()
@@ -131,7 +131,9 @@ func _check_los() -> bool:
 
 	raycast.target_position = raycast.to_local(target.global_position)
 	raycast.force_raycast_update()
-	return raycast.is_colliding() and (raycast.get_collider().is_in_group("Player") or raycast.get_collider().is_in_group("cells"))
+	return raycast.is_colliding() and \
+	(raycast.get_collider().is_in_group("Player") or \
+	raycast.get_collider().is_in_group("cells"))
 
 func _chase(_delta: float) -> void:
 	nav.set_target_position(target.global_position)
@@ -155,11 +157,6 @@ func _chase(_delta: float) -> void:
 
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	character.velocity = safe_velocity
-
-func _spotted(delta) -> void:
-	#print("player spotted")
-	_chase(delta)
-	# sound effects, animations etc..
 
 
 func _die() -> void:
@@ -188,7 +185,8 @@ func _ext_heal(amount:float, delta):
 func _get_target() -> Node2D:
 	var closest_cell = get_closest_cell()
 	if closest_cell:
-		if character.global_position.distance_squared_to(closest_cell.global_position) < character.global_position.distance_squared_to(player_character.global_position):
+		if character.global_position.distance_squared_to(closest_cell.global_position) < \
+		character.global_position.distance_squared_to(player_character.global_position):
 			return closest_cell
 		else:
 			return player_character
@@ -201,7 +199,8 @@ func get_closest_cell() -> Node2D:
 
 	for cell in get_tree().get_nodes_in_group("cells"):
 		var distance = character.global_position.distance_squared_to(cell.global_position)
-		if distance < closest_dist and not cell.controlled_by == "enemy":
+		if distance < closest_dist and not \
+		cell.controlled_by == "enemy":
 			closest_dist = distance
 			closest = cell
 	if closest_dist != INF:

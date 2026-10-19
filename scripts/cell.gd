@@ -14,23 +14,26 @@ var enemy_attack_reload = 2.0
 
 var controlled_by = "player"
 
-var regen = 5 # Regenerated health per second, while state = regen
+# Constants
 
-var friendly_regen = 10.0
-var regen_range = 200
+@onready var regen = get_meta("regen")
+
+@onready var friendly_regen = get_meta("friendly_regen")
+@onready var regen_range = get_meta("regen_range")
 @onready var regen_emitter: GPUParticles2D = $RegenEmitter # maybe use CPU but idk..
 @onready var enemy_regen_texture = preload("res://artwork/enemy_stuff/enemy_heal_particle.png")
 @onready var player_regen_texture = preload("res://artwork/MainChara/player_heal_particle.png")
+
+@onready var player = get_tree().get_first_node_in_group("Player")
+
 var regen_particle_speed = 700
 var base_particle_amount = 2.5
 var particle_speed
 
-@onready var player = get_tree().get_first_node_in_group("Player")
-
 enum State {no_regen,regen}
 var state = State.no_regen
 
-var time_until_regen = 10 # The time in seconds after being hit by an opponent until the cell can regen
+var time_until_regen = 10 
 var timer_until_regen = time_until_regen
 
 var virus_cell_attack_mult = 4
@@ -38,21 +41,15 @@ var virus_cell_attack_mult = 4
 var recent_shooter : Node
 var previous_collisions = []
 
-# --- SET IN ready() ---
-var max_health
-var health
-var light
-var health_bar
+@onready var max_health = get_meta("max_health",500)
+@onready var health = max_health
+@onready var light = $Sprite2D/PointLight2D
+@onready var health_bar = $HealthBar
+
+# Godot functions
 
 func _ready() -> void:
 	regen_emitter.amount = round(base_particle_amount * (Events.effects_scale/100))
-	
-	# --- SET VARIABLES ---
-	max_health = get_meta("max_health",500)
-	health = max_health
-	
-	light = $Sprite2D/PointLight2D
-	health_bar = $HealthBar
 	
 	if controlled_by == "player":
 		light.color = "1CEE24"

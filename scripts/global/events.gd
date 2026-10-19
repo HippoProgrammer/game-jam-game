@@ -15,11 +15,16 @@ var sfx_volume: float = 100.0
 
 var meme_SFX: bool = false
 
+# User functions
+
 func _change_effects_scale(new: float) -> void:
 	effects_scale = new
+
 func _change_master_volume(new: float) -> void:
 	master_volume = new
+
 func _change_music_volume(new: float) -> void:
 	music_volume = new
+
 func _change_sfx_volume(new: float) -> void:
 	sfx_volume = new
