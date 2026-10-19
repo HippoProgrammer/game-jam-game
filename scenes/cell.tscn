@@ -17,9 +17,6 @@ diffuse_texture = ExtResource("3_ecwuj")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k4tsc"]
 size = Vector2(109, 113)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ds1sf"]
-size = Vector2(109, 113)
-
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yx0xg"]
 particle_flag_disable_z = true
 spread = 3.0
@@ -43,20 +40,20 @@ collision_mask = 5
 rotation = 0.00016523933
 shape = SubResource("RectangleShape2D_k4tsc")
 
-[node name="Hitbox" type="Area2D" parent="Sprite2D/CellBody" unique_id=1743522092]
-collision_layer = 0
-collision_mask = 6
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/CellBody/Hitbox" unique_id=1112966124]
-rotation = 0.00016523933
-shape = SubResource("RectangleShape2D_ds1sf")
-
 [node name="PointLight2D" type="PointLight2D" parent="Sprite2D" unique_id=1752685726]
 scale = Vector2(4.5078125, 2.6914063)
 color = Color(0.10980392, 0.93333334, 0.14117648, 1)
 energy = 3.0
 shadow_enabled = true
 texture = ExtResource("2_0s7o3")
+
+[node name="Hitbox" type="Area2D" parent="Sprite2D" unique_id=1422929244]
+collision_layer = 6
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Hitbox" unique_id=1294856655]
+rotation = 0.00016523933
+shape = SubResource("RectangleShape2D_k4tsc")
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=780294916]
 offset_left = -63.0
@@ -72,4 +69,4 @@ randomness = 0.2
 fixed_fps = 10
 process_material = SubResource("ParticleProcessMaterial_yx0xg")
 
-[connection signal="body_entered" from="Sprite2D/CellBody/Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="Sprite2D/Hitbox" to="." method="_on_hitbox_body_entered"]

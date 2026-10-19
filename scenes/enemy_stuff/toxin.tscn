@@ -8,7 +8,7 @@
 diffuse_texture = ExtResource("2_npgi2")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rmea8"]
-radius = 17.591919
+radius = 3.0
 
 [node name="Toxin" type="CharacterBody2D" unique_id=1750544342 groups=["Toxins"]]
 collision_layer = 2
@@ -18,15 +18,14 @@ metadata/attack_damage = 0.0
 metadata/shooter = NodePath("")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2138503294]
-scale = Vector2(0.054687526, 0.054687526)
+scale = Vector2(0.055, 0.055)
 texture = SubResource("CanvasTexture_15cnv")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1296605289]
-scale = Vector2(0.234375, 0.234375)
-shape = SubResource("CircleShape2D_rmea8")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=930688253]
 scale = Vector2(4.5078125, 2.6914063)
 color = Color(0.93333334, 0.10980392, 0.14117648, 1)
 energy = 3.0
 texture = ExtResource("3_2nxk3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=230095309]
+shape = SubResource("CircleShape2D_rmea8")
