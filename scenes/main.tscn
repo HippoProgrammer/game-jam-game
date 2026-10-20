@@ -2,17 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://c42rvvvlc7iwv" path="res://scenes/enemy_stuff/basic_enemy.tscn" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dlfkmnvkalefo" path="res://scenes/player.tscn" id="1_sugp2"]
-[ext_resource type="PackedScene" uid="uid://df56635vv31xq" path="res://scenes/sound.tscn" id="1_tbgi4"]
-[ext_resource type="Script" uid="uid://coedyelriw41n" path="res://scripts/camera_script.gd" id="2_0wfyh"]
-[ext_resource type="Texture2D" uid="uid://7oihsraboocn" path="res://artwork/Temp_Assets/21704-heart-inside.jpg" id="2_choun"]
+[ext_resource type="PackedScene" uid="uid://df56635vv31xq" path="res://scenes/global/sound.tscn" id="1_tbgi4"]
+[ext_resource type="Script" uid="uid://coedyelriw41n" path="res://scripts/ui/camera_script.gd" id="2_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://b6mh10pxw7bel" path="res://artwork/Temp_Assets/21704-heart-inside.jpg" id="2_choun"]
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="2_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://cilmvhpq6adfm" path="res://scenes/HUD.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://cilmvhpq6adfm" path="res://scenes/ui/HUD.tscn" id="3_sugp2"]
 [ext_resource type="Texture2D" uid="uid://bwn54qiv6ln4n" path="res://artwork/Temp_Assets/intestines.jpg" id="3_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://cqtox8afloc81" path="res://artwork/Temp_Assets/21481-liver.jpg" id="4_eb6dy"]
 [ext_resource type="Texture2D" uid="uid://d0es8cfpiork4" path="res://artwork/Temp_Assets/Urinary-Tract-BIG_2064x1895.jpg" id="5_trceg"]
 [ext_resource type="Texture2D" uid="uid://ofoc33irh6uh" path="res://artwork/Temp_Assets/Lungs_diagram_detailed.svg.webp" id="6_a8y0u"]
 [ext_resource type="Texture2D" uid="uid://bcmiionjdu16l" path="res://artwork/Temp_Assets/21758-stomach.jpg" id="6_tefeu"]
 [ext_resource type="Texture2D" uid="uid://deq00ga8jh0q7" path="res://artwork/Temp_Assets/brain-lateral.png" id="7_jkv2x"]
+[ext_resource type="PackedScene" uid="uid://b5mm4pbq332bq" path="res://scenes/cell.tscn" id="7_o6xl0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tipki"]
 texture = ExtResource("2_o6xl0")
@@ -182,10 +183,13 @@ navigation_polygon = SubResource("NavigationPolygon_glkys")
 
 [node name="BasicEnemy" parent="." unique_id=1883996621 instance=ExtResource("1_jyhfs")]
 position = Vector2(424, -104)
-metadata/movement_speed = 100.0
 metadata/los_range = 100000.0
 
+[node name="Cell" parent="." unique_id=1873970965 instance=ExtResource("7_o6xl0")]
+position = Vector2(-287, -146)
+
 [node name="Player" parent="." unique_id=401100565 instance=ExtResource("1_sugp2")]
+position = Vector2(-781, 459)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=943063168]
 script = ExtResource("2_0wfyh")

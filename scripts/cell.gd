@@ -304,7 +304,6 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 			body.queue_free()
 		
 	if body.is_in_group("Toxins") and controlled_by == "player" and is_inside_tree():
-		
 		if state == State.regen:
 			timer_until_regen = 0
 			state = State.no_regen

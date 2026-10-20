@@ -47,11 +47,11 @@ energy = 3.0
 shadow_enabled = true
 texture = ExtResource("2_0s7o3")
 
-[node name="Hitbox" type="Area2D" parent="Sprite2D" unique_id=1422929244]
+[node name="CellHitbox" type="Area2D" parent="Sprite2D" unique_id=1422929244]
 collision_layer = 6
 collision_mask = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Hitbox" unique_id=1294856655]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/CellHitbox" unique_id=1294856655]
 rotation = 0.00016523933
 shape = SubResource("RectangleShape2D_k4tsc")
 
@@ -69,4 +69,4 @@ randomness = 0.2
 fixed_fps = 10
 process_material = SubResource("ParticleProcessMaterial_yx0xg")
 
-[connection signal="body_entered" from="Sprite2D/Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="Sprite2D/CellHitbox" to="." method="_on_hitbox_body_entered"]

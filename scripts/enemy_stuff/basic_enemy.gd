@@ -27,6 +27,7 @@ var attack_timer: Timer
 # target the player
 @onready var player_character = get_tree().get_first_node_in_group("Player")
 
+var target_pos
 
 # state
 enum State {idle, spotted, attack, dying}
@@ -69,6 +70,15 @@ func _physics_process(delta: float) -> void:
 		_spotted(delta)
 	if state == State.attack:
 		attack_timer.paused = false
+		var closest_cell = get_closest_cell()
+		if closest_cell:
+			if closest_cell.global_position.distance_to(player_character.global_position) < 2 * attack_range:
+				target_pos = closest_cell.global_position.lerp(player_character.global_position, 0.5) # Find Midpoint
+				
+				var direction = character.global_position.direction_to(target_pos)
+				
+				character.velocity = direction * movement_speed
+
 	else:
 		attack_timer.paused = true
 		
@@ -131,7 +141,8 @@ func _check_los() -> bool:
 
 	raycast.target_position = raycast.to_local(target.global_position)
 	raycast.force_raycast_update()
-	return raycast.is_colliding() and (raycast.get_collider().is_in_group("Player") or raycast.get_collider().is_in_group("cells"))
+	return raycast.is_colliding() and (raycast.get_collider().is_in_group("Player") or \
+		raycast.get_collider().is_in_group("cells"))
 
 func _chase(_delta: float) -> void:
 	nav.set_target_position(target.global_position)
@@ -188,7 +199,8 @@ func _ext_heal(amount:float, delta):
 func _get_target() -> Node2D:
 	var closest_cell = get_closest_cell()
 	if closest_cell:
-		if character.global_position.distance_squared_to(closest_cell.global_position) < character.global_position.distance_squared_to(player_character.global_position):
+		if character.global_position.distance_squared_to(closest_cell.global_position) \
+			<= character.global_position.distance_squared_to(player_character.global_position):
 			return closest_cell
 		else:
 			return player_character
