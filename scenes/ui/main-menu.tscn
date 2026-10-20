@@ -67,5 +67,4 @@ label_settings = SubResource("LabelSettings_lyxsl")
 horizontal_alignment = 1
 
 [node name="OptionsMenu" parent="." unique_id=505931995 instance=ExtResource("2_n70rl")]
-visible = false
 return_node_path = NodePath("../CanvasLayer")
