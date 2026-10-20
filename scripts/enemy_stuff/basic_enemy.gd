@@ -27,6 +27,7 @@ var attack_timer: Timer
 # target the player
 @onready var player_character = get_tree().get_first_node_in_group("Player")
 
+var target_pos
 
 # state
 enum State {idle, spotted, attack, dying}
@@ -50,28 +51,45 @@ var probability_health_change = 100
 
 func _ready() -> void:
 	scale = Vector2(get_meta("scale")/4,get_meta("scale")/4)
-	
+
 	attack_timer = Timer.new()
 	attack_timer.wait_time = reload
 	attack_timer.autostart = true
 	attack_timer.one_shot = false
 	attack_timer.timeout.connect(_attack.bind())
 	add_child(attack_timer)
-	
+
 	nav.velocity_computed.connect(Callable(_on_velocity_computed))
 	_change_health(health, max_health)
 
 func _physics_process(delta: float) -> void:
 	target = _get_target()
-	
+
 	state = _check_state()
 	if state == State.spotted:
 		_chase(delta)
 	if state == State.attack:
 		attack_timer.paused = false
+		var closest_cell = get_closest_cell()
+		if closest_cell:
+			if closest_cell.global_position.distance_to(player_character.global_position) < 2 * attack_range:
+				target_pos = closest_cell.global_position.lerp(player_character.global_position, 0.5) # Find Midpoint
+			else:
+				var dir_cell_to_player = (player_character.global_position - closest_cell.global_position).normalized()
+
+				if target == player_character && character.global_position.distance_to(closest_cell.global_position) \
+					< los_range && closest_cell.global_position.distance_to(character.global_position) < los_range:
+					target_pos = player_character.global_position - (dir_cell_to_player * attack_range)
+
+				elif target == closest_cell && character.global_position.distance_to(closest_cell.global_position) \
+					 < los_range && closest_cell.global_position.distance_to(character.global_position) < los_range:
+					target_pos = closest_cell.global_position + (dir_cell_to_player * attack_range)
+			var direction = character.global_position.direction_to(target_pos)
+			character.velocity = direction * movement_speed
+
 	else:
 		attack_timer.paused = true
-		
+
 	character.move_and_slide()
 
 
@@ -105,7 +123,7 @@ func _check_attack() -> bool:
 		return false
 	if not get_meta("needs_los"):
 		return true
-	
+
 	raycast.target_position = raycast.to_local(target.global_position)
 	raycast.force_raycast_update()
 	return raycast.is_colliding() and \
@@ -144,11 +162,11 @@ func _chase(_delta: float) -> void:
 	if nav.is_navigation_finished():
 		character.velocity = Vector2.ZERO
 		return
-	
+
 	var next_path_position: Vector2 = nav.get_next_path_position()
 	var target_direction: Vector2 = character.global_position.direction_to(next_path_position)
 	var preferred_velocity: Vector2 = target_direction * movement_speed
-	
+
 	if nav.avoidance_enabled:
 		nav.set_velocity(preferred_velocity)
 	else:
@@ -161,7 +179,7 @@ func _on_velocity_computed(safe_velocity: Vector2) -> void:
 
 func _die() -> void:
 	state = State.dying
-	
+
 	var mat := $CharacterBody2D/Sprite2D.material as ShaderMaterial
 	var tween = create_tween()
 	tween.tween_property(mat, "shader_parameter/progress", 1.0, 0.6)
@@ -171,22 +189,22 @@ func _die() -> void:
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if state == State.dying:
 		return
-	
+
 	if body.is_in_group("Antigens"):
 		health -= body.get_meta("attack_damage")
 		_change_health(health,max_health)
 	if health <= 0:
 		Events.enemy_died_sound.emit()
 		_die()
-  
+
 func _ext_heal(amount:float, delta):
 	health = clamp(health + amount * delta, -max_health, max_health)
 
 func _get_target() -> Node2D:
 	var closest_cell = get_closest_cell()
 	if closest_cell:
-		if character.global_position.distance_squared_to(closest_cell.global_position) < \
-		character.global_position.distance_squared_to(player_character.global_position):
+		if character.global_position.distance_squared_to(closest_cell.global_position) \
+			<= character.global_position.distance_squared_to(player_character.global_position) + 80000: # The 80000 makes it more likely to target the enemy
 			return closest_cell
 		else:
 			return player_character
@@ -246,5 +264,5 @@ func load_data(data: Dictionary) -> void:
 
 	attack_timer.wait_time = reload
 	_change_health(health, max_health)
-  
+
 # obligatory pf 🏳️‍🌈

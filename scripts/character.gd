@@ -168,6 +168,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 			body.queue_free()
 			_animate_health_bar()
 
+
 func _animate_health_bar() -> void:
 	health_bar.material = load("res://palette_swap_resources/1_health_bar_inside_white.tres")
 	await get_tree().create_timer(health_bar_inter_frame_time).timeout
