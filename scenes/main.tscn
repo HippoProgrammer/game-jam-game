@@ -3,15 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://c42rvvvlc7iwv" path="res://scenes/enemy_stuff/basic_enemy.tscn" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dlfkmnvkalefo" path="res://scenes/player/player.tscn" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://df56635vv31xq" path="res://scenes/global/sound.tscn" id="1_tbgi4"]
-[ext_resource type="Texture2D" uid="uid://b6mh10pxw7bel" path="res://artwork/Temp_Assets/21704-heart-inside.jpg" id="2_choun"]
 [ext_resource type="PackedScene" uid="uid://cilmvhpq6adfm" path="res://scenes/ui/HUD.tscn" id="3_sugp2"]
-[ext_resource type="Texture2D" uid="uid://bwn54qiv6ln4n" path="res://artwork/Temp_Assets/intestines.jpg" id="3_ya4ey"]
-[ext_resource type="Texture2D" uid="uid://cqtox8afloc81" path="res://artwork/Temp_Assets/21481-liver.jpg" id="4_eb6dy"]
-[ext_resource type="Texture2D" uid="uid://d0es8cfpiork4" path="res://artwork/Temp_Assets/Urinary-Tract-BIG_2064x1895.jpg" id="5_trceg"]
-[ext_resource type="Texture2D" uid="uid://ofoc33irh6uh" path="res://artwork/Temp_Assets/Lungs_diagram_detailed.svg.webp" id="6_a8y0u"]
-[ext_resource type="Texture2D" uid="uid://bcmiionjdu16l" path="res://artwork/Temp_Assets/21758-stomach.jpg" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://dmrjqd12j74cf" path="res://scenes/ui/minimap.tscn" id="7_85g3d"]
-[ext_resource type="Texture2D" uid="uid://deq00ga8jh0q7" path="res://artwork/Temp_Assets/brain-lateral.png" id="7_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://dab6o1ajkfy18" path="res://scenes/levels/stomach.tscn" id="8_jscy8"]
 [ext_resource type="PackedScene" uid="uid://gcte2ddwg4al" path="res://scenes/levels/heart.tscn" id="9_pm3ni"]
 [ext_resource type="PackedScene" uid="uid://cufllo5wkhawn" path="res://scenes/levels/intestines.tscn" id="10_y6deb"]
@@ -29,50 +22,6 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-968, 396, 165, 410, 177, -218, -975, -221)])
 
 [node name="Main" type="Node2D" unique_id=577279995]
-
-[node name="OrganTemps" type="Node" parent="." unique_id=1786895417]
-
-[node name="StomachTemp" type="Sprite2D" parent="OrganTemps" unique_id=1597978615]
-visible = false
-position = Vector2(-588, -12.999939)
-scale = Vector2(4.7612495, 4.7612505)
-texture = ExtResource("6_tefeu")
-
-[node name="HeartTemp" type="Sprite2D" parent="OrganTemps" unique_id=1335960154]
-visible = false
-position = Vector2(3455.9998, 29.00003)
-scale = Vector2(5.3378134, 5.3378134)
-texture = ExtResource("2_choun")
-
-[node name="IntestinesTemp" type="Sprite2D" parent="OrganTemps" unique_id=25626810]
-visible = false
-position = Vector2(7293, 588)
-scale = Vector2(1.7025, 1.7025001)
-texture = ExtResource("3_ya4ey")
-
-[node name="LiverTemp" type="Sprite2D" parent="OrganTemps" unique_id=914798348]
-visible = false
-position = Vector2(10733, 603)
-scale = Vector2(4.25, 4.25)
-texture = ExtResource("4_eb6dy")
-
-[node name="KidneysTemps" type="Sprite2D" parent="OrganTemps" unique_id=1638694488]
-visible = false
-position = Vector2(14429, 593)
-scale = Vector2(2.7445552, 2.7445552)
-texture = ExtResource("5_trceg")
-
-[node name="LungsTemp" type="Sprite2D" parent="OrganTemps" unique_id=403906219]
-visible = false
-position = Vector2(18242, -65)
-scale = Vector2(3.4149394, 3.4149394)
-texture = ExtResource("6_a8y0u")
-
-[node name="BrainTemp" type="Sprite2D" parent="OrganTemps" unique_id=1137726795]
-visible = false
-position = Vector2(22061.002, 420)
-scale = Vector2(3.4149394, 3.4149394)
-texture = ExtResource("7_jkv2x")
 
 [node name="Organs" type="Node" parent="." unique_id=687573164]
 

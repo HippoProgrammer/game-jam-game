@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://b83te63t0kjk"]
 
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="1_xdo1a"]
+[ext_resource type="Texture2D" uid="uid://ofoc33irh6uh" path="res://artwork/Temp_Assets/Lungs_diagram_detailed.svg.webp" id="2_bpmg5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_og1vs"]
 texture = ExtResource("1_xdo1a")
@@ -45,6 +46,12 @@ physics_layer_0/collision_mask = 9
 sources/0 = SubResource("TileSetAtlasSource_og1vs")
 
 [node name="Lungs" type="Node2D" unique_id=462232862]
+
+[node name="LungsTemp" type="Sprite2D" parent="." unique_id=189942153]
+visible = false
+position = Vector2(-26, -323)
+scale = Vector2(3.4149394, 3.4149394)
+texture = ExtResource("2_bpmg5")
 
 [node name="Lungs" type="TileMapLayer" parent="." unique_id=873840854]
 position = Vector2(0, -12)

@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://de0mh75vqwhlq"]
 
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="1_275ds"]
+[ext_resource type="Texture2D" uid="uid://d0es8cfpiork4" path="res://artwork/Temp_Assets/Urinary-Tract-BIG_2064x1895.jpg" id="2_tqp3e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pm3ni"]
 texture = ExtResource("1_275ds")
@@ -45,6 +46,12 @@ physics_layer_0/collision_mask = 9
 sources/0 = SubResource("TileSetAtlasSource_pm3ni")
 
 [node name="Kidneys" type="Node2D" unique_id=116522162]
+
+[node name="KidneysTemp" type="Sprite2D" parent="." unique_id=1264214915]
+visible = false
+position = Vector2(-36, 469)
+scale = Vector2(2.7445552, 2.7445552)
+texture = ExtResource("2_tqp3e")
 
 [node name="Kidneys" type="TileMapLayer" parent="." unique_id=968616387]
 position = Vector2(0, -6.000061)
