@@ -11,8 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://boo2y47hv6ioa" path="res://scenes/levels/liver.tscn" id="11_og1vs"]
 [ext_resource type="PackedScene" uid="uid://de0mh75vqwhlq" path="res://scenes/levels/kidneys.tscn" id="12_2wyq8"]
 [ext_resource type="PackedScene" uid="uid://duh31nuskww0r" path="res://scenes/player/player_camera.tscn" id="12_trceg"]
-[ext_resource type="PackedScene" uid="uid://b83te63t0kjk" path="res://scenes/lungs.tscn" id="13_vxglm"]
-[ext_resource type="PackedScene" uid="uid://t15vxhdcr3uf" path="res://scenes/brain.tscn" id="14_2f3dj"]
+[ext_resource type="PackedScene" uid="uid://b83te63t0kjk" path="res://scenes/levels/lungs.tscn" id="13_vxglm"]
+[ext_resource type="PackedScene" uid="uid://t15vxhdcr3uf" path="res://scenes/levels/brain.tscn" id="14_2f3dj"]
 [ext_resource type="PackedScene" uid="uid://baxuyhnqidfqg" path="res://scenes/ui/pause_menu.tscn" id="14_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://dveyeae21syku" path="res://scenes/ui/options_menu.tscn" id="15_jbj1t"]
 

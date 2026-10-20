@@ -4,10 +4,13 @@
 [ext_resource type="Script" uid="uid://bcw0gnqla02m3" path="res://scripts/levels/tutorial.gd" id="1_7ac3l"]
 [ext_resource type="PackedScene" uid="uid://duh31nuskww0r" path="res://scenes/player/player_camera.tscn" id="2_7ac3l"]
 [ext_resource type="PackedScene" uid="uid://df56635vv31xq" path="res://scenes/global/sound.tscn" id="3_iig34"]
+[ext_resource type="PackedScene" uid="uid://b5mm4pbq332bq" path="res://scenes/cell.tscn" id="3_uu0hj"]
 [ext_resource type="PackedScene" uid="uid://cilmvhpq6adfm" path="res://scenes/ui/HUD.tscn" id="4_3e81p"]
 [ext_resource type="PackedScene" uid="uid://dmrjqd12j74cf" path="res://scenes/ui/minimap.tscn" id="5_g7bfq"]
 [ext_resource type="LabelSettings" uid="uid://b0flm8u3mgn6h" path="res://scenes/ui/menu_secondary.tres" id="7_iig34"]
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="8_3e81p"]
+[ext_resource type="PackedScene" uid="uid://baxuyhnqidfqg" path="res://scenes/ui/pause_menu.tscn" id="9_4a02d"]
+[ext_resource type="PackedScene" uid="uid://dveyeae21syku" path="res://scenes/ui/options_menu.tscn" id="10_uu0hj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_glkys"]
 size = Vector2(126, 126)
@@ -17,21 +20,22 @@ script = ExtResource("1_7ac3l")
 
 [node name="Player" parent="." unique_id=401100565 instance=ExtResource("1_1wklo")]
 
+[node name="Cell" parent="." unique_id=1873970965 instance=ExtResource("3_uu0hj")]
+position = Vector2(675, 15)
+
 [node name="PlayerCamera" parent="." unique_id=131873372 instance=ExtResource("2_7ac3l")]
 
 [node name="Sound" parent="." unique_id=457052338 instance=ExtResource("3_iig34")]
 
-[node name="HUD" parent="." unique_id=735888115 instance=ExtResource("4_3e81p")]
-
-[node name="Minimap" parent="." unique_id=454228334 instance=ExtResource("5_g7bfq")]
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=575324778]
 
 [node name="Instructor" type="Label" parent="CanvasLayer" unique_id=1254631295]
+anchors_preset = -1
 offset_left = 52.0
 offset_top = 533.0
 offset_right = 1078.0
 offset_bottom = 620.0
+grow_vertical = 0
 label_settings = ExtResource("7_iig34")
 
 [node name="ExampleIcon1" type="Sprite2D" parent="." unique_id=1486959119]
@@ -44,3 +48,19 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExampleIcon1/Area2D" unique_id=1167117404]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_glkys")
+
+[node name="UI" type="Control" parent="." unique_id=1368394768]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HUD" parent="UI" unique_id=735888115 instance=ExtResource("4_3e81p")]
+
+[node name="Minimap" parent="UI" unique_id=454228334 instance=ExtResource("5_g7bfq")]
+
+[node name="PauseMenu" parent="UI" unique_id=505931995 instance=ExtResource("9_4a02d")]
+
+[node name="OptionsMenu" parent="UI" unique_id=617999142 instance=ExtResource("10_uu0hj")]
+visible = true
+return_node_path = NodePath("../PauseMenu")
