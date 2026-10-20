@@ -69,6 +69,7 @@ func _physics_process(delta: float) -> void:
 	if state == State.spotted:
 		_chase(delta)
 	if state == State.attack:
+		target_pos = null
 		attack_timer.paused = false
 		var closest_cell = get_closest_cell()
 		if closest_cell:
@@ -84,8 +85,9 @@ func _physics_process(delta: float) -> void:
 				elif target == closest_cell && character.global_position.distance_to(closest_cell.global_position) \
 					 < los_range && closest_cell.global_position.distance_to(character.global_position) < los_range:
 					target_pos = closest_cell.global_position + (dir_cell_to_player * attack_range)
-			var direction = character.global_position.direction_to(target_pos)
-			character.velocity = direction * movement_speed
+			if target_pos:
+				var direction = character.global_position.direction_to(target_pos)
+				character.velocity = direction * movement_speed
 
 	else:
 		attack_timer.paused = true
