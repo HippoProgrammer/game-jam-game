@@ -44,6 +44,10 @@ func _start_game():
 func _options():
 	$OptionsMenu.show()
 
+func _tutorial():
+	Events._toggle_tutorial(true)
+	get_tree().change_scene_to_file("res://scenes/levels/tutorial.tscn")
+
 func _load_game():
 	get_tree().change_scene_to_file(main_game_scene)
 

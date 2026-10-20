@@ -15,7 +15,33 @@ var sfx_volume: float = 100.0
 
 var meme_SFX: bool = false
 
+var tutorial = false
+var allowed_actions: Dictionary
+
+# Godot functions
+
+func _ready() -> void:
+	_toggle_tutorial(false)
+
 # User functions
+
+func _toggle_tutorial(value) -> void:
+	if not value:
+		tutorial = false
+		allowed_actions = {
+			"move" = true,
+			"toggle_minimap" = true,
+			"dash" = true,
+			"shoot" = true
+		}
+	else:
+		tutorial = true
+		allowed_actions = {
+			"move" = false,
+			"toggle_minimap" = false,
+			"dash" = false,
+			"shoot" = false
+		}
 
 func _change_effects_scale(new: float) -> void:
 	effects_scale = new

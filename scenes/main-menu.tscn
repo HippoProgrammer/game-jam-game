@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://beqtdetla8wk"]
 
-[ext_resource type="Script" path="res://scripts/main_menu_script.gd" id="1_rk22q"]
+[ext_resource type="Script" uid="uid://dl0owis63ky18" path="res://scripts/ui/main_menu_script.gd" id="1_rk22q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_22vlk"]
 font_size = 80
@@ -39,6 +39,12 @@ offset_bottom = 415.0
 [node name="_start_game" type="Label" parent="CanvasLayer/Buttons" unique_id=223562830]
 layout_mode = 2
 text = "Start Game"
+label_settings = SubResource("LabelSettings_v7ihv")
+horizontal_alignment = 1
+
+[node name="_tutorial" type="Label" parent="CanvasLayer/Buttons" unique_id=1542036407]
+layout_mode = 2
+text = "Tutorial"
 label_settings = SubResource("LabelSettings_v7ihv")
 horizontal_alignment = 1
 

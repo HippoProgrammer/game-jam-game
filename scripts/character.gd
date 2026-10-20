@@ -50,12 +50,14 @@ func _physics_process(delta: float) -> void:
 		# Makes the player look at the mouse
 		look_at(get_global_mouse_position())
 	
-	if Input.is_action_just_pressed("left_click"):
+	if Input.is_action_just_pressed("left_click") and \
+	Events.allowed_actions["shoot"]:
 		shoot_antigen()
 	
 	# --- DASHING ---
 	
-	if Input.is_action_just_pressed("right_click"):
+	if Input.is_action_just_pressed("right_click") and \
+	Events.allowed_actions["dash"]:
 		dash()	
 	
 	if dashing:
@@ -63,31 +65,32 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	# hopefully self explanatory
-	if Input.is_action_pressed("ui_up"):
-		velocity.y = clamp(velocity.y - (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
-	if Input.is_action_pressed("ui_down"):
-		velocity.y = clamp(velocity.y + (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
-	if Input.is_action_pressed("ui_left"):
-		velocity.x = clamp(velocity.x - (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
-	if Input.is_action_pressed("ui_right"):
-		velocity.x = clamp(velocity.x + (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
-	
-	if not(Input.is_action_pressed("ui_up") or \
-	Input.is_action_pressed("ui_down")) or (Input.is_action_pressed("ui_up") and \
-	Input.is_action_pressed("ui_down")):
-		if velocity.y > 0:
-			velocity.y = max(velocity.y - (delta / time_to_max_velocity) * max_velocity, 0)
-		elif velocity.y < 0:
-			velocity.y = min(velocity.y + (delta / time_to_max_velocity) * max_velocity, 0)
-	if not(Input.is_action_pressed("ui_left") or \
-	Input.is_action_pressed("ui_right")) or \
-	(Input.is_action_pressed("ui_left") and \
-	Input.is_action_pressed("ui_right")):
-		if velocity.x > 0:
-			velocity.x = max(velocity.x - (delta / time_to_max_velocity) * max_velocity, 0)
-		elif velocity.x < 0:
-			velocity.x = min(velocity.x + (delta / time_to_max_velocity) * max_velocity, 0)
-	
+	if Events.allowed_actions["move"]:
+		if Input.is_action_pressed("ui_up"):
+			velocity.y = clamp(velocity.y - (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
+		if Input.is_action_pressed("ui_down"):
+			velocity.y = clamp(velocity.y + (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
+		if Input.is_action_pressed("ui_left"):
+			velocity.x = clamp(velocity.x - (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
+		if Input.is_action_pressed("ui_right"):
+			velocity.x = clamp(velocity.x + (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
+		
+		if not(Input.is_action_pressed("ui_up") or \
+		Input.is_action_pressed("ui_down")) or (Input.is_action_pressed("ui_up") and \
+		Input.is_action_pressed("ui_down")):
+			if velocity.y > 0:
+				velocity.y = max(velocity.y - (delta / time_to_max_velocity) * max_velocity, 0)
+			elif velocity.y < 0:
+				velocity.y = min(velocity.y + (delta / time_to_max_velocity) * max_velocity, 0)
+		if not(Input.is_action_pressed("ui_left") or \
+		Input.is_action_pressed("ui_right")) or \
+		(Input.is_action_pressed("ui_left") and \
+		Input.is_action_pressed("ui_right")):
+			if velocity.x > 0:
+				velocity.x = max(velocity.x - (delta / time_to_max_velocity) * max_velocity, 0)
+			elif velocity.x < 0:
+				velocity.x = min(velocity.x + (delta / time_to_max_velocity) * max_velocity, 0)
+		
 	move_and_slide()
 
 func _process(delta: float) -> void:
