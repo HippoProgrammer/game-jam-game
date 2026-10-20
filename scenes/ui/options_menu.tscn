@@ -9,7 +9,7 @@
 font = ExtResource("2_c4822")
 font_size = 60
 
-[node name="OptionsMenu" type="CanvasLayer" unique_id=505931995 groups=["PauseMenu", "options_menu"]]
+[node name="OptionsMenu" type="CanvasLayer" unique_id=505931995 groups=["options_menu"]]
 process_mode = 3
 visible = false
 script = ExtResource("1_imaij")
