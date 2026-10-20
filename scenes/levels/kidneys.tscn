@@ -48,6 +48,7 @@ sources/0 = SubResource("TileSetAtlasSource_pm3ni")
 [node name="Kidneys" type="Node2D" unique_id=116522162]
 
 [node name="KidneysTemp" type="Sprite2D" parent="." unique_id=1264214915]
+visible = false
 position = Vector2(-36, 469)
 scale = Vector2(2.7445552, 2.7445552)
 texture = ExtResource("2_tqp3e")

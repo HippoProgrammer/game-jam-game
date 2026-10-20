@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://dr5jhi3n2ka75"]
 
-[ext_resource type="PackedScene" uid="uid://ced6vdua8l8tq" path="res://scenes/levels/organ_temps.tscn" id="1_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://c42rvvvlc7iwv" path="res://scenes/enemy_stuff/basic_enemy.tscn" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dlfkmnvkalefo" path="res://scenes/player/player.tscn" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://df56635vv31xq" path="res://scenes/global/sound.tscn" id="1_tbgi4"]
@@ -23,8 +22,6 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-968, 396, 165, 410, 177, -218, -975, -221)])
 
 [node name="Main" type="Node2D" unique_id=577279995]
-
-[node name="OrganTemps" parent="." unique_id=1978080947 instance=ExtResource("1_jbj1t")]
 
 [node name="Organs" type="Node" parent="." unique_id=687573164]
 
