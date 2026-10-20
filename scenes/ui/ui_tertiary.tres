@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://cm85wra5wu4if"]
+
+[ext_resource type="FontFile" uid="uid://coea30ddycdm6" path="res://artwork/Fonts/Body/PT Sans/PTSans-Regular.ttf" id="1_qflvu"]
+
+[resource]
+font = ExtResource("1_qflvu")
+font_size = 30

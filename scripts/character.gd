@@ -111,13 +111,21 @@ func _process(delta: float) -> void:
 # User functions
 
 func shoot_antigen():
-	var antigen = antigen_scene.instantiate()
-	Events.player_shoot.emit()
-	owner.add_child(antigen)
-	antigen.set_meta("attack_damage",attack_damage)
-	
-	antigen.global_position = global_position
-	antigen.velocity = (get_global_mouse_position() - global_position).normalized() * antigen_speed
+	if Upgrades.attack_upgrades["triple_antigens"]:
+		for x in [-5,0,5]:
+			var antigen = antigen_scene.instantiate()
+			Events.player_shoot.emit()
+			owner.add_child(antigen)
+			antigen.global_transform = antigen_spawner.global_transform + x
+			antigen.set_meta("attack_damage",attack_damage)
+	else:
+			var antigen = antigen_scene.instantiate()
+	    Events.player_shoot.emit()
+	    owner.add_child(antigen)
+	    antigen.set_meta("attack_damage",attack_damage)
+      
+	    antigen.global_position = global_position
+  	  antigen.velocity = (get_global_mouse_position() - global_position).normalized() * antigen_speed
 
 func dash():
 	if dashing:

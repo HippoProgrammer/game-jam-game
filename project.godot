@@ -19,6 +19,7 @@ config/icon="uid://bsk63jkdfblw0"
 
 Events="*uid://coocoi2qhi07h"
 GameState="*uid://cvcq7vrbjuir6"
+Upgrades="*uid://c55fbkr6wyhts"
 
 [display]
 

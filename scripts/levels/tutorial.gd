@@ -36,7 +36,5 @@ func tutorial() -> void:
 	await show_line("Well done", false, 2.0)
 	
 	await show_line("Press M to toggle the minimap", false, 2.0)
-	while true:
-		if Input.is_action_pressed("minimap_toggle"):
-			break
+	await Events.minimap_toggle
 	await show_line("Well done", false, 2.0)

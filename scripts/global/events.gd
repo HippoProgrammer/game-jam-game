@@ -6,6 +6,7 @@ signal error_sound
 signal dash_sound
 signal player_take_damage
 signal player_shoot
+signal minimap_toggle
 @warning_ignore_restore("unused_signal")
 
 var effects_scale: float = 100.0
