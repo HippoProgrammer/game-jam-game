@@ -8,7 +8,7 @@ var stat_upgrades: Dictionary = {
 
 var attack_upgrades: Dictionary = {
 	"triple_antigens" = false,
-	"exploding_antigens_on_death" = false
+	"exploding_enemies_on_death" = false
 }
 
 var action_upgrades = {
