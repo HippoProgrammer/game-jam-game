@@ -2,6 +2,8 @@ extends Node
 
 var pending_load := false
 
+# User functions
+
 func save_game():
 	var save_file = FileAccess.open("user://savegame.save", FileAccess.WRITE)
 	var save_nodes = get_tree().get_nodes_in_group("Persist")

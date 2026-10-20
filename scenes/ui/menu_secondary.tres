@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://b0flm8u3mgn6h"]
+
+[ext_resource type="FontFile" uid="uid://clm4igkhbs182" path="res://artwork/Fonts/Body/PT Sans/PTSans-BoldItalic.ttf" id="1_n62qv"]
+
+[resource]
+font = ExtResource("1_n62qv")
+font_size = 60

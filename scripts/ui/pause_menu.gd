@@ -1,20 +1,19 @@
 extends CanvasLayer
 
-@onready var buttons_group = $Buttons
-@onready var buttons = buttons_group.find_children("*")
-@onready var button_indicator = $SelectedButtonIndicator
-
 var button_index = 0
 var paused_for_frame = false
 
+@onready var buttons_group = $Buttons
+@onready var buttons = buttons_group.find_children("*")
+@onready var button_indicator = $SelectedButtonIndicator
 @onready var options_menu: CanvasLayer = get_tree().get_first_node_in_group("options_menu")
 @onready var minimap: CanvasLayer = get_tree().get_first_node_in_group("Minimap")
 
-# Called when the node enters the scene tree for the first time.
+# Godot functions
+
 func _ready() -> void:
 	hide()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if visible:
 		if minimap.visible:
@@ -48,14 +47,19 @@ func _process(_delta: float) -> void:
 	else:
 		paused_for_frame = false
 
+# User functions
+
 func _resume() -> void:
 	hide()
 	minimap.show()
 	get_tree().paused = false
+
 func _options() -> void:
 	hide()
 	options_menu.show()
+
 func _save_game():
 	GameState.save_game()
+
 func _quit_game() -> void:
 	get_tree().quit()

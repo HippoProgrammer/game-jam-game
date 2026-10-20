@@ -1,7 +1,0 @@
-[gd_resource type="LabelSettings" format=3 uid="uid://dxfmedwso2atk"]
-
-[ext_resource type="FontFile" uid="uid://0aelhvskslt4" path="res://artwork/Fonts/Titles/Astloch-Bold.ttf" id="1_fjd71"]
-
-[resource]
-font = ExtResource("1_fjd71")
-font_size = 120

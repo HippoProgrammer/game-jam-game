@@ -3,6 +3,8 @@ extends SubViewport
 @export var camera_node: Camera2D
 @onready var player_node: Node2D = get_tree().get_first_node_in_group("Player")
 
+# Godot functions
+
 func _ready() -> void:
 	world_2d = get_tree().root.world_2d
 	camera_node.zoom= Vector2(0.1, 0.1)

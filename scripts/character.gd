@@ -33,23 +33,85 @@ var dash_speed: float = 2000.0
 var dash_duration: float = 0.15
 var dash_direction: Vector2 = Vector2.ZERO
 var dashing: bool = false
-var base_scale: Vector2
+@onready var base_scale = scale
 var dash_glucose_use: float = 20.0
 
+# Godot functions
 
 func _ready() -> void:
-	base_scale = scale
-	
 	glucose_changed.emit.call_deferred(glucose, max_glucose)
 	health_changed.emit.call_deferred(health, max_health)
 
-func shoot_antigen():
-	#if ammo == 0: # @GoldenFootie should we do glucose for this?
-		#Events.error_sound.emit()
-		#return
-	#ammo -= 1
+func _physics_process(delta: float) -> void:
+	if health <= 0:
+		_game_over()
+	# --- SHOOTING ---
+	if not dashing:
+		# Makes the player look at the mouse
+		look_at(get_global_mouse_position())
 	
+	if Input.is_action_just_pressed("left_click") and \
+	Events.allowed_actions["shoot"]:
+		shoot_antigen()
+	
+	# --- DASHING ---
+	
+	if Input.is_action_just_pressed("right_click") and \
+	Events.allowed_actions["dash"]:
+		dash()	
+	
+	if dashing:
+		move_and_slide()
+		return
+	
+	# hopefully self explanatory
+	if Events.allowed_actions["move"]:
+		if Input.is_action_pressed("ui_up"):
+			velocity.y = clamp(velocity.y - (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
+		if Input.is_action_pressed("ui_down"):
+			velocity.y = clamp(velocity.y + (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
+		if Input.is_action_pressed("ui_left"):
+			velocity.x = clamp(velocity.x - (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
+		if Input.is_action_pressed("ui_right"):
+			velocity.x = clamp(velocity.x + (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
+		
+		if not(Input.is_action_pressed("ui_up") or \
+		Input.is_action_pressed("ui_down")) or (Input.is_action_pressed("ui_up") and \
+		Input.is_action_pressed("ui_down")):
+			if velocity.y > 0:
+				velocity.y = max(velocity.y - (delta / time_to_max_velocity) * max_velocity, 0)
+			elif velocity.y < 0:
+				velocity.y = min(velocity.y + (delta / time_to_max_velocity) * max_velocity, 0)
+		if not(Input.is_action_pressed("ui_left") or \
+		Input.is_action_pressed("ui_right")) or \
+		(Input.is_action_pressed("ui_left") and \
+		Input.is_action_pressed("ui_right")):
+			if velocity.x > 0:
+				velocity.x = max(velocity.x - (delta / time_to_max_velocity) * max_velocity, 0)
+			elif velocity.x < 0:
+				velocity.x = min(velocity.x + (delta / time_to_max_velocity) * max_velocity, 0)
+		
+	move_and_slide()
+
+func _process(delta: float) -> void:
+	var old_glucose := glucose
+	var old_health := health
+	
+	glucose = min(glucose + glucose_regen * delta, max_glucose)
+	
+	if glucose != old_glucose:
+		glucose_changed.emit(glucose, max_glucose)
+	if health != old_health:
+		health_changed.emit(health, max_health)
+	
+	if Input.is_action_just_pressed("escape"):
+		pause_menu.show()
+
+# User functions
+
+func shoot_antigen():
 	var antigen = antigen_scene.instantiate()
+	Events.player_shoot.emit()
 	owner.add_child(antigen)
 	antigen.global_transform = antigen_spawner.global_transform
 	antigen.set_meta("attack_damage",attack_damage)
@@ -94,79 +156,20 @@ func dash():
 	
 	dashing = false
 
-func _physics_process(delta: float) -> void:
-	if health <= 0:
-		_game_over()
-	# --- SHOOTING ---
-	if not dashing:
-		# Makes the player look at the mouse
-		look_at(get_global_mouse_position())
-	
-	if Input.is_action_just_pressed("left_click"):
-		shoot_antigen()
-	
-	# --- DASHING ---
-	
-	if Input.is_action_just_pressed("right_click"):
-		dash()
-	
-	if dashing:
-		move_and_slide()
-		return
-	
-	# hopefully self explanatory
-	if Input.is_action_pressed("ui_up"):
-		velocity.y = clamp(velocity.y - (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
-	if Input.is_action_pressed("ui_down"):
-		velocity.y = clamp(velocity.y + (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
-	if Input.is_action_pressed("ui_left"):
-		velocity.x = clamp(velocity.x - (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
-	if Input.is_action_pressed("ui_right"):
-		velocity.x = clamp(velocity.x + (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
-	
-	if not(Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")) or (Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_down")):
-		if velocity.y > 0:
-			velocity.y = max(velocity.y - (delta / time_to_max_velocity) * max_velocity, 0)
-		elif velocity.y < 0:
-			velocity.y = min(velocity.y + (delta / time_to_max_velocity) * max_velocity, 0)
-	if not(Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right")) or (Input.is_action_pressed("ui_left") and Input.is_action_pressed("ui_right")):
-		if velocity.x > 0:
-			velocity.x = max(velocity.x - (delta / time_to_max_velocity) * max_velocity, 0)
-		elif velocity.x < 0:
-			velocity.x = min(velocity.x + (delta / time_to_max_velocity) * max_velocity, 0)
-	
-	move_and_slide()
-
-func _process(delta: float) -> void:
-	var old_glucose := glucose
-	var old_health := health
-	
-	glucose = min(glucose + glucose_regen * delta, max_glucose)
-	
-	if glucose != old_glucose:
-		glucose_changed.emit(glucose, max_glucose)
-	if health != old_health:
-		health_changed.emit(health, max_health)
-	
-	if Input.is_action_just_pressed("escape"):
-		pause_menu.show()
 
 func _game_over() -> void:
-	# Display end screen, this is temporary
 	get_tree().quit()
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if not dashing:
 		if body.is_in_group("Toxins"):
 			Events.player_take_damage.emit()
-			print("Player hit")
 			health -= body.get_meta("attack_damage",0)
 			body.queue_free()
 			_animate_health_bar()
 
 
 func _animate_health_bar() -> void:
-	# Animation (please forgive me for my sins, I can't find a better way to do this):
 	health_bar.material = load("res://palette_swap_resources/1_health_bar_inside_white.tres")
 	await get_tree().create_timer(health_bar_inter_frame_time).timeout
 	health_bar.material = load("res://palette_swap_resources/2_health_bar_white.tres")

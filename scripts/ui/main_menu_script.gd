@@ -7,14 +7,15 @@ var main_game_scene = "res://scenes/main.tscn"
 @onready var buttons = buttons_group.find_children("*")
 @onready var button_indicator = get_tree().get_first_node_in_group("MMButtonIndicator")
 var button_index = 0
-	
-# Called when the node enters the scene tree for the first time.
+
+# Godot functions
+
 func _ready() -> void:
 	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_down") or Input.is_action_just_pressed("ui_right"):
+	if Input.is_action_just_pressed("ui_down") or \
+	Input.is_action_just_pressed("ui_right"):
 		# Move button selector down
 		button_index += 1
 		
@@ -22,7 +23,8 @@ func _process(_delta: float) -> void:
 			button_index -= len(buttons)
 		
 		button_indicator.position.y = buttons[button_index].global_position.y
-	if Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_left"):
+	if Input.is_action_just_pressed("ui_up") or \
+	Input.is_action_just_pressed("ui_left"):
 		# Move button selector up
 		button_index -= 1
 		
@@ -34,14 +36,20 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
 		call(buttons[button_index].name)
 
+# User functions
+
 func _start_game():
-	#print("Start Game button pressed")
 	get_tree().change_scene_to_file(main_game_scene)
+
 func _options():
 	$OptionsMenu.show()
-	#print("Options button pressed")
+
+func _tutorial():
+	Events._toggle_tutorial(true)
+	get_tree().change_scene_to_file("res://scenes/levels/tutorial.tscn")
+
 func _load_game():
 	get_tree().change_scene_to_file(main_game_scene)
+
 func _quit_game():
-	#print("Quit Game button pressed")
-	get_tree().quit() # Quits game
+	get_tree().quit()

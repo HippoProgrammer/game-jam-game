@@ -4,11 +4,11 @@
 [ext_resource type="Script" uid="uid://dxd6noxsqiax8" path="res://scripts/antigen.gd" id="1_rmea8"]
 [ext_resource type="Texture2D" uid="uid://cfmw13ov4gnxv" path="res://artwork/MainChara/neutral_light.webp" id="3_vghym"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_15cnv"]
-diffuse_texture = ExtResource("1_15cnv")
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_rmea8"]
 radius = 17.591919
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_15cnv"]
+diffuse_texture = ExtResource("1_15cnv")
 
 [node name="Antigen" type="CharacterBody2D" unique_id=1750544342 groups=["Antigens"]]
 collision_layer = 4
@@ -16,13 +16,13 @@ collision_mask = 4
 script = ExtResource("1_rmea8")
 metadata/attack_damage = 0.0
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2138503294]
-scale = Vector2(0.054687526, 0.054687526)
-texture = SubResource("CanvasTexture_15cnv")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1296605289]
 scale = Vector2(0.234375, 0.234375)
 shape = SubResource("CircleShape2D_rmea8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2138503294]
+scale = Vector2(0.054687526, 0.054687526)
+texture = SubResource("CanvasTexture_15cnv")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1846840760]
 scale = Vector2(4.5078125, 2.6914063)
