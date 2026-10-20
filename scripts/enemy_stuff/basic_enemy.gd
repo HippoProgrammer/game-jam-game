@@ -1,5 +1,8 @@
 extends Node2D
 
+var antigen_scene = preload("res://scenes/player/antigen.tscn")
+@onready var centre = $Centre
+
 @onready var character = $CharacterBody2D
 
 # --- VARIABLES ---
@@ -182,6 +185,27 @@ func _on_velocity_computed(safe_velocity: Vector2) -> void:
 func _die() -> void:
 	state = State.dying
 
+	if Upgrades.attack_upgrades["exploding_enemies_on_death"]:
+		_spawn_explosion.call_deferred()
+
+	var mat := $CharacterBody2D/Sprite2D.material as ShaderMaterial
+	var tween = create_tween()
+	tween.tween_property(mat, "shader_parameter/progress", 1.0, 0.6)
+	await tween.finished
+	queue_free()
+
+func _spawn_explosion() -> void:
+	var count := 6
+	for i in count:
+		var dir := Vector2.RIGHT.rotated(deg_to_rad(60.0 * i))
+		var antigen = antigen_scene.instantiate()
+		get_parent().add_child(antigen)
+		antigen.global_position = centre.global_position
+		antigen.velocity = dir * player_character.antigen_speed
+		antigen.rotation = dir.angle()
+		antigen.set_meta("attack_damage", player_character.attack_damage)
+
+	
 	var mat := $CharacterBody2D/Sprite2D.material as ShaderMaterial
 	var tween = create_tween()
 	tween.tween_property(mat, "shader_parameter/progress", 1.0, 0.6)

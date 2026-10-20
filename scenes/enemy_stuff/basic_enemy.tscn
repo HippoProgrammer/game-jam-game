@@ -70,4 +70,6 @@ shape = SubResource("RectangleShape2D_ibjif")
 [node name="LightOccluder2D" type="LightOccluder2D" parent="CharacterBody2D" unique_id=1954342921]
 occluder = SubResource("OccluderPolygon2D_yx0xg")
 
+[node name="Centre" type="Marker2D" parent="." unique_id=1964291034]
+
 [connection signal="body_entered" from="CharacterBody2D/Hitbox" to="." method="_on_hitbox_body_entered"]
