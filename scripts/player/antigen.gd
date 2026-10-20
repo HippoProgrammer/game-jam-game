@@ -7,11 +7,16 @@ const max_bounces: int = 2
 func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
 	if collision:
-		bounces += 1
-		if bounces > max_bounces:
-			queue_free()
+		var collider = collision.get_collider()
+		if collider.is_in_group("Antigens"):
+			add_collision_exception_with(collider)
+			collider.add_collision_exception_with(self)
 		else:
-			velocity = velocity.bounce(collision.get_normal())
+			bounces += 1
+			if bounces > max_bounces:
+				queue_free()
+			else:
+				velocity = velocity.bounce(collision.get_normal())
 	if lifetime <= 0:
 		queue_free()
 	else:
