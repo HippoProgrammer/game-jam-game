@@ -136,7 +136,7 @@ func _attack() -> void:
 	var toxin = toxin_scene.instantiate()
 	toxin.set_meta("attack_damage",attack_damage)
 	get_parent().add_child(toxin)
-	toxin.set_meta("shooter",toxin.get_path_to(self))
+	toxin.set_meta("shooter",get_instance_id())
 	toxin.global_position = character.global_position
 	toxin.velocity = (target.global_position - character.global_position).normalized() * toxin_speed
 

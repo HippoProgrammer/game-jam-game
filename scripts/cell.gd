@@ -303,8 +303,12 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 			state = State.no_regen
 			
 		health -= body.get_meta("attack_damage") * virus_cell_attack_mult
-		if body.get_node(body.get_meta("shooter")):
-			recent_shooter = body.get_node(body.get_meta("shooter"))
+		if body.get_meta("shooter") != null:
+			var shooter_id = body.get_meta("shooter")
+			var shooter_node = instance_from_id(shooter_id)
+			
+			if is_instance_valid(shooter_node):
+				recent_shooter = shooter_node
 		body.queue_free()
 		
 	_change_health(health,max_health)
