@@ -42,6 +42,7 @@ func _start_game():
 	get_tree().change_scene_to_file(main_game_scene)
 
 func _options():
+	$CanvasLayer.hide()
 	$OptionsMenu.show()
 
 func _tutorial():
