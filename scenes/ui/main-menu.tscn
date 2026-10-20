@@ -34,6 +34,12 @@ text = "Start Game"
 label_settings = ExtResource("3_c33f1")
 horizontal_alignment = 1
 
+[node name="_tutorial" type="Label" parent="CanvasLayer/Buttons" unique_id=1910063530]
+layout_mode = 2
+text = "Tutorial"
+label_settings = ExtResource("3_c33f1")
+horizontal_alignment = 1
+
 [node name="_options" type="Label" parent="CanvasLayer/Buttons" unique_id=2125740076]
 layout_mode = 2
 text = "Options"
@@ -61,4 +67,5 @@ label_settings = SubResource("LabelSettings_lyxsl")
 horizontal_alignment = 1
 
 [node name="OptionsMenu" parent="." unique_id=505931995 instance=ExtResource("2_n70rl")]
+visible = false
 return_node_path = NodePath("../CanvasLayer")

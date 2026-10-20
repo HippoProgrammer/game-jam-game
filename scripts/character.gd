@@ -111,6 +111,7 @@ func _process(delta: float) -> void:
 
 func shoot_antigen():
 	var antigen = antigen_scene.instantiate()
+	Events.player_shoot.emit()
 	owner.add_child(antigen)
 	antigen.global_transform = antigen_spawner.global_transform
 	antigen.set_meta("attack_damage",attack_damage)

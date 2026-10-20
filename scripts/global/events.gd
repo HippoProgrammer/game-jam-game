@@ -5,6 +5,7 @@ signal enemy_died_sound
 signal error_sound
 signal dash_sound
 signal player_take_damage
+signal player_shoot
 @warning_ignore_restore("unused_signal")
 
 var effects_scale: float = 100.0
