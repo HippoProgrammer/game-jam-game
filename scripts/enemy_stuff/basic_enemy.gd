@@ -200,7 +200,7 @@ func _get_target() -> Node2D:
 	var closest_cell = get_closest_cell()
 	if closest_cell:
 		if character.global_position.distance_squared_to(closest_cell.global_position) \
-			<= character.global_position.distance_squared_to(player_character.global_position):
+			<= character.global_position.distance_squared_to(player_character.global_position) + 80000: # The 80000 makes it more likely to target the enemy
 			return closest_cell
 		else:
 			return player_character
