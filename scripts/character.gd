@@ -159,10 +159,11 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	if not dashing:
 		if body.is_in_group("Toxins"):
 			Events.player_take_damage.emit()
-			#print("Player hit")
+			print("Player hit")
 			health -= body.get_meta("attack_damage",0)
 			body.queue_free()
 			_animate_health_bar()
+
 
 func _animate_health_bar() -> void:
 	# Animation (please forgive me for my sins, I can't find a better way to do this):
