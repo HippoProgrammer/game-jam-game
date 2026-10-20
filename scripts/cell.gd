@@ -27,8 +27,6 @@ var controlled_by = "player"
 
 var rand
 
-var regen = 5 # Regenerated health per second, while state = regen
-
 @onready var regen = get_meta("regen")
 
 @onready var friendly_regen = get_meta("friendly_regen")
