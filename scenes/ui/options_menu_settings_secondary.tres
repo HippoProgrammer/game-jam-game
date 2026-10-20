@@ -1,7 +1,0 @@
-[gd_resource type="LabelSettings" format=3 uid="uid://b0flm8u3mgn6h"]
-
-[ext_resource type="FontFile" uid="uid://bamd7l21cxv7f" path="res://artwork/Fonts/Body/HennyPenny-Regular.ttf" id="1_bmoq4"]
-
-[resource]
-font = ExtResource("1_bmoq4")
-font_size = 60

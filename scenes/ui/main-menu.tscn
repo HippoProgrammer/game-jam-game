@@ -1,25 +1,10 @@
 [gd_scene format=3 uid="uid://cua5eq4mtfe3n"]
 
 [ext_resource type="Script" uid="uid://dl0owis63ky18" path="res://scripts/ui/main_menu_script.gd" id="1_rk22q"]
-[ext_resource type="FontFile" uid="uid://bjqteeg6g7sul" path="res://artwork/Fonts/Titles/RubikMicrobe-Regular.ttf" id="2_hf3n6"]
 [ext_resource type="PackedScene" uid="uid://dveyeae21syku" path="res://scenes/ui/options_menu.tscn" id="2_n70rl"]
+[ext_resource type="LabelSettings" uid="uid://dxfmedwso2atk" path="res://scenes/ui/menu_primary.tres" id="2_ur66n"]
+[ext_resource type="LabelSettings" uid="uid://b0flm8u3mgn6h" path="res://scenes/ui/menu_secondary.tres" id="3_c33f1"]
 [ext_resource type="FontFile" uid="uid://clm4igkhbs182" path="res://artwork/Fonts/Body/PT Sans/PTSans-BoldItalic.ttf" id="3_xg1py"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_22vlk"]
-font = ExtResource("2_hf3n6")
-font_size = 120
-
-[sub_resource type="LabelSettings" id="LabelSettings_v7ihv"]
-font = ExtResource("3_xg1py")
-font_size = 60
-
-[sub_resource type="LabelSettings" id="LabelSettings_vapsj"]
-font = ExtResource("3_xg1py")
-font_size = 60
-
-[sub_resource type="LabelSettings" id="LabelSettings_f1fi5"]
-font = ExtResource("3_xg1py")
-font_size = 60
 
 [sub_resource type="LabelSettings" id="LabelSettings_lyxsl"]
 font = ExtResource("3_xg1py")
@@ -35,7 +20,7 @@ offset_top = 61.0
 offset_right = 1152.0
 offset_bottom = 204.0
 text = "Lorem Ipsum"
-label_settings = SubResource("LabelSettings_22vlk")
+label_settings = ExtResource("2_ur66n")
 horizontal_alignment = 1
 
 [node name="Buttons" type="VBoxContainer" parent="CanvasLayer" unique_id=2088601510 groups=["MMButtonsContainer"]]
@@ -46,25 +31,25 @@ offset_bottom = 474.0
 [node name="_start_game" type="Label" parent="CanvasLayer/Buttons" unique_id=223562830]
 layout_mode = 2
 text = "Start Game"
-label_settings = SubResource("LabelSettings_v7ihv")
+label_settings = ExtResource("3_c33f1")
 horizontal_alignment = 1
 
 [node name="_options" type="Label" parent="CanvasLayer/Buttons" unique_id=2125740076]
 layout_mode = 2
 text = "Options"
-label_settings = SubResource("LabelSettings_vapsj")
+label_settings = ExtResource("3_c33f1")
 horizontal_alignment = 1
 
 [node name="_load_game" type="Label" parent="CanvasLayer/Buttons" unique_id=419398491]
 layout_mode = 2
 text = "Load Game"
-label_settings = SubResource("LabelSettings_vapsj")
+label_settings = ExtResource("3_c33f1")
 horizontal_alignment = 1
 
 [node name="_quit_game" type="Label" parent="CanvasLayer/Buttons" unique_id=1230239882]
 layout_mode = 2
 text = "Quit Game"
-label_settings = SubResource("LabelSettings_f1fi5")
+label_settings = ExtResource("3_c33f1")
 horizontal_alignment = 1
 
 [node name="SelectedButtonIndicator" type="Label" parent="CanvasLayer" unique_id=513903811 groups=["MMButtonIndicator"]]
@@ -76,4 +61,5 @@ label_settings = SubResource("LabelSettings_lyxsl")
 horizontal_alignment = 1
 
 [node name="OptionsMenu" parent="." unique_id=505931995 instance=ExtResource("2_n70rl")]
+visible = false
 return_node_path = NodePath("../CanvasLayer")
