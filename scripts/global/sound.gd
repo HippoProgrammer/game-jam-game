@@ -9,9 +9,13 @@ var take_damage_meme_sound = preload("res://sounds/take_damage_player_meme.mp3")
 # enemy_SFX
 var enemy_die_sound = preload("res://sounds/enemy_dying.mp3")
 
+# music
+var garbage_wastes = preload("res://sounds/Garbage_Worms.mp3")
 
 @onready var player_SFX: AudioStreamPlayer = $player_SFX
 @onready var enemy_SFX: AudioStreamPlayer = $enemy_SFX
+@onready var music1: AudioStreamPlayer = $music1
+@onready var music2: AudioStreamPlayer = $music2
 
 # Godot functions
 
@@ -20,6 +24,7 @@ func _ready() -> void:
 	Events.enemy_died_sound.connect(play_sound.bind(enemy_SFX, enemy_die_sound))
 	Events.dash_sound.connect(play_sound.bind(player_SFX, dash_sound))
 	Events.player_take_damage.connect(play_sound.bind(player_SFX, take_damage_sound, take_damage_meme_sound))
+	switch_track(music1, music2, garbage_wastes)
 
 # User functions
 
@@ -31,3 +36,26 @@ func play_sound(player: AudioStreamPlayer, sound: AudioStream, meme_SFX = null) 
 		player.volume_linear = Events.sfx_volume * (Events.master_volume/100)
 		player.stream = sound
 	player.play()
+
+func switch_track(player1: AudioStreamPlayer, player2: AudioStreamPlayer, sound: AudioStream, fade_time: float = 0.0) -> void:
+	if fade_time <= 0.0:
+		player1.stop()
+		player2.stream = sound
+		player2.volume_db = 0.0
+		player2.play()
+		return
+
+	var tween_out := create_tween()
+	tween_out.tween_property(player1, "volume_db", -80.0, fade_time) \
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tween_out.tween_callback(player1.stop)
+
+	await get_tree().create_timer(fade_time / 2.0).timeout
+
+	player2.stream = sound
+	player2.volume_db = -80.0
+	player2.play()
+
+	var tween_in := create_tween()
+	tween_in.tween_property(player2, "volume_db", 0.0, fade_time / 2.0) \
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)

@@ -8,3 +8,7 @@ script = ExtResource("1_ii1ul")
 [node name="enemy_SFX" type="AudioStreamPlayer" parent="." unique_id=2043081903]
 
 [node name="player_SFX" type="AudioStreamPlayer" parent="." unique_id=852893175]
+
+[node name="music1" type="AudioStreamPlayer" parent="." unique_id=1048956141]
+
+[node name="music2" type="AudioStreamPlayer" parent="." unique_id=362851991]
