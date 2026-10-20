@@ -74,10 +74,18 @@ func _physics_process(delta: float) -> void:
 		if closest_cell:
 			if closest_cell.global_position.distance_to(player_character.global_position) < 2 * attack_range:
 				target_pos = closest_cell.global_position.lerp(player_character.global_position, 0.5) # Find Midpoint
-				
-				var direction = character.global_position.direction_to(target_pos)
-				
-				character.velocity = direction * movement_speed
+			else:
+				var dir_cell_to_player = (player_character.global_position - closest_cell.global_position).normalized()
+
+				if target == player_character && character.global_position.distance_to(closest_cell.global_position) \
+					< los_range && closest_cell.global_position.distance_to(character.global_position) < los_range:
+					target_pos = player_character.global_position - (dir_cell_to_player * attack_range)
+
+				elif target == closest_cell && character.global_position.distance_to(closest_cell.global_position) \
+					 < los_range && closest_cell.global_position.distance_to(character.global_position) < los_range:
+					target_pos = closest_cell.global_position + (dir_cell_to_player * attack_range)
+			var direction = character.global_position.direction_to(target_pos)
+			character.velocity = direction * movement_speed
 
 	else:
 		attack_timer.paused = true
@@ -200,7 +208,7 @@ func _get_target() -> Node2D:
 	var closest_cell = get_closest_cell()
 	if closest_cell:
 		if character.global_position.distance_squared_to(closest_cell.global_position) \
-			<= character.global_position.distance_squared_to(player_character.global_position):
+			<= character.global_position.distance_squared_to(player_character.global_position) + 80000: # The 80000 makes it more likely to target the enemy
 			return closest_cell
 		else:
 			return player_character
