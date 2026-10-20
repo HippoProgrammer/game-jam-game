@@ -97,10 +97,27 @@ position = Vector2(397, -175)
 navigation_polygon = SubResource("NavigationPolygon_glkys")
 
 [node name="BasicEnemy" parent="." unique_id=1883996621 instance=ExtResource("1_jyhfs")]
-position = Vector2(424, -104)
+position = Vector2(-120, -457)
+metadata/los_range = 100000.0
+
+[node name="BasicEnemy2" parent="." unique_id=144880916 instance=ExtResource("1_jyhfs")]
+position = Vector2(278, -315)
+metadata/los_range = 100000.0
+
+[node name="BasicEnemy3" parent="." unique_id=1946313232 instance=ExtResource("1_jyhfs")]
+position = Vector2(-630, 603)
+metadata/los_range = 100000.0
+
+[node name="BasicEnemy4" parent="." unique_id=1837334986 instance=ExtResource("1_jyhfs")]
+position = Vector2(-347, 116)
+metadata/los_range = 100000.0
+
+[node name="BasicEnemy5" parent="." unique_id=1106045629 instance=ExtResource("1_jyhfs")]
+position = Vector2(266, -94)
 metadata/los_range = 100000.0
 
 [node name="Player" parent="." unique_id=401100565 instance=ExtResource("1_sugp2")]
+position = Vector2(-1013, 464)
 
 [node name="PlayerCamera" parent="." unique_id=131873372 instance=ExtResource("12_trceg")]
 

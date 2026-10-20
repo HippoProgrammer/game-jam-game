@@ -23,7 +23,7 @@ var los_range_mutation_chance =  2.0
 var attack_damage_mutation_chance =  2.0
 var attack_reload_mutation_chance =  2.0
 
-var controlled_by = "player"
+@export var controlled_by = "player"
 
 var rand
 
@@ -59,7 +59,7 @@ var previous_collisions = []
 
 # Godot functions
 var spawn_timer
-var spawn_time = 30 # How long it takes for enemies to spawn in seconds
+var spawn_time = 15 # How long it takes for enemies to spawn in seconds
 
 func _ready() -> void:
 	spawn_timer = Timer.new()
