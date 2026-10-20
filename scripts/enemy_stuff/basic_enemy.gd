@@ -51,23 +51,23 @@ var probability_health_change = 100
 
 func _ready() -> void:
 	scale = Vector2(get_meta("scale")/4,get_meta("scale")/4)
-	
+
 	attack_timer = Timer.new()
 	attack_timer.wait_time = reload
 	attack_timer.autostart = true
 	attack_timer.one_shot = false
 	attack_timer.timeout.connect(_attack.bind())
 	add_child(attack_timer)
-	
+
 	nav.velocity_computed.connect(Callable(_on_velocity_computed))
 	_change_health(health, max_health)
 
 func _physics_process(delta: float) -> void:
 	target = _get_target()
-	
+
 	state = _check_state()
 	if state == State.spotted:
-		_spotted(delta)
+		_chase(delta)
 	if state == State.attack:
 		attack_timer.paused = false
 		var closest_cell = get_closest_cell()
@@ -89,8 +89,10 @@ func _physics_process(delta: float) -> void:
 
 	else:
 		attack_timer.paused = true
-		
+
 	character.move_and_slide()
+
+
 # --- USER FUNCTIONS ---
 
 func _change_health(new: float, max_value: float):
@@ -112,9 +114,6 @@ func _check_state() -> State:
 			attack_timer.paused = true
 		return State.idle
 
-
-# then we can just derive behavoiur from here, ie. state idle has its own distinct behavoiur from attack...
-
 # attack
 
 func _check_attack() -> bool:
@@ -124,11 +123,12 @@ func _check_attack() -> bool:
 		return false
 	if not get_meta("needs_los"):
 		return true
-	
+
 	raycast.target_position = raycast.to_local(target.global_position)
 	raycast.force_raycast_update()
 	return raycast.is_colliding() and \
-		(raycast.get_collider().is_in_group("Player") or raycast.get_collider().is_in_group("cells"))
+		(raycast.get_collider().is_in_group("Player") or \
+		raycast.get_collider().is_in_group("cells"))
 
 func _attack() -> void:
 	var toxin = toxin_scene.instantiate()
@@ -149,8 +149,9 @@ func _check_los() -> bool:
 
 	raycast.target_position = raycast.to_local(target.global_position)
 	raycast.force_raycast_update()
-	return raycast.is_colliding() and (raycast.get_collider().is_in_group("Player") or \
-		raycast.get_collider().is_in_group("cells"))
+	return raycast.is_colliding() and \
+	(raycast.get_collider().is_in_group("Player") or \
+	raycast.get_collider().is_in_group("cells"))
 
 func _chase(_delta: float) -> void:
 	nav.set_target_position(target.global_position)
@@ -161,11 +162,11 @@ func _chase(_delta: float) -> void:
 	if nav.is_navigation_finished():
 		character.velocity = Vector2.ZERO
 		return
-	
+
 	var next_path_position: Vector2 = nav.get_next_path_position()
 	var target_direction: Vector2 = character.global_position.direction_to(next_path_position)
 	var preferred_velocity: Vector2 = target_direction * movement_speed
-	
+
 	if nav.avoidance_enabled:
 		nav.set_velocity(preferred_velocity)
 	else:
@@ -175,15 +176,10 @@ func _chase(_delta: float) -> void:
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	character.velocity = safe_velocity
 
-func _spotted(delta) -> void:
-	#print("player spotted")
-	_chase(delta)
-	# sound effects, animations etc..
-
 
 func _die() -> void:
 	state = State.dying
-	
+
 	var mat := $CharacterBody2D/Sprite2D.material as ShaderMaterial
 	var tween = create_tween()
 	tween.tween_property(mat, "shader_parameter/progress", 1.0, 0.6)
@@ -193,14 +189,14 @@ func _die() -> void:
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if state == State.dying:
 		return
-	
+
 	if body.is_in_group("Antigens"):
 		health -= body.get_meta("attack_damage")
 		_change_health(health,max_health)
 	if health <= 0:
 		Events.enemy_died_sound.emit()
 		_die()
-  
+
 func _ext_heal(amount:float, delta):
 	health = clamp(health + amount * delta, -max_health, max_health)
 
@@ -221,7 +217,8 @@ func get_closest_cell() -> Node2D:
 
 	for cell in get_tree().get_nodes_in_group("cells"):
 		var distance = character.global_position.distance_squared_to(cell.global_position)
-		if distance < closest_dist and not cell.controlled_by == "enemy":
+		if distance < closest_dist and not \
+		cell.controlled_by == "enemy":
 			closest_dist = distance
 			closest = cell
 	if closest_dist != INF:
@@ -267,5 +264,5 @@ func load_data(data: Dictionary) -> void:
 
 	attack_timer.wait_time = reload
 	_change_health(health, max_health)
-  
+
 # obligatory pf 🏳️‍🌈

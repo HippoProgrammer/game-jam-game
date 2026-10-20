@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://dxfmedwso2atk"]
+
+[ext_resource type="FontFile" uid="uid://bjqteeg6g7sul" path="res://artwork/Fonts/Titles/RubikMicrobe-Regular.ttf" id="1_ntqnn"]
+
+[resource]
+font = ExtResource("1_ntqnn")
+font_size = 120

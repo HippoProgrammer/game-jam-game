@@ -4,11 +4,14 @@ var percentage: float
 var tween: Tween
 
 @onready var character = get_tree().get_first_node_in_group("Player")
-
 @onready var liquid: TextureRect = $Liquid
+
+# Godot functions
 
 func _ready() -> void:
 	character.glucose_changed.connect(_on_glucose_change)
+
+# User functions
 
 func _on_glucose_change(new: float, max_value: float) -> void:
 	percentage = new/max_value
