@@ -7,6 +7,7 @@ signal dash_sound
 signal player_take_damage
 signal player_shoot
 signal minimap_toggle
+signal notify_send
 @warning_ignore_restore("unused_signal")
 
 var effects_scale: float = 100.0
@@ -34,7 +35,8 @@ func _toggle_tutorial(value) -> void:
 			"move" = true,
 			"toggle_minimap" = true,
 			"dash" = true,
-			"shoot" = true
+			"shoot" = true,
+			"parry" = false
 		}
 	else:
 		tutorial = true
@@ -42,7 +44,8 @@ func _toggle_tutorial(value) -> void:
 			"move" = false,
 			"toggle_minimap" = false,
 			"dash" = false,
-			"shoot" = false
+			"shoot" = false,
+			"parry" = false
 		}
 
 func _change_effects_scale(new: float) -> void:

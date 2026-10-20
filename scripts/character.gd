@@ -5,6 +5,7 @@ var antigen_scene = preload("res://scenes/player/antigen.tscn")
 @onready var antigen_spawner = $AntigenSpawner
 @onready var health_bar = get_tree().get_first_node_in_group("PlayerHealthBar")
 @onready var pause_menu = get_tree().get_first_node_in_group("PauseMenu")
+@onready var parry_anim = $ParryAnim
 
 var health_bar_inter_frame_time = 0.08
 var antigen_speed = 750
@@ -37,11 +38,14 @@ var dashing: bool = false
 @onready var base_scale = scale
 var dash_glucose_use: float = 20.0
 
+var parrying = false
+
 # Godot functions
 
 func _ready() -> void:
 	glucose_changed.emit.call_deferred(glucose, max_glucose)
 	health_changed.emit.call_deferred(health, max_health)
+	parry_anim.hide()
 
 func _physics_process(delta: float) -> void:
 	if health <= 0:
@@ -55,11 +59,19 @@ func _physics_process(delta: float) -> void:
 	Events.allowed_actions["shoot"]:
 		shoot_antigen()
 	
+	# Parry
+	
+	if Input.is_action_just_pressed("parry") and \
+	Events.allowed_actions["parry"] and \
+	Upgrades.action_upgrades["parry"]:
+		parry()
+
+
 	# --- DASHING ---
 	
 	if Input.is_action_just_pressed("right_click") and \
 	Events.allowed_actions["dash"]:
-		dash()	
+		dash()
 	
 	if dashing:
 		move_and_slide()
@@ -166,12 +178,37 @@ func dash():
 	
 	dashing = false
 
+func get_closest_toxin() -> Node2D:
+	var closest: Node2D = null
+	var closest_dist := INF # apparently you can do this...
+
+	for toxin in get_tree().get_nodes_in_group("Toxins"):
+		var distance = global_position.distance_squared_to(toxin.global_position)
+		if distance < closest_dist:
+			closest_dist = distance
+			closest = toxin
+	if closest_dist != INF:
+		return closest
+	else:
+		return null
+
+func parry() -> void:
+	var closest_toxin = get_closest_toxin()
+	if closest_toxin != null:
+		parry_anim.look_at(closest_toxin.global_positio)
+	parry_anim.show()
+	parrying = true
+	parry_anim.play("default")
+	await parry_anim.animation_finished
+	parrying = false
+	parry_anim.hide()
 
 func _game_over() -> void:
 	get_tree().quit()
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	if not dashing:
+	if not dashing and \
+	not parrying:
 		if body.is_in_group("Toxins"):
 			Events.player_take_damage.emit()
 			health -= body.get_meta("attack_damage",0)
