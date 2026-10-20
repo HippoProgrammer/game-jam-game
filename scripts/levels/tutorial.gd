@@ -33,8 +33,10 @@ func tutorial() -> void:
 	Events.allowed_actions["dash"] = true
 	await show_line("Right click to dash")
 	await Events.dash_sound
-	await show_line("Well done", false, 2.0)
+	await show_line("Well done", true, 2.0)
 	
 	await show_line("Press M to toggle the minimap", false, 2.0)
 	await Events.minimap_toggle
-	await show_line("Well done", false, 2.0)
+	await show_line("Well done", true, 2.0)
+	await show_line("You're ready for the real game now!", true, 2.0)
+	get_tree().change_scene_to_file("res://scenes/ui/main-menu.tscn")
