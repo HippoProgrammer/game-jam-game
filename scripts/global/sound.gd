@@ -26,8 +26,12 @@ func _ready() -> void:
 	Events.player_take_damage.connect(play_sound.bind(player_SFX, take_damage_sound, take_damage_meme_sound))
 	switch_track(music1, music2, garbage_wastes)
 
+func _process(_delta: float) -> void:
+	if music1.volume_linear != Events.music_volume * (Events.master_volume/100):
+		music1.volume_linear = Events.music_volume * (Events.master_volume/100)
+		music2.volume_linear = Events.music_volume * (Events.master_volume/100)
+	
 # User functions
-
 func play_sound(player: AudioStreamPlayer, sound: AudioStream, meme_SFX = null) -> void:
 	player.stop()
 	if Events.meme_SFX and meme_SFX != null:
