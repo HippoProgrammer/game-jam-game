@@ -78,17 +78,23 @@ texture = ExtResource("7_jkv2x")
 
 [node name="Stomach" parent="Organs" unique_id=1091828643 instance=ExtResource("8_jscy8")]
 
-[node name="Heart" parent="Organs" unique_id=1883973132 instance=ExtResource("9_pm3ni")]
-
 [node name="Intestines" parent="Organs" unique_id=1459454795 instance=ExtResource("10_y6deb")]
-
-[node name="Liver" parent="Organs" unique_id=841144382 instance=ExtResource("11_og1vs")]
+position = Vector2(4847, -290)
 
 [node name="Kidneys" parent="Organs" unique_id=116522162 instance=ExtResource("12_2wyq8")]
+position = Vector2(8599, 77)
+
+[node name="Liver" parent="Organs" unique_id=841144382 instance=ExtResource("11_og1vs")]
+position = Vector2(11902, 1)
 
 [node name="Lungs" parent="Organs" unique_id=462232862 instance=ExtResource("13_vxglm")]
+position = Vector2(15456, -124)
 
 [node name="Brain" parent="Organs" unique_id=670454266 instance=ExtResource("14_2f3dj")]
+position = Vector2(19945, -52)
+
+[node name="Heart" parent="Organs" unique_id=1883973132 instance=ExtResource("9_pm3ni")]
+position = Vector2(23405, -18)
 
 [node name="Sound" parent="." unique_id=457052338 instance=ExtResource("1_tbgi4")]
 
@@ -120,6 +126,7 @@ metadata/los_range = 100000.0
 position = Vector2(-1013, 464)
 
 [node name="PlayerCamera" parent="." unique_id=131873372 instance=ExtResource("12_trceg")]
+visible = false
 
 [node name="UI" type="Control" parent="." unique_id=689884067]
 layout_mode = 3
