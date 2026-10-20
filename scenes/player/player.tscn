@@ -21,16 +21,15 @@ radius = 520.0
 polygon = PackedVector2Array(31, 0, 28.64, 11.86, 21.92, 21.92, 11.86, 28.64, 0, 31, -11.86, 28.64, -21.92, 21.92, -28.64, 11.86, -31, 0, -28.64, -11.86, -21.92, -21.92, -11.86, -28.64, 0, -31, 11.86, -28.64, 21.92, -21.92, 28.64, -11.86, 31, 0)
 
 [node name="Player" type="Node2D" unique_id=401100565]
+position = Vector2(34, 0)
 scale = Vector2(0.5, 0.5)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1509588886 groups=["Persist", "Player"]]
-position = Vector2(-8, 8.526513e-14)
-scale = Vector2(0.05952367, 0.05952367)
 motion_mode = 1
 script = ExtResource("2_g2els")
 
 [node name="TerrainCollision" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1498245660]
-scale = Vector2(0.99999994, 0.99999994)
+scale = Vector2(0.06, 0.06)
 shape = SubResource("CircleShape2D_g2els")
 
 [node name="AntigenSpawner" type="Marker2D" parent="CharacterBody2D" unique_id=647138162]
@@ -38,9 +37,9 @@ position = Vector2(939.82336, -42.905922)
 scale = Vector2(19.999998, 19.999998)
 
 [node name="Character" type="Sprite2D" parent="CharacterBody2D" unique_id=1076164463]
-position = Vector2(134.4003, -1.4324573e-12)
+position = Vector2(8, -5.684342e-14)
 rotation = 1.5707964
-scale = Vector2(40.32009, 40.32009)
+scale = Vector2(2.4, 2.4)
 texture = SubResource("CanvasTexture_g2els")
 
 [node name="PlayerHitbox" type="Area2D" parent="CharacterBody2D" unique_id=708347638]
@@ -50,16 +49,16 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/PlayerHitbox" unique_id=1071425055]
+scale = Vector2(0.06, 0.06)
 shape = SubResource("CircleShape2D_dqkch")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="CharacterBody2D" unique_id=1895639393]
 position = Vector2(0, -1.4324573e-12)
-scale = Vector2(16.800037, 16.800037)
 occluder = SubResource("OccluderPolygon2D_22vlk")
 
 [node name="ParryAnim" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=810143116]
 rotation = 1.5707964
-scale = Vector2(62.422466, 62.422466)
+scale = Vector2(2.4, 2.4)
 sprite_frames = ExtResource("5_p47bc")
 centered = false
 offset = Vector2(-8, -23)
