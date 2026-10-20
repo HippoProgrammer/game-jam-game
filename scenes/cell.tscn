@@ -29,8 +29,8 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("1_upbjj")
 metadata/max_health = 500
 metadata/regen = 5.0
-metadata/friendly_regen = 0.0
-metadata/regen_range = 0.0
+metadata/friendly_regen = 5.0
+metadata/regen_range = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=310833080]
 material = SubResource("ShaderMaterial_k6tqi")

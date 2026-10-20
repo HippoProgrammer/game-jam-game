@@ -11,11 +11,11 @@ diffuse_texture = ExtResource("2_npgi2")
 radius = 3.0
 
 [node name="Toxin" type="CharacterBody2D" unique_id=1750544342 groups=["Toxins"]]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 10
+collision_mask = 10
 script = ExtResource("1_wx0fl")
 metadata/attack_damage = 0.0
-metadata/shooter = NodePath("")
+metadata/shooter = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2138503294]
 scale = Vector2(0.055, 0.055)

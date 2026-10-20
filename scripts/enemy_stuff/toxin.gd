@@ -7,12 +7,11 @@ const max_bounces: int = 2
 func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta)
 	if collision:
-		print("bounce")
 		bounces += 1
 		if bounces > max_bounces:
 			queue_free()
 		else:
-			rotation = transform.x.bounce(collision.get_normal()).angle()
+			velocity = velocity.bounce(collision.get_normal())
 	if lifetime <= 0:
 		queue_free()
 	else:

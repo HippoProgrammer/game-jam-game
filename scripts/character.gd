@@ -1,12 +1,13 @@
 extends CharacterBody2D
 
-var antigen_scene = preload("res://scenes/antigen.tscn")
+var antigen_scene = preload("res://scenes/player/antigen.tscn")
 
 @onready var antigen_spawner = $AntigenSpawner
 @onready var health_bar = get_tree().get_first_node_in_group("PlayerHealthBar")
 @onready var pause_menu = get_tree().get_first_node_in_group("PauseMenu")
 
 var health_bar_inter_frame_time = 0.08
+var antigen_speed = 750
 
 # --- PLAYER STATS ---
 
@@ -113,8 +114,10 @@ func shoot_antigen():
 	var antigen = antigen_scene.instantiate()
 	Events.player_shoot.emit()
 	owner.add_child(antigen)
-	antigen.global_transform = antigen_spawner.global_transform
 	antigen.set_meta("attack_damage",attack_damage)
+	
+	antigen.global_position = global_position
+	antigen.velocity = (get_global_mouse_position() - global_position).normalized() * antigen_speed
 
 func dash():
 	if dashing:

@@ -23,7 +23,7 @@ var los_range_mutation_chance =  2.0
 var attack_damage_mutation_chance =  2.0
 var attack_reload_mutation_chance =  2.0
 
-var controlled_by = "player"
+@export var controlled_by = "player"
 
 var rand
 
@@ -59,7 +59,7 @@ var previous_collisions = []
 
 # Godot functions
 var spawn_timer
-var spawn_time = 30 # How long it takes for enemies to spawn in seconds
+var spawn_time = 15 # How long it takes for enemies to spawn in seconds
 
 func _ready() -> void:
 	spawn_timer = Timer.new()
@@ -303,8 +303,12 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 			state = State.no_regen
 			
 		health -= body.get_meta("attack_damage") * virus_cell_attack_mult
-		if body.get_node(body.get_meta("shooter")):
-			recent_shooter = body.get_node(body.get_meta("shooter"))
+		if body.get_meta("shooter") != null:
+			var shooter_id = body.get_meta("shooter")
+			var shooter_node = instance_from_id(shooter_id)
+			
+			if is_instance_valid(shooter_node):
+				recent_shooter = shooter_node
 		body.queue_free()
 		
 	_change_health(health,max_health)
