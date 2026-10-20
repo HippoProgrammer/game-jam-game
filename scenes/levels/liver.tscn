@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://boo2y47hv6ioa"]
 
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="1_lhqvl"]
+[ext_resource type="Texture2D" uid="uid://cqtox8afloc81" path="res://artwork/Temp_Assets/21481-liver.jpg" id="2_b4a5i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yc10j"]
 texture = ExtResource("1_lhqvl")
@@ -45,6 +46,12 @@ physics_layer_0/collision_mask = 9
 sources/0 = SubResource("TileSetAtlasSource_yc10j")
 
 [node name="Liver" type="Node2D" unique_id=841144382]
+
+[node name="LiverTemp" type="Sprite2D" parent="." unique_id=142890847]
+visible = false
+position = Vector2(296, 608)
+scale = Vector2(4.25, 4.25)
+texture = ExtResource("2_b4a5i")
 
 [node name="Liver" type="TileMapLayer" parent="." unique_id=2059674698]
 position = Vector2(0, -6)

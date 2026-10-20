@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://cufllo5wkhawn"]
 
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="1_q3hrh"]
+[ext_resource type="Texture2D" uid="uid://bwn54qiv6ln4n" path="res://artwork/Temp_Assets/intestines.jpg" id="2_u3r0l"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0ld40"]
 texture = ExtResource("1_q3hrh")
@@ -45,6 +46,12 @@ physics_layer_0/collision_mask = 9
 sources/0 = SubResource("TileSetAtlasSource_0ld40")
 
 [node name="Intestines" type="Node2D" unique_id=1459454795]
+
+[node name="IntestinesTemp" type="Sprite2D" parent="." unique_id=409624655]
+visible = false
+position = Vector2(-52.99951, 837)
+scale = Vector2(1.7025, 1.7025001)
+texture = ExtResource("2_u3r0l")
 
 [node name="Intestines" type="TileMapLayer" parent="." unique_id=867108559]
 position = Vector2(0, -3)

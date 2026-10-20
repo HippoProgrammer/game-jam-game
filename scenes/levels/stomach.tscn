@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="1_j6xh5"]
 [ext_resource type="PackedScene" uid="uid://b5mm4pbq332bq" path="res://scenes/cell.tscn" id="2_jyeno"]
+[ext_resource type="Texture2D" uid="uid://bcmiionjdu16l" path="res://artwork/Temp_Assets/21758-stomach.jpg" id="3_ujqtf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jkv2x"]
 texture = ExtResource("1_j6xh5")
@@ -70,3 +71,9 @@ controlled_by = "enemy"
 
 [node name="Cell5" parent="." unique_id=723515662 instance=ExtResource("2_jyeno")]
 position = Vector2(-611, 465)
+
+[node name="StomachTemp" type="Sprite2D" parent="." unique_id=1516552355]
+visible = false
+position = Vector2(-588, -12.999939)
+scale = Vector2(4.7612495, 4.7612505)
+texture = ExtResource("3_ujqtf")

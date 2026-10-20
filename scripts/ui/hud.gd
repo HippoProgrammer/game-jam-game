@@ -11,7 +11,7 @@ extends CanvasLayer
 
 func _ready() -> void:
 	character.health_changed.connect(_on_health_change)
-	Events.notify_send.connect(_notify)
+	#Events.notify_send.connect(_notify) # SuitablyMysterious, please can you make this work when you see this?
 
 # User functions
 
