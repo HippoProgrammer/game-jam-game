@@ -11,6 +11,7 @@ var open_for_frame = false
 @onready var music_volume: HSlider = $Buttons/MusicVolume/_effects_scale_bar
 @onready var sfx_volume: HSlider = $Buttons/SFXVolume/_effects_scale_bar
 @onready var pause_menu: CanvasLayer = get_tree().get_first_node_in_group("PauseMenu")
+@onready var minimap = get_tree().get_first_node_in_group("Minimap")
 
 # Godot functions
 
@@ -57,7 +58,12 @@ func _process(_delta: float) -> void:
 			button_indicator.position.y = buttons[button_index].global_position.y
 		
 		if Input.is_action_just_pressed("escape") and open_for_frame: # Needed to prevent instant returning to game
+			if get_node(return_node_path).name != "PauseMenu":
 				_back()
+			else:
+				hide()
+				minimap.show()
+				get_tree().paused = false
 		if Input.is_action_just_pressed("ui_accept") and open_for_frame:
 			call(buttons[button_index].name)
 			
@@ -70,7 +76,6 @@ func _process(_delta: float) -> void:
 func _back() -> void:
 	hide()
 	get_node(return_node_path).show()
-	get_tree().paused = false
 
 func _meme_SFX() -> void:
 	if Events.meme_SFX:

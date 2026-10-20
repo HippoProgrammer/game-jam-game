@@ -4,7 +4,7 @@
 
 [node name="Minimap" type="CanvasLayer" unique_id=454228334 groups=["Minimap"]]
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1011507874 groups=["Minimap"]]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1011507874]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
