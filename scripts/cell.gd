@@ -61,6 +61,8 @@ var previous_collisions = []
 var spawn_timer
 var spawn_time = 15 # How long it takes for enemies to spawn in seconds
 
+signal captured_by_player
+
 func _ready() -> void:
 	spawn_timer = Timer.new()
 	spawn_timer.wait_time = spawn_time
@@ -99,11 +101,19 @@ func _process(delta: float) -> void:
 			_virus_capture()
 		elif controlled_by == "enemy":
 			_player_capture()
+	
+	if light.color == Color("ee1c24") && controlled_by == "player":
+		_player_capture()
+	elif light.color == Color("1cee24") && controlled_by == "enemy":
+		_virus_capture()
 	elif health == max_health:
 		state = State.no_regen
 	elif timer_until_regen >= time_until_regen:
 		state = State.regen
 	regen_entites(controlled_by, delta)
+	
+	if get_tree().current_scene.scene_file_path == "res://scenes/levels/tutorial.tscn":
+		spawn_timer.paused = true
 
 func _virus_capture() -> void:
 	controlled_by = "enemy"
@@ -113,11 +123,14 @@ func _virus_capture() -> void:
 	state = State.regen
 	timer_until_regen = time_until_regen
 	
-	spawn_timer.paused = false
+	if get_tree().current_scene.scene_file_path != "res://scenes/levels/tutorial.tscn":
+		spawn_timer.paused = false
 	
 	# Set variables for duplication
 
 func _player_capture() -> void:
+	captured_by_player.emit()
+	
 	controlled_by = "player"
 	regen_emitter.texture = player_regen_texture
 	light.color = "1CEE24"
@@ -138,7 +151,6 @@ func regen_entites(_controlled_by, delta) -> void:
 	else:
 		target = get_closest_enemy()
 	
-
 	if target != null and global_position.distance_to(target.global_position) < regen_range:
 		regen_emitter.look_at(target.global_position)
 		particle_speed = global_position.distance_to(target.global_position) * 2 / regen_emitter.lifetime 
