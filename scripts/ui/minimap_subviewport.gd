@@ -14,6 +14,7 @@ func _process(_delta: float) -> void:
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("minimap_toggle"):
+		Events.minimap_toggle.emit()
 		if self.get_parent().visible:
 			self.get_parent().visible = false
 		else:
