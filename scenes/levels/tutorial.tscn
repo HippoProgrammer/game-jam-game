@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://ck8blg8s0u5fe"]
+
+[ext_resource type="PackedScene" uid="uid://dlfkmnvkalefo" path="res://scenes/player/player.tscn" id="1_1wklo"]
+[ext_resource type="Script" uid="uid://bcw0gnqla02m3" path="res://scripts/levels/tutorial.gd" id="1_7ac3l"]
+[ext_resource type="PackedScene" uid="uid://duh31nuskww0r" path="res://scenes/player/player_camera.tscn" id="2_7ac3l"]
+[ext_resource type="PackedScene" uid="uid://df56635vv31xq" path="res://scenes/global/sound.tscn" id="3_iig34"]
+[ext_resource type="PackedScene" uid="uid://cilmvhpq6adfm" path="res://scenes/ui/HUD.tscn" id="4_3e81p"]
+[ext_resource type="PackedScene" uid="uid://dmrjqd12j74cf" path="res://scenes/ui/minimap.tscn" id="5_g7bfq"]
+[ext_resource type="LabelSettings" uid="uid://b0flm8u3mgn6h" path="res://scenes/ui/menu_secondary.tres" id="7_iig34"]
+
+[node name="Tutorial" type="Node2D" unique_id=789564714]
+script = ExtResource("1_7ac3l")
+
+[node name="Player" parent="." unique_id=401100565 instance=ExtResource("1_1wklo")]
+
+[node name="PlayerCamera" parent="." unique_id=131873372 instance=ExtResource("2_7ac3l")]
+
+[node name="Sound" parent="." unique_id=457052338 instance=ExtResource("3_iig34")]
+
+[node name="HUD" parent="." unique_id=735888115 instance=ExtResource("4_3e81p")]
+
+[node name="Minimap" parent="." unique_id=454228334 instance=ExtResource("5_g7bfq")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=575324778]
+
+[node name="Instructor" type="Label" parent="CanvasLayer" unique_id=1254631295]
+offset_left = 52.0
+offset_top = 533.0
+offset_right = 1078.0
+offset_bottom = 620.0
+text = "Lorum ipsim"
+label_settings = ExtResource("7_iig34")
