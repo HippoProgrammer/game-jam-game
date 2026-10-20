@@ -12,7 +12,7 @@ func _physics_process(delta: float) -> void:
 		if bounces > max_bounces:
 			queue_free()
 		else:
-			rotation = transform.x.bounce(collision.get_normal()).angle()
+			velocity = velocity.bounce(collision.get_normal())
 	if lifetime <= 0:
 		queue_free()
 	else:
