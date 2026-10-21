@@ -20,6 +20,9 @@ var toxin_scene = preload("res://scenes/enemy_stuff/toxin.tscn")
 @onready var movement_speed = get_meta("movement_speed")
 @onready var attack_range = get_meta("attack_range")
 @onready var los_range = get_meta("los_range")
+
+@onready var health_regen = get_meta("health_regen")
+@onready var glucose_regen = get_meta("glucose_regen")
 var movement_delta: float
 
 # attack
@@ -66,6 +69,13 @@ func _ready() -> void:
 	nav.velocity_computed.connect(Callable(_on_velocity_computed))
 	_change_health(health, max_health)
 
+func _process(delta: float) -> void:
+	if health_regen > 0:
+		health = clamp(health + health_regen * delta, -max_health, max_health)
+		_change_health(health, max_health)
+	if glucose_regen > 0:
+		glucose = clamp(glucose + glucose_regen * delta, -max_glucose, max_glucose)
+	
 func _physics_process(delta: float) -> void:
 	target = _get_target()
 
@@ -162,7 +172,10 @@ func _check_los() -> bool:
 	raycast.get_collider().is_in_group("cells"))
 
 func _chase(_delta: float) -> void:
-	nav.set_target_position(target.global_position)
+	_move_to_position(target.global_position)
+
+func _move_to_position(move_pos:Vector2) -> void:
+	nav.set_target_position(move_pos)
 
 	if NavigationServer2D.map_get_iteration_id(nav.get_navigation_map()) == 0:
 		character.velocity = Vector2.ZERO
