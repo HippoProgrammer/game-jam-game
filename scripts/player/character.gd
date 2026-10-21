@@ -75,9 +75,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _process(delta: float) -> void:
-	if health_bar.value / 100 * max_health != health: # This is for save/load, so it needs the glucose changed too
-		health_changed.emit(health,max_health)
-		glucose_changed.emit(glucose,max_glucose)
 	var old_glucose := glucose
 	var old_health := health
 	

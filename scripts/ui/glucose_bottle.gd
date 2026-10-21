@@ -11,12 +11,6 @@ var tween: Tween
 func _ready() -> void:
 	character.glucose_changed.connect(_on_glucose_change)
 
-func _process(_delta: float) -> void:
-	if not is_instance_valid(character):
-		character = get_tree().get_first_node_in_group("Player")
-		character.glucose_changed.disconnect(_on_glucose_change) # Just ignore the error here
-		character.glucose_changed.connect(_on_glucose_change)
-		
 # User functions
 func _on_glucose_change(new: float, max_value: float) -> void:
 	percentage = new/max_value
