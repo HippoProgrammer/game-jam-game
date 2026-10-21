@@ -8,7 +8,11 @@ signal player_take_damage
 signal player_shoot
 signal minimap_toggle
 signal notify_send
+signal enemy_resized
 @warning_ignore_restore("unused_signal")
+
+var enemy_size_divisor: float = 4.0
+var enemy_max_scale: float = 0.75 # 3x starting size
 
 var effects_scale: float = 100.0
 
@@ -59,5 +63,8 @@ func _change_music_volume(new: float) -> void:
 
 func _change_sfx_volume(new: float) -> void:
 	sfx_volume = new
+	
+func _enemy_scale_too_large(enemy_scale: float) -> void:
+	enemy_size_divisor = enemy_scale / enemy_max_scale
 
 # obligatory pf 🏳️‍🌈
