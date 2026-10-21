@@ -15,3 +15,5 @@ func _process(_delta: float) -> void:
 	if global_position.distance_to(player.global_position) > max_dist_p2c:
 		vector_to_player = (global_position-player.global_position).normalized() # Finds Vector to player, with longest length being 1.0
 		global_position = player.global_position + (vector_to_player * max_dist_p2c) # Sets camera to follow behind player
+
+# obligatory pf 🏳️‍🌈

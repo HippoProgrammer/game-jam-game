@@ -13,9 +13,12 @@ func _process(_delta: float) -> void:
 	camera_node.global_position = player_node.global_position
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("minimap_toggle"):
+	if Input.is_action_just_pressed("minimap_toggle") and \
+		Events.allowed_actions["toggle_minimap"]:
 		Events.minimap_toggle.emit()
 		if self.get_parent().visible:
 			self.get_parent().visible = false
 		else:
 			self.get_parent().visible = true
+
+# obligatory pf 🏳️‍🌈

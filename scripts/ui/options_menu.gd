@@ -84,3 +84,5 @@ func _meme_SFX() -> void:
 	else:
 		Events.meme_SFX = true
 		$Buttons/_meme_SFX.text = "Meme Sound Effects: On"
+
+# obligatory pf 🏳️‍🌈

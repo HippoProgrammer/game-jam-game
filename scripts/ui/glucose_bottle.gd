@@ -24,3 +24,5 @@ func _on_glucose_change(new: float, max_value: float) -> void:
 	
 func apply(value: float) -> void:
 	liquid.material.set_shader_parameter("water_level_percentage", value)
+
+# obligatory pf 🏳️‍🌈

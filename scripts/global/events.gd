@@ -59,3 +59,5 @@ func _change_music_volume(new: float) -> void:
 
 func _change_sfx_volume(new: float) -> void:
 	sfx_volume = new
+
+# obligatory pf 🏳️‍🌈

@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 var antigen_scene = preload("res://scenes/player/antigen.tscn")
+var damage_number_scene = preload("res://scenes/ui/damage_num.tscn")
 
 @onready var antigen_spawner = $AntigenSpawner
 @onready var health_bar = get_tree().get_first_node_in_group("PlayerHealthBar")
@@ -220,7 +221,14 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	not parrying:
 		if body.is_in_group("Toxins"):
 			Events.player_take_damage.emit()
-			health -= body.get_meta("attack_damage",0)
+			var amount = body.get_meta("attack_damage",0)
+			
+			var num := damage_number_scene.instantiate()
+			get_tree().current_scene.add_child(num)
+			num.global_position = global_position + Vector2(0, -20)
+			num.setup(amount)
+			
+			health -= amount
 			body.queue_free()
 			_animate_health_bar()
 
