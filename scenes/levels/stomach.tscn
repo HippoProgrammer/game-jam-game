@@ -92,4 +92,7 @@ position = Vector2(-588, -12.999939)
 scale = Vector2(4.7612495, 4.7612505)
 texture = ExtResource("3_ujqtf")
 
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1620229676]
+color = Color(0.44573456, 0.44573456, 0.4457345, 1)
+
 [editable path="Cell5"]

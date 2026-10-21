@@ -24,7 +24,7 @@ texture = SubResource("CanvasTexture_15cnv")
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=930688253]
 scale = Vector2(4.5078125, 2.6914063)
 color = Color(0.93333334, 0.10980392, 0.14117648, 1)
-energy = 3.0
+energy = 0.4
 texture = ExtResource("3_2nxk3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=230095309]
