@@ -48,7 +48,7 @@ physics_layer_0/collision_layer = 9
 physics_layer_0/collision_mask = 9
 sources/0 = SubResource("TileSetAtlasSource_jkv2x")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_18wdg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sp4ka"]
 resource_local_to_scene = true
 shader = ExtResource("3_tpdgv")
 shader_parameter/progress = 0.0
@@ -57,6 +57,7 @@ shader_parameter/block_size = 2.0
 [node name="Stomach" type="Node2D" unique_id=1091828643]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1457770485]
+z_index = -1
 position = Vector2(-311, 101)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_sp4ka")
@@ -83,7 +84,7 @@ position = Vector2(-611, 465)
 controlled_by = "player"
 
 [node name="Sprite2D" parent="Cell5" index="0" unique_id=310833080]
-material = SubResource("ShaderMaterial_18wdg")
+material = SubResource("ShaderMaterial_sp4ka")
 
 [node name="StomachTemp" type="Sprite2D" parent="." unique_id=1516552355]
 visible = false
