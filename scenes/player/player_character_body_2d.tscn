@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://dvpmieqoyucs"]
+
+[ext_resource type="Script" uid="uid://bri8518e6eia3" path="res://scripts/player/character.gd" id="1_vnd7g"]
+[ext_resource type="Texture2D" uid="uid://c30j8uh45y7vl" path="res://artwork/MainChara/WhiteBlood.png" id="2_53bi1"]
+[ext_resource type="Texture2D" uid="uid://uah1qe25348k" path="res://artwork/MainChara/WhiteBlood_n.png" id="3_a05yu"]
+[ext_resource type="Texture2D" uid="uid://b2l0583ciqvri" path="res://artwork/MainChara/WhiteBlood_s.png" id="4_xpwlv"]
+[ext_resource type="SpriteFrames" uid="uid://dk5v8b1a4n4pd" path="res://artwork/MainChara/parry_sprite_frames.tres" id="5_060su"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
+radius = 520.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_g2els"]
+diffuse_texture = ExtResource("2_53bi1")
+normal_texture = ExtResource("3_a05yu")
+specular_texture = ExtResource("4_xpwlv")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dqkch"]
+radius = 520.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_22vlk"]
+cull_mode = 2
+polygon = PackedVector2Array(31, 0, 28.64, 11.86, 21.92, 21.92, 11.86, 28.64, 0, 31, -11.86, 28.64, -21.92, 21.92, -28.64, 11.86, -31, 0, -28.64, -11.86, -21.92, -21.92, -11.86, -28.64, 0, -31, 11.86, -28.64, 21.92, -21.92, 28.64, -11.86, 31, 0)
+
+[node name="Player" type="CharacterBody2D" unique_id=2017533679 groups=["Persist", "Player"]]
+scale = Vector2(0.5, 0.5)
+motion_mode = 1
+script = ExtResource("1_vnd7g")
+
+[node name="TerrainCollision" type="CollisionShape2D" parent="." unique_id=628293825]
+scale = Vector2(0.06, 0.06)
+shape = SubResource("CircleShape2D_g2els")
+
+[node name="AntigenSpawner" type="Marker2D" parent="." unique_id=967596760]
+position = Vector2(56, -2)
+scale = Vector2(19.999998, 19.999998)
+
+[node name="Character" type="Sprite2D" parent="." unique_id=382124054]
+position = Vector2(8, -5.684342e-14)
+rotation = 1.5707964
+scale = Vector2(2.4, 2.4)
+texture = SubResource("CanvasTexture_g2els")
+
+[node name="PlayerHitbox" type="Area2D" parent="." unique_id=653558628]
+position = Vector2(0, 4.774859e-13)
+scale = Vector2(0.9999999, 0.9999999)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox" unique_id=527446419]
+scale = Vector2(0.06, 0.06)
+shape = SubResource("CircleShape2D_dqkch")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=2051155177]
+position = Vector2(0, -1.4324573e-12)
+occluder = SubResource("OccluderPolygon2D_22vlk")
+
+[node name="ParryAnim" type="AnimatedSprite2D" parent="." unique_id=52742470]
+rotation = 1.5707964
+scale = Vector2(2.4, 2.4)
+sprite_frames = ExtResource("5_060su")
+centered = false
+offset = Vector2(-8, -23)
+
+[connection signal="body_entered" from="PlayerHitbox" to="." method="_on_hitbox_body_entered"]

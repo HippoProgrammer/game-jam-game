@@ -1,7 +1,6 @@
 extends Node
 
 var pending_load := false
-
 # User functions
 
 func save_game():
@@ -34,15 +33,18 @@ func save_game():
 func load_game():
 	if not FileAccess.file_exists("user://savegame.save"):
 		return # Error! We don't have a save to load.
-
+	get_tree().change_scene_to_file("res://scenes/main.tscn")
+	
+	await get_tree().scene_changed
 	# We need to revert the game state so we're not cloning objects
 	# during loading. This will vary wildly depending on the needs of a
 	# project, so take care with this step.
 	# For our example, we will accomplish this by deleting saveable objects.
 	var save_nodes = get_tree().get_nodes_in_group("Persist")
+	
 	for i in save_nodes:
 		i.queue_free()
-
+	
 	# Wait a frame so the old nodes are actually freed before the new ones exist.
 	await get_tree().process_frame
 

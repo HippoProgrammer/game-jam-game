@@ -360,6 +360,7 @@ func save() -> Dictionary:
 		"movement_speed": movement_speed,
 		"attack_damage": attack_damage,
 		"reload": reload,
+		"enemy_size_divisor": Events.enemy_size_divisor
 	}
 
 	return save_dict
@@ -375,6 +376,7 @@ func load_data(data: Dictionary) -> void:
 	movement_speed = data["movement_speed"]
 	attack_damage = data["attack_damage"]
 	reload = data["reload"]
+	Events.enemy_size_divisor = data["enemy_size_divisor"]
 
 	attack_timer.wait_time = reload
 	_change_health(health, max_health)

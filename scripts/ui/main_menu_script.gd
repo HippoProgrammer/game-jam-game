@@ -48,7 +48,7 @@ func _options():
 	$OptionsMenu.show()
 
 func _load_game():
-	get_tree().change_scene_to_file(main_game_scene)
+	GameState.load_game()
 
 func _quit_game():
 	get_tree().quit()

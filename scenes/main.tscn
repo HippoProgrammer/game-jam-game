@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dr5jhi3n2ka75"]
 
+[ext_resource type="PackedScene" uid="uid://dvpmieqoyucs" path="res://scenes/player/player_character_body_2d.tscn" id="1_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://c42rvvvlc7iwv" path="res://scenes/enemy_stuff/basic_enemy.tscn" id="1_jyhfs"]
-[ext_resource type="PackedScene" uid="uid://dlfkmnvkalefo" path="res://scenes/player/player.tscn" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://df56635vv31xq" path="res://scenes/global/sound.tscn" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://cilmvhpq6adfm" path="res://scenes/ui/HUD.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://dmrjqd12j74cf" path="res://scenes/ui/minimap.tscn" id="7_85g3d"]
@@ -23,8 +23,8 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-968, 396, 165, 410, 17
 
 [node name="Main" type="Node2D" unique_id=577279995]
 
-[node name="Player" parent="." unique_id=401100565 instance=ExtResource("1_sugp2")]
-position = Vector2(-1013, 464)
+[node name="Player" parent="." unique_id=2017533679 instance=ExtResource("1_jkv2x")]
+position = Vector2(-897, 479)
 
 [node name="Organs" type="Node" parent="." unique_id=687573164]
 
@@ -76,7 +76,6 @@ position = Vector2(266, -94)
 metadata/los_range = 100000.0
 
 [node name="PlayerCamera" parent="." unique_id=131873372 instance=ExtResource("12_trceg")]
-visible = false
 
 [node name="UI" type="Control" parent="." unique_id=689884067]
 layout_mode = 3

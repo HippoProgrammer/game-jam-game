@@ -10,6 +10,9 @@ func _ready() -> void:
 	camera_node.zoom= Vector2(0.075, 0.075)
 
 func _process(_delta: float) -> void:
+	if not is_instance_valid(player_node):
+		player_node = get_tree().get_first_node_in_group("Player")
+		return
 	camera_node.global_position = player_node.global_position
 
 func _physics_process(_delta: float) -> void:

@@ -189,7 +189,7 @@ func _shoot_antigen() -> void:
 
 	for angle in angles:
 		var antigen = antigen_scene.instantiate()
-		owner.add_child(antigen)
+		get_parent().add_child(antigen)
 		antigen.global_position = antigen_spawner.global_position
 		antigen.velocity = direction.rotated(deg_to_rad(angle)) * antigen_speed
 		antigen.rotation = antigen.velocity.angle()
@@ -199,7 +199,7 @@ func _shoot_antigen() -> void:
 func _parry() -> void:
 	var closest_toxin = _get_closest_toxin()
 	if closest_toxin != null:
-		parry_anim.look_at(closest_toxin.global_positio)
+		parry_anim.look_at(closest_toxin.global_position)
 	parry_anim.show()
 	parrying = true
 	parry_anim.play("default")
@@ -273,11 +273,16 @@ func save() -> Dictionary:
 		"glucose_regen": glucose_regen,
 		"attack_damage": attack_damage,
 		"ammo": ammo,
+		"master_volume": Events.master_volume,
+		"music_volume": Events.music_volume,
+		"sfx_volume": Events.sfx_volume,
+		"meme_SFX": Events.meme_SFX
 	}
 
 	return save_dict
 
 func load_data(data: Dictionary) -> void:
+	position = Vector2(data["pos_x"],data["pos_y"])
 	rotation = data["rotation"]
 	velocity = Vector2(data["velocity_x"], data["velocity_y"])
 	health = data["health"]
@@ -287,6 +292,11 @@ func load_data(data: Dictionary) -> void:
 	glucose_regen = data["glucose_regen"]
 	attack_damage = data["attack_damage"]
 	ammo = int(data["ammo"])
+	
+	Events.master_volume = data["master_volume"]
+	Events.music_volume = data["music_volume"]
+	Events.sfx_volume = data["sfx_volume"]
+	Events.meme_SFX = data["meme_SFX"]
 
 	health_changed.emit(health, max_health)
 	glucose_changed.emit(glucose, max_glucose)

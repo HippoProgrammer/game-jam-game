@@ -331,7 +331,8 @@ func save() -> Dictionary:
 		"enemy_max_glucose": enemy_max_glucose,
 		"enemy_max_health": enemy_max_health,
 		"enemy_movement_speed": enemy_movement_speed,
-		"enemy_scale": enemy_scale
+		"enemy_scale": enemy_scale,
+		"light_colour": light.color.to_html()
 	}
 
 	return save_dict
@@ -344,6 +345,8 @@ func load_data(data: Dictionary) -> void:
 	health = data["health"]
 	state = (data["state"])
 	timer_until_regen = data["timer_until_regen"]
+	light.color = Color.html(data["light_colour"])
+	
 	
 	enemy_attack_damage = data["enemy_attack_damage"]
 	enemy_attack_range = data["enemy_attack_range"]

@@ -11,8 +11,12 @@ extends CanvasLayer
 
 func _ready() -> void:
 	character.health_changed.connect(_on_health_change)
-	#Events.notify_send.connect(_notify) # SuitablyMysterious, please can you make this work when you see this?
 
+func _process(_delta: float) -> void:
+	if not is_instance_valid("Player"):
+		character = get_tree().get_first_node_in_group("Player")
+		character.health_changed.disconnect(_on_health_change) # Just ignore the error here
+		character.health_changed.connect(_on_health_change)
 # User functions
 
 func _on_health_change(new: float, max_value: float) -> void:
