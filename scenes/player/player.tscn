@@ -25,7 +25,7 @@ polygon = PackedVector2Array(31, 0, 28.64, 11.86, 21.92, 21.92, 11.86, 28.64, 0,
 position = Vector2(34, 0)
 scale = Vector2(0.5, 0.5)
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1509588886 groups=["Persist", "Player"]]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1509588886 groups=["Persist", "Player", "movable"]]
 motion_mode = 1
 script = ExtResource("2_g2els")
 
