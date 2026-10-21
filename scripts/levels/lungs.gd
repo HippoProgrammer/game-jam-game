@@ -36,6 +36,8 @@ func _breathe_switch() -> void:
 		target_scale = 1.0
 
 	for node in get_tree().get_nodes_in_group("movable"):
+		if not is_ancestor_of(node):
+			return
 		var tween = create_tween()
 		tween.tween_property(node, "position", node.position + offset, breathing_time)\
 			.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)

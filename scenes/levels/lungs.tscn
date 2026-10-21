@@ -3,8 +3,6 @@
 [ext_resource type="Script" uid="uid://c0tsb0qca6w12" path="res://scripts/levels/lungs.gd" id="1_a2wgj"]
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="1_xdo1a"]
 [ext_resource type="Texture2D" uid="uid://ofoc33irh6uh" path="res://artwork/Temp_Assets/Lungs_diagram_detailed.svg.webp" id="2_bpmg5"]
-[ext_resource type="PackedScene" uid="uid://dlfkmnvkalefo" path="res://scenes/player/player.tscn" id="5_ete3j"]
-[ext_resource type="PackedScene" uid="uid://duh31nuskww0r" path="res://scenes/player/player_camera.tscn" id="6_e147c"]
 [ext_resource type="PackedScene" uid="uid://cilmvhpq6adfm" path="res://scenes/ui/HUD.tscn" id="6_r6pj7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_og1vs"]
@@ -69,7 +67,3 @@ tile_map_data = PackedByteArray("AADH/xwAAAADAAAAAADH/x0AAAADAAAAAADH/x4AAAACAAE
 tile_set = SubResource("TileSet_2wyq8")
 
 [node name="HUD" parent="." unique_id=735888115 instance=ExtResource("6_r6pj7")]
-
-[node name="Player" parent="." unique_id=401100565 instance=ExtResource("5_ete3j")]
-
-[node name="PlayerCamera" parent="." unique_id=131873372 instance=ExtResource("6_e147c")]
