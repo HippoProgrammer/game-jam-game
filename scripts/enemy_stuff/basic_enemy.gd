@@ -7,6 +7,8 @@ var damage_number_scene = preload("res://scenes/ui/damage_num.tscn")
 @onready var character = $CharacterBody2D
 
 # --- VARIABLES ---
+const time_to_resize = 0.5
+
 var rand : float
 # import toxins
 var toxin_speed = 750
@@ -57,7 +59,10 @@ var idle_target_pos
 # Godot functions
 
 func _ready() -> void:
-	scale = Vector2(get_meta("scale")/4,get_meta("scale")/4)
+	scale = Vector2(get_meta("scale"),get_meta("scale")) / Events.enemy_size_divisor
+	
+	if scale.x > Events.enemy_max_scale:
+		Events._enemy_scale_too_large(scale.x)
 
 	attack_timer = Timer.new()
 	attack_timer.wait_time = reload
@@ -70,6 +75,14 @@ func _ready() -> void:
 	_change_health(health, max_health)
 
 func _process(delta: float) -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property(
+		self,
+		"scale",
+		Vector2(get_meta("scale"),get_meta("scale")) / Events.enemy_size_divisor,
+		time_to_resize
+	)
+	
 	if health_regen > 0:
 		health = clamp(health + health_regen * delta, -max_health, max_health)
 		_change_health(health, max_health)
