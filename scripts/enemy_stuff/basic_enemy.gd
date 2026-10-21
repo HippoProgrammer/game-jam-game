@@ -49,6 +49,7 @@ var state := State.idle
 var path_current
 var path_next
 var segment_dist
+var idle_target_pos
 
 # health bar
 @onready var health_bar: ProgressBar = $CharacterBody2D/HealthBar
@@ -106,6 +107,16 @@ func _physics_process(delta: float) -> void:
 	
 	else:
 		attack_timer.paused = true
+		
+	if state == State.idle:
+		if idle_target_pos == null:
+			idle_target_pos = _random_cell_position()
+		if character.global_position.distance_to(idle_target_pos) < los_range:
+			idle_target_pos = _random_cell_position()
+		
+		_move_to_position(idle_target_pos)
+	else:
+		idle_target_pos = null
 		
 	character.move_and_slide()
 
@@ -225,7 +236,6 @@ func _move_to_position(move_pos:Vector2) -> void:
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	character.velocity = safe_velocity
 
-
 func _die() -> void:
 	state = State.dying
 
@@ -296,6 +306,11 @@ func get_closest_cell() -> Node2D:
 	else:
 		return null
 
+func _random_cell_position() -> Vector2:
+	var all_cells = get_tree().get_nodes_in_group("cells")
+	var target_cell = all_cells[randi_range(0,len(all_cells) - 1)]
+	
+	return target_cell.position
 
 # --- SAVING ---
 func save() -> Dictionary:
