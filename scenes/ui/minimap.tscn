@@ -1,28 +1,39 @@
 [gd_scene format=3 uid="uid://dmrjqd12j74cf"]
 
+[ext_resource type="Texture2D" uid="uid://bphcfemnvdtpl" path="res://artwork/ui/minimap_centre.png" id="1_ixymw"]
 [ext_resource type="Script" uid="uid://cpmk3pbein8s3" path="res://scripts/ui/minimap_subviewport.gd" id="1_lj7mc"]
+[ext_resource type="Texture2D" uid="uid://db5fhek5jk28" path="res://artwork/ui/minimap_outline.png" id="2_0slp3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yx0xg"]
+texture = ExtResource("1_ixymw")
 
 [node name="Minimap" type="CanvasLayer" unique_id=454228334 groups=["Minimap"]]
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1011507874]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -197.0
-offset_top = -197.0
-offset_right = -22.0
-offset_bottom = -22.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1488757185]
+offset_left = 802.0
+offset_top = 298.0
+offset_right = 1136.0
+offset_bottom = 632.0
+texture = ExtResource("2_0slp3")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1975720368]
+clip_children = 1
+clip_contents = true
+offset_left = 802.0
+offset_top = 298.0
+offset_right = 1136.0
+offset_bottom = 632.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_yx0xg")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="PanelContainer" unique_id=1011507874]
+layout_mode = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=2022942081 node_paths=PackedStringArray("camera_node")]
+[node name="SubViewport" type="SubViewport" parent="PanelContainer/SubViewportContainer" unique_id=2022942081 node_paths=PackedStringArray("camera_node")]
 handle_input_locally = false
-size = Vector2i(175, 175)
+size = Vector2i(334, 334)
 render_target_update_mode = 4
 script = ExtResource("1_lj7mc")
 camera_node = NodePath("Camera2D")
 
-[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport" unique_id=765652256]
+[node name="Camera2D" type="Camera2D" parent="PanelContainer/SubViewportContainer/SubViewport" unique_id=765652256]
