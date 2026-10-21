@@ -72,3 +72,5 @@ func tutorial() -> void:
 	
 	await show_line("You're ready for the real game now!\nGood luck, we hope you enjoy it!", true, 2.0)
 	get_tree().change_scene_to_file("res://scenes/ui/main-menu.tscn")
+
+# obligatory pf 🏳️‍🌈

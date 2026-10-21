@@ -322,3 +322,5 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		body.queue_free()
 		
 	_change_health(health,max_health)
+
+# obligatory pf 🏳️‍🌈

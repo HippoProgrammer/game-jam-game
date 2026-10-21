@@ -21,3 +21,5 @@ func _stat_upgrade(stat) -> void:
 
 func _50_glucose_regen() -> void:
 	character.glucose_regen *= 1.5
+
+# obligatory pf 🏳️‍🌈

@@ -23,3 +23,5 @@ func _notify(text: String, hold: bool = false, hold_time := 1.5):
 	notifier.text = text
 	if hold:
 		await get_tree().create_timer(hold_time).timeout
+
+# obligatory pf 🏳️‍🌈

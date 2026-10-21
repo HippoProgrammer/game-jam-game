@@ -20,3 +20,5 @@ func _physics_process(_delta: float) -> void:
 			self.get_parent().visible = false
 		else:
 			self.get_parent().visible = true
+
+# obligatory pf 🏳️‍🌈
