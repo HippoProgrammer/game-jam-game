@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://c0tsb0qca6w12" path="res://scripts/levels/lungs.gd" id="1_a2wgj"]
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="1_xdo1a"]
 [ext_resource type="Texture2D" uid="uid://ofoc33irh6uh" path="res://artwork/Temp_Assets/Lungs_diagram_detailed.svg.webp" id="2_bpmg5"]
+[ext_resource type="PackedScene" uid="uid://b5mm4pbq332bq" path="res://scenes/cell.tscn" id="5_ete3j"]
+[ext_resource type="PackedScene" uid="uid://duh31nuskww0r" path="res://scenes/player/player_camera.tscn" id="6_e147c"]
+[ext_resource type="PackedScene" uid="uid://dlfkmnvkalefo" path="res://scenes/player/player.tscn" id="6_qyotp"]
 [ext_resource type="PackedScene" uid="uid://cilmvhpq6adfm" path="res://scenes/ui/HUD.tscn" id="6_r6pj7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_og1vs"]
@@ -67,3 +70,50 @@ tile_map_data = PackedByteArray("AADH/xwAAAADAAAAAADH/x0AAAADAAAAAADH/x4AAAACAAE
 tile_set = SubResource("TileSet_2wyq8")
 
 [node name="HUD" parent="." unique_id=735888115 instance=ExtResource("6_r6pj7")]
+
+[node name="Cell1" parent="." unique_id=1873970965 instance=ExtResource("5_ete3j")]
+position = Vector2(-774, -547)
+
+[node name="Cell2" parent="." unique_id=101447372 instance=ExtResource("5_ete3j")]
+position = Vector2(-476, -396)
+
+[node name="Cell3" parent="." unique_id=278764795 instance=ExtResource("5_ete3j")]
+position = Vector2(-503, 490)
+
+[node name="Cell4" parent="." unique_id=2030297277 instance=ExtResource("5_ete3j")]
+position = Vector2(846, -504)
+
+[node name="Cell5" parent="." unique_id=2073339205 instance=ExtResource("5_ete3j")]
+position = Vector2(700, 234)
+
+[node name="Cell6" parent="." unique_id=1774305075 instance=ExtResource("5_ete3j")]
+position = Vector2(1343, 951)
+
+[node name="Cell7" parent="." unique_id=785845467 instance=ExtResource("5_ete3j")]
+position = Vector2(-1245, 606)
+
+[node name="Cell8" parent="." unique_id=202723240 instance=ExtResource("5_ete3j")]
+position = Vector2(-944, 927)
+
+[node name="Cell9" parent="." unique_id=88782307 instance=ExtResource("5_ete3j")]
+position = Vector2(-807, 55)
+
+[node name="Cell10" parent="." unique_id=1382372219 instance=ExtResource("5_ete3j")]
+position = Vector2(796, 870)
+
+[node name="Cell11" parent="." unique_id=1538880068 instance=ExtResource("5_ete3j")]
+position = Vector2(812.5, -832)
+
+[node name="Cell12" parent="." unique_id=1540783752 instance=ExtResource("5_ete3j")]
+position = Vector2(1235, 110)
+
+[node name="Cell13" parent="." unique_id=1048651986 instance=ExtResource("5_ete3j")]
+position = Vector2(-14, -552.5)
+
+[node name="Cell14" parent="." unique_id=2049840546 instance=ExtResource("5_ete3j")]
+position = Vector2(469, -588)
+
+[node name="Player" parent="." unique_id=401100565 instance=ExtResource("6_qyotp")]
+position = Vector2(-50, -309)
+
+[node name="PlayerCamera" parent="." unique_id=131873372 instance=ExtResource("6_e147c")]

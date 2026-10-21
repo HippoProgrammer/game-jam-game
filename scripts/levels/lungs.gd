@@ -28,11 +28,11 @@ func _breathe_switch() -> void:
 	var target_scale: float
 	if breathing == Breathing.b_in:
 		breathing = Breathing.b_out
-		offset = Vector2(0, -breathe_distance)
+		offset = Vector2(0, breathe_distance)
 		target_scale = shrink_scale
 	else:
 		breathing = Breathing.b_in
-		offset = Vector2(0, breathe_distance)
+		offset = Vector2(0, -breathe_distance)
 		target_scale = 1.0
 
 	for node in get_tree().get_nodes_in_group("movable"):
