@@ -55,22 +55,19 @@ tile_set = SubResource("TileSet_jbj1t")
 
 [node name="Cell" parent="." unique_id=1873970965 instance=ExtResource("2_jyeno")]
 position = Vector2(204, -386)
-controlled_by = "enemy"
 
 [node name="Cell2" parent="." unique_id=249787848 instance=ExtResource("2_jyeno")]
 position = Vector2(-219, -254)
-controlled_by = "enemy"
 
 [node name="Cell3" parent="." unique_id=1934688368 instance=ExtResource("2_jyeno")]
 position = Vector2(87, 105)
-controlled_by = "enemy"
 
 [node name="Cell4" parent="." unique_id=813786206 instance=ExtResource("2_jyeno")]
 position = Vector2(-116, 574)
-controlled_by = "enemy"
 
 [node name="Cell5" parent="." unique_id=723515662 instance=ExtResource("2_jyeno")]
 position = Vector2(-611, 465)
+controlled_by = "player"
 
 [node name="StomachTemp" type="Sprite2D" parent="." unique_id=1516552355]
 visible = false
