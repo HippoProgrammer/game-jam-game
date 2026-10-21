@@ -102,3 +102,36 @@ export-windows:
         with:
           name: linux
           path: build/linux
+
+  release:
+    name: Create Release
+    runs-on: ubuntu-24.04
+    needs: [export-web, export-windows, export-linux]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get short SHA
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short=7 HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Zip builds
+        run: |
+          cd artifacts
+          for dir in */; do
+            name="${dir%/}"
+            (cd "$name" && zip -r "../${EXPORT_NAME}-${name}.zip" .)
+          done
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.vars.outputs.sha_short }}
+          name: "#${{ steps.vars.outputs.sha_short }}"
+          target_commitish: ${{ github.sha }}
+          files: artifacts/*.zip
