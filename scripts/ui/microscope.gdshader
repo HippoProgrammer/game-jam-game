@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
 // Controls the zoom
-uniform float radius : hint_range(0.0, 5.0, 0.01) = 0.3;
+uniform float radius : hint_range(0.0, 5.0, 0.01) = 0.6;
 // Controls the intensity of the distortion (higher values = more distortion)
 uniform float power : hint_range(0.01, 3.0, 0.01) = 0.2;
 // If true, color will be set directly, if false, color will be multiplied (for colored lenses)

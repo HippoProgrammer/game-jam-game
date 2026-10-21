@@ -10,12 +10,19 @@ texture = ExtResource("1_ixymw")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0slp3"]
 shader = ExtResource("3_0slp3")
-shader_parameter/radius = 0.3
-shader_parameter/power = 0.2
+shader_parameter/radius = 4.06999990902736
+shader_parameter/power = 0.22999999485904
 shader_parameter/transparent_texture = true
 shader_parameter/lens_center = Vector2(0.5, 0.5)
 
 [node name="Minimap" type="CanvasLayer" unique_id=454228334 groups=["Minimap"]]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1488757185]
+offset_left = 876.0
+offset_top = 372.0
+offset_right = 1136.0
+offset_bottom = 632.0
+texture = ExtResource("2_0slp3")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1975720368]
 clip_children = 1
@@ -25,10 +32,6 @@ offset_top = 372.0
 offset_right = 1136.0
 offset_bottom = 632.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_yx0xg")
-
-[node name="TextureRect" type="TextureRect" parent="PanelContainer" unique_id=1488757185]
-layout_mode = 2
-texture = ExtResource("2_0slp3")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="PanelContainer" unique_id=1011507874]
 material = SubResource("ShaderMaterial_0slp3")
