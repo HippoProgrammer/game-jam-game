@@ -11,11 +11,11 @@ func _ready() -> void:
 	breathing_timer.wait_time = breathing_time
 	breathing_timer.one_shot = false
 	breathing_timer.autostart = true
-	breathing_timer.timeout.connect(breathe_switch)
+	breathing_timer.timeout.connect(_breathe_switch)
 	add_child(breathing_timer)
 	breathing_timer.start()
 
-func breathe_switch() -> void:
+func _breathe_switch() -> void:
 	var offset: Vector2
 	if breathing == Breathing.b_in:
 		breathing = Breathing.b_out
