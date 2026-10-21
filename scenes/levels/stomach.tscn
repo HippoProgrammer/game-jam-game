@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="1_j6xh5"]
 [ext_resource type="PackedScene" uid="uid://b5mm4pbq332bq" path="res://scenes/cell.tscn" id="2_jyeno"]
+[ext_resource type="Shader" uid="uid://d4eavjtjvnlhs" path="res://scripts/enemy_stuff/enemy_dissolve.gdshader" id="3_tpdgv"]
 [ext_resource type="Texture2D" uid="uid://bcmiionjdu16l" path="res://artwork/Temp_Assets/21758-stomach.jpg" id="3_ujqtf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jkv2x"]
@@ -46,6 +47,12 @@ physics_layer_0/collision_layer = 9
 physics_layer_0/collision_mask = 9
 sources/0 = SubResource("TileSetAtlasSource_jkv2x")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tpdgv"]
+resource_local_to_scene = true
+shader = ExtResource("3_tpdgv")
+shader_parameter/progress = 0.0
+shader_parameter/block_size = 2.0
+
 [node name="Stomach" type="Node2D" unique_id=1091828643]
 
 [node name="Stomach" type="TileMapLayer" parent="." unique_id=1472164898]
@@ -69,8 +76,16 @@ position = Vector2(-116, 574)
 position = Vector2(-611, 465)
 controlled_by = "player"
 
+[node name="Sprite2D" parent="Cell5" index="0" unique_id=310833080]
+material = SubResource("ShaderMaterial_tpdgv")
+
+[node name="PointLight2D" parent="Cell5/Sprite2D" index="1" unique_id=1752685726]
+color = Color(0.10980392, 0.93333334, 0.14117648, 1)
+
 [node name="StomachTemp" type="Sprite2D" parent="." unique_id=1516552355]
 visible = false
 position = Vector2(-588, -12.999939)
 scale = Vector2(4.7612495, 4.7612505)
 texture = ExtResource("3_ujqtf")
+
+[editable path="Cell5"]
