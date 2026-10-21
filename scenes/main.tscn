@@ -88,7 +88,6 @@ offset_bottom = 40.0
 [node name="HUD" parent="UI" unique_id=735888115 instance=ExtResource("3_sugp2")]
 
 [node name="PauseMenu" parent="UI" unique_id=505931995 instance=ExtResource("14_jkv2x")]
-visible = false
 
 [node name="OptionsMenu" parent="UI" unique_id=165116578 instance=ExtResource("15_jbj1t")]
 return_node_path = NodePath("../PauseMenu")
