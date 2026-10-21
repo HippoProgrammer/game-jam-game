@@ -54,3 +54,5 @@ func _load_game():
 
 func _quit_game():
 	get_tree().quit()
+
+# obligatory pf 🏳️‍🌈

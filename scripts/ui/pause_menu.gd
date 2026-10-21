@@ -63,3 +63,5 @@ func _save_game():
 
 func _quit_game() -> void:
 	get_tree().quit()
+
+# obligatory pf 🏳️‍🌈

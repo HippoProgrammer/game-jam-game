@@ -257,44 +257,6 @@ func create_enemy() -> void:
 	get_parent().add_child(node)
 	
 
-# --- SAVING ---
-func save() -> Dictionary:
-	var save_dict = {
-		"filename": get_scene_file_path(),
-		"parent": get_tree().current_scene.get_path_to(get_parent()),
-		"pos_x": position.x,
-		"pos_y": position.y,
-		"rotation": rotation,
-		"scale_x": scale.x,
-		"scale_y": scale.y,
-		"controlled_by": controlled_by,
-		"health": health,
-		"max_health": max_health,
-		"state": state,
-		"timer_until_regen": timer_until_regen,
-	}
-
-	return save_dict
-
-func load_data(data: Dictionary) -> void:
-	rotation = data["rotation"]
-	scale = Vector2(data["scale_x"], data["scale_y"])
-	controlled_by = data["controlled_by"]
-	max_health = data["max_health"]
-	health = data["health"]
-	state = (data["state"])
-	timer_until_regen = data["timer_until_regen"]
-
-	if controlled_by == "player":
-		light.color = "1CEE24"
-		regen_emitter.texture = player_regen_texture
-	else:
-		light.color = "EE1C24"
-		regen_emitter.texture = enemy_regen_texture
-
-	_change_health(health, max_health)
-
-
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Antigens") and is_inside_tree():
 		if controlled_by == "enemy":
@@ -322,3 +284,65 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		body.queue_free()
 		
 	_change_health(health,max_health)
+	
+# --- SAVING ---
+func save() -> Dictionary:
+	var save_dict = {
+		"filename": get_scene_file_path(),
+		"parent": get_tree().current_scene.get_path_to(get_parent()),
+		"pos_x": position.x,
+		"pos_y": position.y,
+		"rotation": rotation,
+		"scale_x": scale.x,
+		"scale_y": scale.y,
+		"controlled_by": controlled_by,
+		"health": health,
+		"max_health": max_health,
+		"state": state,
+		"timer_until_regen": timer_until_regen,
+		
+		"enemy_attack_damage": enemy_attack_damage,
+		"enemy_attack_range": enemy_attack_range,
+		"enemy_attack_reload": enemy_attack_reload,
+		"enemy_glucose_regen": enemy_glucose_regen,
+		"enemy_health_regen": enemy_health_regen,
+		"enemy_los_range": enemy_los_range,
+		"enemy_max_glucose": enemy_max_glucose,
+		"enemy_max_health": enemy_max_health,
+		"enemy_movement_speed": enemy_movement_speed,
+		"enemy_scale": enemy_scale
+	}
+
+	return save_dict
+
+func load_data(data: Dictionary) -> void:
+	rotation = data["rotation"]
+	scale = Vector2(data["scale_x"], data["scale_y"])
+	controlled_by = data["controlled_by"]
+	max_health = data["max_health"]
+	health = data["health"]
+	state = (data["state"])
+	timer_until_regen = data["timer_until_regen"]
+	
+	enemy_attack_damage = data["enemy_attack_damage"]
+	enemy_attack_range = data["enemy_attack_range"]
+	enemy_attack_reload = data["enemy_attack_reload"]
+	enemy_glucose_regen = data["enemy_glucose_regen"]
+	enemy_health_regen = data["enemy_health_regen"]
+	enemy_los_range = data["enemy_los_range"]
+	enemy_max_glucose = data["enemy_max_glucose"]
+	enemy_max_health = data["enemy_max_health"]
+	enemy_movement_speed = data["enemy_movement_speed"]
+	enemy_scale = data["enemy_scale"]
+
+	if controlled_by == "player":
+		light.color = "1CEE24"
+		regen_emitter.texture = player_regen_texture
+	else:
+		light.color = "EE1C24"
+		regen_emitter.texture = enemy_regen_texture
+
+	_change_health(health, max_health)
+
+
+# obligatory pf 🏳️‍🌈

@@ -21,3 +21,5 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 	else:
 		lifetime -= delta
+
+# obligatory pf 🏳️‍🌈

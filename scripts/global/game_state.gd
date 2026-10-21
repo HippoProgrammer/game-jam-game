@@ -86,3 +86,5 @@ func load_game():
 			if i == "filename" or i == "parent" or i == "pos_x" or i == "pos_y":
 				continue
 			new_object.set(i, node_data[i])
+
+# obligatory pf 🏳️‍🌈
