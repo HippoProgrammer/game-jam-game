@@ -2,6 +2,8 @@ extends Node2D
 
 @export var controlled_by = "enemy"
 
+var damage_number_scene = preload("res://scenes/ui/damage_num.tscn")
+
 # Variables for Enemy Replication
 var enemy_max_health = 100.0
 var enemy_max_glucose = 100.0
@@ -255,7 +257,18 @@ func create_enemy() -> void:
 	
 	node.global_position = global_position + Vector2(80,0)
 	get_parent().add_child(node)
+
+
+func take_damage(amount: float, color: Color = Color(0.987, 0.215, 0.0, 1.0)) -> void:
+	health -= amount
 	
+	var num := damage_number_scene.instantiate()
+	get_tree().current_scene.add_child(num)
+	num.global_position = global_position + Vector2(0, -20)
+	num.setup(amount, color)
+
+
+
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Antigens") and is_inside_tree():
@@ -263,8 +276,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 			if state == State.regen:
 				timer_until_regen = 0
 				state = State.no_regen
-			health -= body.get_meta("attack_damage")
-			body.queue_free()
+			take_damage(body.get_meta("attack_damage"), Color(0.0, 0.73, 0.167, 1.0))
 		elif controlled_by == "player":
 			health = clamp(health + body.get_meta("attack_damage"),0,max_health)
 			body.queue_free()
@@ -274,7 +286,8 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 			timer_until_regen = 0
 			state = State.no_regen
 			
-		health -= body.get_meta("attack_damage") * virus_cell_attack_mult
+		take_damage(body.get_meta("attack_damage") * virus_cell_attack_mult)
+		
 		if body.get_meta("shooter") != null:
 			var shooter_id = body.get_meta("shooter")
 			var shooter_node = instance_from_id(shooter_id)
