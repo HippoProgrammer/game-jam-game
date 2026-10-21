@@ -46,13 +46,12 @@ var state := State.idle
 # get navigation agent and raycast
 @onready var nav: NavigationAgent2D = $CharacterBody2D/NavigationAgent2D
 @onready var raycast: RayCast2D = $CharacterBody2D/LOS
-
-# cloning
-var probability_health_change = 100
+var path_current
+var path_next
+var segment_dist
 
 # health bar
 @onready var health_bar: ProgressBar = $CharacterBody2D/HealthBar
-
 
 # Godot functions
 
@@ -89,27 +88,56 @@ func _physics_process(delta: float) -> void:
 		if closest_cell:
 			if closest_cell.global_position.distance_to(player_character.global_position) < 2 * attack_range:
 				target_pos = closest_cell.global_position.lerp(player_character.global_position, 0.5) # Find Midpoint
+				_move_to_position(target_pos)
 			else:
-				var dir_cell_to_player = (player_character.global_position - closest_cell.global_position).normalized()
-
 				if target == player_character && character.global_position.distance_to(closest_cell.global_position) \
 					< los_range && closest_cell.global_position.distance_to(character.global_position) < los_range:
-					target_pos = player_character.global_position - (dir_cell_to_player * attack_range)
-
+					target_pos = _navigate_to_point_between(player_character, closest_cell)
 				elif target == closest_cell && character.global_position.distance_to(closest_cell.global_position) \
-					 < los_range && closest_cell.global_position.distance_to(character.global_position) < los_range:
-					target_pos = closest_cell.global_position + (dir_cell_to_player * attack_range)
-			if target_pos:
-				var direction = character.global_position.direction_to(target_pos)
-				character.velocity = direction * movement_speed
-
+					 < los_range && closest_cell.global_position.distance_to(character.global_position) \
+						< los_range:
+					target_pos = _navigate_to_point_between(closest_cell,player_character)
+		
+		if target_pos == null and target != null:
+			target_pos = target.global_position
+		
+		if target_pos:
+			_move_to_position(target_pos)
+	
 	else:
 		attack_timer.paused = true
-
+		
 	character.move_and_slide()
 
-
 # --- USER FUNCTIONS ---
+
+func _navigate_to_point_between(attack_target,compare) -> Vector2:
+	# Nav path to the closest cell
+	var path: PackedVector2Array = NavigationServer2D.map_get_path(
+		nav.get_navigation_map(), 
+		attack_target.global_position, 
+		compare.global_position, 
+		true
+	)
+	
+	if path.size() > 1:
+		# Find max point away where still in attack range
+		var remaining_dist = attack_range
+		for i in range(path.size() - 1, 0, -1):
+			path_current = path[i]
+			path_next = path[i-1]
+			segment_dist = path_current.distance_to(path_next)
+			
+			if segment_dist >= remaining_dist:
+				return path_current + (path_next - path_current).normalized() * remaining_dist
+			else:
+				# Have not yet reached the correct distance
+				remaining_dist -= segment_dist
+		# This code shouldn't ever run, but is needed to prevent error, and would be correct if it did run
+		return path_next
+	else:
+		# No path found
+		return attack_target.global_position + (character.global_position - attack_target.global_position).normalized() * attack_range
 
 func _change_health(new: float, max_value: float):
 	health_bar.max_value = max_value
