@@ -2,10 +2,18 @@
 
 [ext_resource type="Texture2D" uid="uid://dneywvfhqgxru" path="res://artwork/icon.svg" id="1_15cnv"]
 [ext_resource type="Script" uid="uid://dxd6noxsqiax8" path="res://scripts/player/antigen.gd" id="1_rmea8"]
-[ext_resource type="Texture2D" uid="uid://cfmw13ov4gnxv" path="res://artwork/MainChara/neutral_light.webp" id="3_vghym"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rmea8"]
 radius = 17.591919
+
+[sub_resource type="Gradient" id="Gradient_wx0fl"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_drwsy"]
+gradient = SubResource("Gradient_wx0fl")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0.75)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_15cnv"]
 diffuse_texture = ExtResource("1_15cnv")
@@ -20,12 +28,11 @@ metadata/attack_damage = 0.0
 scale = Vector2(0.234375, 0.234375)
 shape = SubResource("CircleShape2D_rmea8")
 
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=2069758581]
+scale = Vector2(2, 2)
+color = Color(0.10980392, 0.93333334, 0.14117648, 1)
+texture = SubResource("GradientTexture2D_drwsy")
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2138503294]
 scale = Vector2(0.054687526, 0.054687526)
 texture = SubResource("CanvasTexture_15cnv")
-
-[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1846840760]
-scale = Vector2(4.5078125, 2.6914063)
-color = Color(0.10980392, 0.93333334, 0.14117648, 1)
-energy = 0.4
-texture = ExtResource("3_vghym")

@@ -9,7 +9,6 @@ var main_game_scene = "res://scenes/main.tscn"
 var button_index = 0
 
 # Godot functions
-
 func _ready() -> void:
 	pass
 
@@ -37,17 +36,16 @@ func _process(_delta: float) -> void:
 		call(buttons[button_index].name)
 
 # User functions
-
 func _start_game():
 	get_tree().change_scene_to_file(main_game_scene)
-
-func _options():
-	$CanvasLayer.hide()
-	$OptionsMenu.show()
 
 func _tutorial():
 	Events._toggle_tutorial(true)
 	get_tree().change_scene_to_file("res://scenes/levels/tutorial.tscn")
+
+func _options():
+	$CanvasLayer.hide()
+	$OptionsMenu.show()
 
 func _load_game():
 	get_tree().change_scene_to_file(main_game_scene)
