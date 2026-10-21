@@ -31,6 +31,7 @@ var attack_timer: Timer
 @onready var player_character = get_tree().get_first_node_in_group("Player")
 
 var target_pos
+var max_bullet_direction_rotation = 0.15
 
 # state
 enum State {idle, spotted, attack, dying}
@@ -141,7 +142,9 @@ func _attack() -> void:
 	get_parent().add_child(toxin)
 	toxin.set_meta("shooter",get_instance_id())
 	toxin.global_position = character.global_position
-	toxin.velocity = (target.global_position - character.global_position).normalized() * toxin_speed
+	rand = randf_range(-max_bullet_direction_rotation,max_bullet_direction_rotation)
+	toxin.velocity = (target.global_position - character.global_position).normalized().rotated(rand)\
+		 * toxin_speed
 
 func _check_los() -> bool:
 	if target == null:

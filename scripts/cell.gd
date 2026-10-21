@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var controlled_by = "enemy"
+
 # Variables for Enemy Replication
 var enemy_max_health = 100.0
 var enemy_max_glucose = 100.0
@@ -22,8 +24,6 @@ var attack_range_mutation_chance =  2.0
 var los_range_mutation_chance =  2.0
 var attack_damage_mutation_chance =  2.0
 var attack_reload_mutation_chance =  2.0
-
-@export var controlled_by = "player"
 
 var rand
 

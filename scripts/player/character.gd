@@ -38,6 +38,8 @@ var dashing: bool = false
 @onready var base_scale = scale
 var dash_glucose_use: float = 20.0
 
+var antigen_cooldown_timer = 0
+var antigen_cooldown_time = 0.2
 var parrying = false
 
 # Godot functions
@@ -48,6 +50,11 @@ func _ready() -> void:
 	parry_anim.hide()
 
 func _physics_process(delta: float) -> void:
+	if antigen_cooldown_timer <= 0:
+		Events.allowed_actions["shoot"] = true
+	else:
+		Events.allowed_actions["shoot"] = false
+		antigen_cooldown_timer -= delta
 	if health <= 0:
 		_game_over()
 	# --- SHOOTING ---
@@ -58,6 +65,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("left_click") and \
 	Events.allowed_actions["shoot"]:
 		shoot_antigen()
+		antigen_cooldown_timer = antigen_cooldown_time
 	
 	# Parry
 	
