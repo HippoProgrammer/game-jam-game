@@ -41,6 +41,7 @@ options_menu=""
 cells=""
 Buttons="Add UI Buttons here"
 Minimap=""
+movable=""
 
 [input]
 
