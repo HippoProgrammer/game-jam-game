@@ -31,7 +31,6 @@ shape = SubResource("CircleShape2D_rmea8")
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=2069758581]
 scale = Vector2(2, 2)
 color = Color(0.10980392, 0.93333334, 0.14117648, 1)
-energy = 1.5
 texture = SubResource("GradientTexture2D_drwsy")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2138503294]

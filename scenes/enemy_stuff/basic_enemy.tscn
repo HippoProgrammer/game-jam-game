@@ -18,6 +18,7 @@ diffuse_texture = ExtResource("2_8xi43")
 size = Vector2(109, 113)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_yx0xg"]
+cull_mode = 1
 polygon = PackedVector2Array(-53, -57, -53, 57, 55, 57, 55, -57)
 
 [node name="BasicEnemy" type="Node2D" unique_id=1883996621 groups=["Persist"]]

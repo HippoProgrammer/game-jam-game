@@ -187,7 +187,7 @@ func _check_attack() -> bool:
 
 func _attack() -> void:
 	var toxin = toxin_scene.instantiate()
-	toxin.set_meta("attack_damage",attack_damage)
+	toxin.set_meta("attack_damage",attack_damage + randi_range(-attack_damage/5,attack_damage/5))
 	get_parent().add_child(toxin)
 	toxin.set_meta("shooter",get_instance_id())
 	toxin.global_position = character.global_position
