@@ -1,13 +1,13 @@
 extends Node2D
 
 var antigen_scene = preload("res://scenes/player/antigen.tscn")
+var damage_number_scene = preload("res://scenes/ui/damage_num.tscn")
 @onready var centre = $Centre
 
 @onready var character = $CharacterBody2D
 
 # --- VARIABLES ---
 var rand : float
-
 # import toxins
 var toxin_speed = 750
 var toxin_scene = preload("res://scenes/enemy_stuff/toxin.tscn")
@@ -220,7 +220,14 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 		return
 
 	if body.is_in_group("Antigens"):
-		health -= body.get_meta("attack_damage")
+		var amount = body.get_meta("attack_damage")
+		health -= amount
+		
+		var num := damage_number_scene.instantiate()
+		get_tree().current_scene.add_child(num)
+		num.global_position = character.global_position + Vector2(0, -20)
+		num.setup(amount)
+		
 		_change_health(health,max_health)
 	if health <= 0:
 		Events.enemy_died_sound.emit()
