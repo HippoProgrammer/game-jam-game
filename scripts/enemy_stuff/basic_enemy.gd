@@ -34,7 +34,7 @@ var attack_timer: Timer
 @onready var player_character = get_tree().get_first_node_in_group("Player")
 
 var target_pos
-var max_bullet_direction_rotation = 0.15
+var max_bullet_direction_rotation = 0.1
 
 # state
 enum State {idle, spotted, attack, dying}

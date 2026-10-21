@@ -17,15 +17,15 @@ var enemy_attack_damage = 10.0
 var enemy_attack_reload = 2.0
 
 # Percentage chances for mutation
-var max_health_mutation_chance =  2.0
-var max_glucose_mutation_chance =  2.0
-var glucose_regen_mutation_chance =  2.0
-var health_regen_mutation_chance =  2.0
-var movement_speed_mutation_chance =  2.0
-var attack_range_mutation_chance =  2.0
-var los_range_mutation_chance =  2.0
-var attack_damage_mutation_chance =  2.0
-var attack_reload_mutation_chance =  2.0
+var max_health_mutation_chance =  5.0
+var max_glucose_mutation_chance =  5.0
+var glucose_regen_mutation_chance =  5.0
+var health_regen_mutation_chance =  5.0
+var movement_speed_mutation_chance =  5.0
+var attack_range_mutation_chance =  5.0
+var los_range_mutation_chance =  5.0
+var attack_damage_mutation_chance =  5.0
+var attack_reload_mutation_chance =  5.0
 
 var rand
 
@@ -279,7 +279,8 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 			take_damage(body.get_meta("attack_damage"), Color(0.0, 0.73, 0.167, 1.0))
 		elif controlled_by == "player":
 			health = clamp(health + body.get_meta("attack_damage"),0,max_health)
-			body.queue_free()
+		
+		body.queue_free()
 		
 	if body.is_in_group("Toxins") and controlled_by == "player" and is_inside_tree():
 		if state == State.regen:

@@ -89,13 +89,17 @@ func _physics_process(delta: float) -> void:
 	# hopefully self explanatory
 	if Events.allowed_actions["move"]:
 		if Input.is_action_pressed("ui_up"):
-			velocity.y = clamp(velocity.y - (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
+			velocity.y = clamp(velocity.y - (delta/time_to_max_velocity) * max_velocity,
+				-max_velocity,max_velocity)
 		if Input.is_action_pressed("ui_down"):
-			velocity.y = clamp(velocity.y + (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
+			velocity.y = clamp(velocity.y + (delta/time_to_max_velocity) * max_velocity,
+				-max_velocity,max_velocity)
 		if Input.is_action_pressed("ui_left"):
-			velocity.x = clamp(velocity.x - (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
+			velocity.x = clamp(velocity.x - (delta/time_to_max_velocity) * max_velocity,
+				-max_velocity,max_velocity)
 		if Input.is_action_pressed("ui_right"):
-			velocity.x = clamp(velocity.x + (delta/time_to_max_velocity) * max_velocity,-max_velocity,max_velocity)
+			velocity.x = clamp(velocity.x + (delta/time_to_max_velocity) * max_velocity,
+				-max_velocity,max_velocity)
 		
 		if not(Input.is_action_pressed("ui_up") or \
 		Input.is_action_pressed("ui_down")) or (Input.is_action_pressed("ui_up") and \
@@ -146,7 +150,7 @@ func shoot_antigen():
 		antigen.global_position = antigen_spawner.global_position
 		antigen.velocity = direction.rotated(deg_to_rad(angle)) * antigen_speed
 		antigen.rotation = antigen.velocity.angle()
-		antigen.set_meta("attack_damage", attack_damage)
+		antigen.set_meta("attack_damage", attack_damage + randi_range(-attack_damage/5,attack_damage/5))
 
 func dash():
 	if dashing:
