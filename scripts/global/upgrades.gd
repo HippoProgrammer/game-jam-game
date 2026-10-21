@@ -15,6 +15,10 @@ var action_upgrades = {
 	"parry" = false
 }
 
+func _process(_delta: float) -> void:
+	if not is_instance_valid(character):
+		character = get_tree().get_first_node_in_group("Player")
+	
 func _stat_upgrade(stat) -> void:
 	stat_upgrades[stat] = true
 	call(stat)

@@ -76,7 +76,8 @@ func load_game():
 
 		var new_object = load(node_data["filename"]).instantiate()
 		parent.add_child(new_object)
-		new_object.position = Vector2(node_data["pos_x"], node_data["pos_y"])
+		if node_data["pos_x"]:
+			new_object.position = Vector2(node_data["pos_x"], node_data["pos_y"])
 
 		# Let the node restore its own state (after add_child so @onready vars exist).
 		if new_object.has_method("load_data"):

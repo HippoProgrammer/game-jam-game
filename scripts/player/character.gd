@@ -75,6 +75,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _process(delta: float) -> void:
+	if not is_instance_valid(health_bar):
+		health_bar = get_tree().get_first_node_in_group("PlayerHealthBar")
+		return
 	var old_glucose := glucose
 	var old_health := health
 	

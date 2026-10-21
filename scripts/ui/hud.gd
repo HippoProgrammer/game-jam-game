@@ -25,12 +25,15 @@ func _notify(text: String, hold: bool = false, hold_time := 1.5):
 
 func save() -> Dictionary:
 	var save_dict = {
-		"health_bar_progression" = health_bar.value,
-		"glucose_bar_progression" = $GlucoseBottle.value
+		"filename": get_scene_file_path(),
+		"parent": get_tree().current_scene.get_path_to(get_parent()),
+		"pos_x": null,
+		"health_bar_progression": health_bar.value,
+		"glucose_bar_progression": $GlucoseBottle.percentage
 	}
 	return save_dict
 
 func load_data(data: Dictionary) -> void:
 	health_bar.value = data["health_bar_progression"]
-	$GlucoseBottle.value = data["glucose_bar_progression"]
+	$GlucoseBottle.percentage = data["glucose_bar_progression"]
 # obligatory pf 🏳️‍🌈
