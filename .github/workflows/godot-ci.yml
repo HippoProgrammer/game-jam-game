@@ -76,7 +76,6 @@ export-windows:
         with:
           name: windows
           path: build/windows
-
   export-linux:
     name: Linux Export
     runs-on: ubuntu-24.04  # Use 24.04 with godot 4
@@ -102,7 +101,6 @@ export-windows:
         with:
           name: linux
           path: build/linux
-
   release:
     name: Create Release
     runs-on: ubuntu-24.04
