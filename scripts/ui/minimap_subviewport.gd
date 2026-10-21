@@ -2,6 +2,7 @@ extends SubViewport
 
 @export var camera_node: Camera2D
 @onready var player_node: Node2D = get_tree().get_first_node_in_group("Player")
+@onready var texture_rect = $"../../../TextureRect"
 
 # Godot functions
 
@@ -19,9 +20,11 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("minimap_toggle") and \
 		Events.allowed_actions["toggle_minimap"]:
 		Events.minimap_toggle.emit()
-		if self.get_parent().visible:
-			self.get_parent().visible = false
+		if get_parent().visible:
+			get_parent().visible = false
+			texture_rect.visible = false
 		else:
-			self.get_parent().visible = true
+			get_parent().visible = true
+			texture_rect.visible = true
 
 # obligatory pf 🏳️‍🌈
