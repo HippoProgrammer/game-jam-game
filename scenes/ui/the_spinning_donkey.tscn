@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://eatg430ty1ug"]
+
+[ext_resource type="ArrayMesh" uid="uid://bsfie0e3287kv" path="res://artwork/donkey/donkey.obj" id="1_o4fvd"]
+[ext_resource type="Texture2D" uid="uid://0d68m7y7uve2" path="res://artwork/donkey/donkey_BaseMap.png" id="2_w4dg0"]
+[ext_resource type="Script" uid="uid://dbfls3b4i6ixo" path="res://scripts/ui/spinning_donkey_3d.gd" id="3_w4dg0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yx0xg"]
+albedo_texture = ExtResource("2_w4dg0")
+
+[node name="TheSpinningDonkey" type="CanvasLayer" unique_id=678437048]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1045363796]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1972563115]
+
+[node name="Node3D" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=1089474721]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/Node3D" unique_id=688248999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1047554, 0.7725005, 2.2144847)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/Node3D" unique_id=442483080]
+transform = Transform3D(1, 0, 0, 0, 0.8973725, 0.44127396, 0, -0.44127396, 0.8973725, 0.07914591, 2.568286, 2.875041)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Node3D" unique_id=1240038173]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.14530754, 0, 0)
+mesh = ExtResource("1_o4fvd")
+surface_material_override/0 = SubResource("StandardMaterial3D_yx0xg")
+script = ExtResource("3_w4dg0")
