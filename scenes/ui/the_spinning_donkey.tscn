@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://eatg430ty1ug"]
 
+[ext_resource type="Script" uid="uid://b8taj6881kmbm" path="res://scenes/ui/the_spinning_donkey_root.gd" id="1_0eqju"]
 [ext_resource type="ArrayMesh" uid="uid://bsfie0e3287kv" path="res://artwork/donkey/donkey.obj" id="1_o4fvd"]
 [ext_resource type="Texture2D" uid="uid://0d68m7y7uve2" path="res://artwork/donkey/donkey_BaseMap.png" id="2_w4dg0"]
 [ext_resource type="Script" uid="uid://dbfls3b4i6ixo" path="res://scripts/ui/spinning_donkey_3d.gd" id="3_w4dg0"]
@@ -8,12 +9,15 @@
 albedo_texture = ExtResource("2_w4dg0")
 
 [node name="TheSpinningDonkey" type="CanvasLayer" unique_id=678437048]
+script = ExtResource("1_0eqju")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1045363796]
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1972563115]
+handle_input_locally = false
+render_target_update_mode = 4
 
 [node name="Node3D" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=1089474721]
 

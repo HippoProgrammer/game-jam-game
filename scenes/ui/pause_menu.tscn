@@ -4,6 +4,7 @@
 [ext_resource type="LabelSettings" uid="uid://dxfmedwso2atk" path="res://scenes/ui/menu_primary.tres" id="2_8uki6"]
 [ext_resource type="FontFile" uid="uid://0aelhvskslt4" path="res://artwork/Fonts/Titles/Astloch-Bold.ttf" id="2_myx47"]
 [ext_resource type="LabelSettings" uid="uid://b0flm8u3mgn6h" path="res://scenes/ui/menu_secondary.tres" id="3_0bnpd"]
+[ext_resource type="PackedScene" uid="uid://eatg430ty1ug" path="res://scenes/ui/the_spinning_donkey.tscn" id="5_0bnpd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_v4r4p"]
 font = ExtResource("2_myx47")
@@ -38,6 +39,12 @@ text = "Resume"
 label_settings = ExtResource("3_0bnpd")
 horizontal_alignment = 1
 
+[node name="_spinning_donkey" type="Label" parent="Buttons" unique_id=998023555]
+layout_mode = 2
+text = "Spinning Donkey"
+label_settings = ExtResource("3_0bnpd")
+horizontal_alignment = 1
+
 [node name="_options" type="Label" parent="Buttons" unique_id=27409834]
 layout_mode = 2
 text = "Options"
@@ -60,6 +67,8 @@ horizontal_alignment = 1
 offset_top = 237.0
 offset_right = 1152.0
 offset_bottom = 322.0
-text = ">                             <"
+text = ">                                <"
 label_settings = SubResource("LabelSettings_v4r4p")
 horizontal_alignment = 1
+
+[node name="TheSpinningDonkey" parent="." unique_id=678437048 instance=ExtResource("5_0bnpd")]

@@ -3,6 +3,8 @@ extends CanvasLayer
 var button_index = 0
 var paused_for_frame = false
 
+var spinning_donkey_visible = false
+
 @onready var buttons_group = $Buttons
 @onready var buttons = buttons_group.find_children("*")
 @onready var button_indicator = $SelectedButtonIndicator
@@ -53,6 +55,12 @@ func _resume() -> void:
 	hide()
 	minimap.show()
 	get_tree().paused = false
+
+func _spinning_donkey() -> void:
+	if not spinning_donkey_visible:
+		$TheSpinningDonkey.show()
+	else:
+		$TheSpinningDonkey.hide()
 
 func _options() -> void:
 	hide()
