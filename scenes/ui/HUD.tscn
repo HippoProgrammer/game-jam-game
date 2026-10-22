@@ -20,7 +20,7 @@ shader_parameter/wave_amplitude_1 = 0.05
 shader_parameter/wave_frequency_2 = 15.0
 shader_parameter/wave_amplitude_2 = 0.03
 
-[node name="HUD" type="CanvasLayer" unique_id=735888115]
+[node name="HUD" type="CanvasLayer" unique_id=735888115 groups=["Persist"]]
 script = ExtResource("1_qpvh6")
 
 [node name="HealthBar" type="TextureProgressBar" parent="." unique_id=1796126004 groups=["PlayerHealthBar"]]

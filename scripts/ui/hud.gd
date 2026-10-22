@@ -11,7 +11,6 @@ extends CanvasLayer
 
 func _ready() -> void:
 	character.health_changed.connect(_on_health_change)
-	#Events.notify_send.connect(_notify) # SuitablyMysterious, please can you make this work when you see this?
 
 # User functions
 
@@ -24,4 +23,17 @@ func _notify(text: String, hold: bool = false, hold_time := 1.5):
 	if hold:
 		await get_tree().create_timer(hold_time).timeout
 
+func save() -> Dictionary:
+	var save_dict = {
+		"filename": get_scene_file_path(),
+		"parent": get_tree().current_scene.get_path_to(get_parent()),
+		"pos_x": null,
+		"health_bar_progression": health_bar.value,
+		"glucose_bar_progression": $GlucoseBottle.percentage
+	}
+	return save_dict
+
+func load_data(data: Dictionary) -> void:
+	health_bar.value = data["health_bar_progression"]
+	$GlucoseBottle.percentage = data["glucose_bar_progression"]
 # obligatory pf 🏳️‍🌈
