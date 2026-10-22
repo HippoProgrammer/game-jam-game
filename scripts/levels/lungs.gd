@@ -5,7 +5,7 @@ var breathing = Breathing.b_in
 var breathing_timer: Timer
 @export var breathing_time: float
 @export var breathe_distance: float
-@export var shrink_scale: float = 0.85  # scale when breathed out
+@export var shrink_scale: float = 0.85
 
 @onready var lungs_tilemap: TileMapLayer = $Lungs
 @onready var centre: Marker2D = $Centre
@@ -39,12 +39,16 @@ func _breathe_switch() -> void:
 		if not is_ancestor_of(node):
 			return
 		var tween = create_tween()
-		tween.tween_property(node, "position", node.position + offset, breathing_time)\
-			.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-
+		var last := [0.0]
+		var apply_offset := func(t: float) -> void:
+			if not is_instance_valid(node):
+				return
+			node.position -= offset * (t - last[0])
+			last[0] = t
+		tween.tween_method(apply_offset, 0.0, 1.0, breathing_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	
 	var scale_tween = create_tween()
-	scale_tween.tween_method(_set_lungs_scale, lungs_tilemap.scale.x, target_scale, breathing_time)\
-		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	scale_tween.tween_method(_set_lungs_scale, lungs_tilemap.scale.x, target_scale, breathing_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 func _set_lungs_scale(s: float) -> void:
 	lungs_tilemap.scale = Vector2(s, s)
