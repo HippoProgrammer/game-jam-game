@@ -21,7 +21,7 @@ radius = 520.0
 cull_mode = 2
 polygon = PackedVector2Array(31, 0, 28.64, 11.86, 21.92, 21.92, 11.86, 28.64, 0, 31, -11.86, 28.64, -21.92, 21.92, -28.64, 11.86, -31, 0, -28.64, -11.86, -21.92, -21.92, -11.86, -28.64, 0, -31, 11.86, -28.64, 21.92, -21.92, 28.64, -11.86, 31, 0)
 
-[node name="Player" type="CharacterBody2D" unique_id=2017533679 groups=["Persist", "Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=2017533679 groups=["Persist", "Player", "movable"]]
 scale = Vector2(0.5, 0.5)
 motion_mode = 1
 script = ExtResource("1_vnd7g")
