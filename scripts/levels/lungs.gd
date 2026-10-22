@@ -37,7 +37,7 @@ func _breathe_switch() -> void:
 
 	for node in get_tree().get_nodes_in_group("movable"):
 		if not is_ancestor_of(node):
-			return
+			continue
 		var tween = create_tween()
 		var last := [0.0]
 		var apply_offset := func(t: float) -> void:
